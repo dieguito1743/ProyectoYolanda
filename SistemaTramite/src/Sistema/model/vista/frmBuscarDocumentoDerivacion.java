@@ -1,8 +1,6 @@
-package Sistema.model.vista;
+ package Sistema.model.vista;
 
-import Sistema.model.bo.RecepcionBo;
-import Sistema.model.bo.RemitenteBo;
-import javax.swing.JOptionPane;
+import Sistema.model.bo.DerivacionBo;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -11,18 +9,18 @@ import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-public class frmBuscarDocumentoRecepcion extends javax.swing.JDialog {
+public class frmBuscarDocumentoDerivacion extends javax.swing.JDialog {
 
-    public frmBuscarDocumentoRecepcion(java.awt.Frame parent, boolean modal) {
+    public frmBuscarDocumentoDerivacion(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
 
-    public frmBuscarDocumentoRecepcion(frmGeneral aThis, boolean b) {
+    public frmBuscarDocumentoDerivacion(frmGeneral aThis, boolean b) {
         super(aThis, b);
         initComponents();
         this.setLocationRelativeTo(null);
-        recepcion = (frmGeneral) aThis;
+        derivacion= (frmGeneral) aThis;
     }
 
     @SuppressWarnings("unchecked")
@@ -31,12 +29,12 @@ public class frmBuscarDocumentoRecepcion extends javax.swing.JDialog {
 
         jLabel16 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        txtRecepcion = new javax.swing.JTextField();
+        txtDerivacion = new javax.swing.JTextField();
         lblRecepcion = new javax.swing.JLabel();
-        btnBuscarRecepcion = new javax.swing.JButton();
-        btnSalirRecepcion = new javax.swing.JButton();
+        btnBuscarDerivacion = new javax.swing.JButton();
+        btnSalirDerivacion = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblDocumentoRecepcion = new javax.swing.JTable();
+        tblDocumentoDerivacion = new javax.swing.JTable();
 
         jLabel16.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -53,9 +51,9 @@ public class frmBuscarDocumentoRecepcion extends javax.swing.JDialog {
             }
         });
 
-        txtRecepcion.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtDerivacion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtRecepcionKeyPressed(evt);
+                txtDerivacionKeyPressed(evt);
             }
         });
 
@@ -72,29 +70,29 @@ public class frmBuscarDocumentoRecepcion extends javax.swing.JDialog {
             }
         });
 
-        btnBuscarRecepcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/buscar.gif"))); // NOI18N
-        btnBuscarRecepcion.setText("Buscar");
-        btnBuscarRecepcion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnBuscarRecepcion.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscarDerivacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/buscar.gif"))); // NOI18N
+        btnBuscarDerivacion.setText("Buscar");
+        btnBuscarDerivacion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnBuscarDerivacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarRecepcionActionPerformed(evt);
+                btnBuscarDerivacionActionPerformed(evt);
             }
         });
-        btnBuscarRecepcion.addKeyListener(new java.awt.event.KeyAdapter() {
+        btnBuscarDerivacion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnBuscarRecepcionjSeparator1KeyPressed(evt);
+                btnBuscarDerivacionjSeparator1KeyPressed(evt);
             }
         });
 
-        btnSalirRecepcion.setText("Salir");
-        btnSalirRecepcion.addActionListener(new java.awt.event.ActionListener() {
+        btnSalirDerivacion.setText("Salir");
+        btnSalirDerivacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirRecepcionActionPerformed(evt);
+                btnSalirDerivacionActionPerformed(evt);
             }
         });
-        btnSalirRecepcion.addKeyListener(new java.awt.event.KeyAdapter() {
+        btnSalirDerivacion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnSalirRecepcionjSeparator1KeyPressed(evt);
+                btnSalirDerivacionjSeparator1KeyPressed(evt);
             }
         });
 
@@ -104,12 +102,12 @@ public class frmBuscarDocumentoRecepcion extends javax.swing.JDialog {
             }
         });
 
-        tblDocumentoRecepcion = new javax.swing.JTable(){
+        tblDocumentoDerivacion = new javax.swing.JTable(){
             public boolean isCellEditable(int rowIndex, int colIndex){
                 return false;
             }
         };
-        tblDocumentoRecepcion.setModel(new javax.swing.table.DefaultTableModel(
+        tblDocumentoDerivacion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -120,17 +118,17 @@ public class frmBuscarDocumentoRecepcion extends javax.swing.JDialog {
 
             }
         ));
-        tblDocumentoRecepcion.setMinimumSize(new java.awt.Dimension(898, 498));
-        tblDocumentoRecepcion.setPreferredSize(new java.awt.Dimension(898, 498));
-        tblDocumentoRecepcion.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblDocumentoDerivacion.setMinimumSize(new java.awt.Dimension(898, 498));
+        tblDocumentoDerivacion.setPreferredSize(new java.awt.Dimension(898, 498));
+        tblDocumentoDerivacion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblDocumentoRecepcionMouseClicked(evt);
+                tblDocumentoDerivacionMouseClicked(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tblDocumentoRecepcionMousePressed(evt);
+                tblDocumentoDerivacionMousePressed(evt);
             }
         });
-        jScrollPane1.setViewportView(tblDocumentoRecepcion);
+        jScrollPane1.setViewportView(tblDocumentoDerivacion);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -149,11 +147,11 @@ public class frmBuscarDocumentoRecepcion extends javax.swing.JDialog {
                             .addGap(20, 20, 20)
                             .addComponent(lblRecepcion, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(0, 0, 0)
-                            .addComponent(txtRecepcion, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDerivacion, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(10, 10, 10)
-                            .addComponent(btnBuscarRecepcion, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBuscarDerivacion, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(10, 10, 10)
-                            .addComponent(btnSalirRecepcion, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnSalirDerivacion, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGap(0, 0, Short.MAX_VALUE))
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -172,9 +170,9 @@ public class frmBuscarDocumentoRecepcion extends javax.swing.JDialog {
                     .addGap(8, 8, 8)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(lblRecepcion, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtRecepcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnBuscarRecepcion, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnSalirRecepcion, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtDerivacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBuscarDerivacion, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSalirDerivacion, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(10, 10, 10)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 10, Short.MAX_VALUE)))
@@ -191,96 +189,93 @@ public class frmBuscarDocumentoRecepcion extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jSeparator1KeyPressed
 
-    private void txtRecepcionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRecepcionKeyPressed
+    private void txtDerivacionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDerivacionKeyPressed
         if (evt.getKeyCode() == evt.VK_ENTER) {
-            btnBuscarRecepcion.doClick();
+            btnBuscarDerivacion.doClick();
         }
-    }//GEN-LAST:event_txtRecepcionKeyPressed
+    }//GEN-LAST:event_txtDerivacionKeyPressed
 
-    private void btnBuscarRecepcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarRecepcionActionPerformed
+    private void btnBuscarDerivacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarDerivacionActionPerformed
         try {
             TableColumn columna;
-            docTableModel = RecepcionBo.obtenerListaRecepcionBuscar(txtRecepcion.getText());
-            tblDocumentoRecepcion.setModel(docTableModel);
-            //idRecepcion,codigoRecepcion,Documento,Institucion,idRemitente,Asunto,Referencia,Destinatario,Obs,Fecha,Hora 
-            String titu[] = {"ID", "CODREC", "DOCUMENTO", "INSTITUCIÓN", "IDREM", "ASUNTO", "REFERENCIA", "DESTINATARIO", "OBS", "FECHA", "HORA"};
+            docTableModel = DerivacionBo.obtenerListaDerivacionBuscar(txtDerivacion.getText());
+            tblDocumentoDerivacion.setModel(docTableModel);
+            //aqui
+            String titu[] = {"COD", "DERIVACION","FECHA", "DOCUMENTO","MOTIVO","REMITENTE","OBSERVACION","PRIORIDAD",};
             docTableModel.setColumnIdentifiers(titu);
-            TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tblDocumentoRecepcion.getModel());
-            tblDocumentoRecepcion.setRowSorter(sorter);
-            TableColumnModel columnModel = tblDocumentoRecepcion.getColumnModel();
+            TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tblDocumentoDerivacion.getModel());
+            tblDocumentoDerivacion.setRowSorter(sorter);
+            TableColumnModel columnModel = tblDocumentoDerivacion.getColumnModel();
             DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
             DefaultTableCellRenderer tcc = new DefaultTableCellRenderer();
             tcr.setHorizontalAlignment(SwingConstants.RIGHT);
             tcc.setHorizontalAlignment(SwingConstants.CENTER);
             columnModel.getColumn(0).setCellRenderer(tcc);
             columnModel.getColumn(0).setPreferredWidth(10);
-            columnModel.getColumn(1).setPreferredWidth(15);
-            columnModel.getColumn(2).setPreferredWidth(110);
-            columnModel.getColumn(3).setPreferredWidth(110);
-            columnModel.getColumn(4).setPreferredWidth(5);
-            columnModel.getColumn(5).setPreferredWidth(110);
-            columnModel.getColumn(6).setPreferredWidth(110);
-            columnModel.getColumn(7).setPreferredWidth(110);
-            columnModel.getColumn(8).setPreferredWidth(110);
-            columnModel.getColumn(9).setPreferredWidth(20);
-            columnModel.getColumn(10).setPreferredWidth(20);
-            columna = tblDocumentoRecepcion.getColumnModel().getColumn(0);
+            columnModel.getColumn(1).setCellRenderer(tcc);
+            columnModel.getColumn(1).setPreferredWidth(4);
+            columnModel.getColumn(2).setPreferredWidth(15);
+            columnModel.getColumn(3).setPreferredWidth(40);
+            columnModel.getColumn(4).setCellRenderer(tcc);
+            columnModel.getColumn(4).setPreferredWidth(10);
+            columnModel.getColumn(5).setPreferredWidth(180);
+            columnModel.getColumn(6).setCellRenderer(tcc);
+            columnModel.getColumn(6).setPreferredWidth(8);
+            columnModel.getColumn(7).setPreferredWidth(45); //REMITENTE
+            columnModel.getColumn(8).setPreferredWidth(45); //RESPONSABLE
+            columnModel.getColumn(9).setPreferredWidth(45); //INST
+            columnModel.getColumn(10).setPreferredWidth(5);
+            columna = tblDocumentoDerivacion.getColumnModel().getColumn(0);
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }//GEN-LAST:event_btnBuscarRecepcionActionPerformed
+    }//GEN-LAST:event_btnBuscarDerivacionActionPerformed
 
-    private void btnBuscarRecepcionjSeparator1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnBuscarRecepcionjSeparator1KeyPressed
+    private void btnBuscarDerivacionjSeparator1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnBuscarDerivacionjSeparator1KeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnBuscarRecepcionjSeparator1KeyPressed
+    }//GEN-LAST:event_btnBuscarDerivacionjSeparator1KeyPressed
 
-    private void btnSalirRecepcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirRecepcionActionPerformed
+    private void btnSalirDerivacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirDerivacionActionPerformed
         dispose();
-    }//GEN-LAST:event_btnSalirRecepcionActionPerformed
+    }//GEN-LAST:event_btnSalirDerivacionActionPerformed
 
-    private void btnSalirRecepcionjSeparator1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalirRecepcionjSeparator1KeyPressed
+    private void btnSalirDerivacionjSeparator1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalirDerivacionjSeparator1KeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnSalirRecepcionjSeparator1KeyPressed
+    }//GEN-LAST:event_btnSalirDerivacionjSeparator1KeyPressed
 
-    private void tblDocumentoRecepcionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDocumentoRecepcionMouseClicked
+    private void tblDocumentoDerivacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDocumentoDerivacionMouseClicked
         if (evt.getClickCount() >= 2) {
-            int index = tblDocumentoRecepcion.getSelectedRow();
-            recepcion.gettxtIdRecepcion().setText(tblDocumentoRecepcion.getValueAt(index, 0).toString());
-            recepcion.gettxtCodigoRecepcion().setText(tblDocumentoRecepcion.getValueAt(index, 1).toString());
-            recepcion.getTxtDocumentoRecepcion().setText(tblDocumentoRecepcion.getValueAt(index, 2).toString());
-            recepcion.gettxtInstitucionRecepcion().setText(tblDocumentoRecepcion.getValueAt(index, 3).toString());
-            recepcion.gettxtCodRemRecepcion().setText(tblDocumentoRecepcion.getValueAt(index, 4).toString());
-            String lsNombreRem = cargarRemitente((Integer)tblDocumentoRecepcion.getValueAt(index, 4));
-            recepcion.gettxtRemitenteRecepcion().setText(lsNombreRem);
-            recepcion.gettxtAsuntoRecepcion().setText(tblDocumentoRecepcion.getValueAt(index, 5).toString());
-            recepcion.gettxtReferenciaRecepcion().setText(tblDocumentoRecepcion.getValueAt(index, 6).toString());
-            recepcion.gettxtDestinatarioRecepcion().setText(tblDocumentoRecepcion.getValueAt(index, 7).toString());
-            recepcion.gettxaObsRecepcion().setText(tblDocumentoRecepcion.getValueAt(index, 8).toString());
-            recepcion.getTxtfechaRecepcion().setText(tblDocumentoRecepcion.getValueAt(index, 9).toString());
-            recepcion.getTxtHoraRecepcion().setText(tblDocumentoRecepcion.getValueAt(index, 10).toString());
+            int index = tblDocumentoDerivacion.getSelectedRow();
+            derivacion.getTxtcodigoDerivacion().setText(tblDocumentoDerivacion.getValueAt(index, 0).toString());
+            derivacion.getcbderivacion().setSelectedItem(String.valueOf(tblDocumentoDerivacion.getModel().getValueAt(index, 1)));
+            derivacion.getcbderivacion().setSelectedItem(tblDocumentoDerivacion.getValueAt(index, 1));
+            derivacion.getTxtFechaDerivacion().setText(tblDocumentoDerivacion.getValueAt(index, 2).toString());
+            derivacion.getTxtcodiDoc().setText(tblDocumentoDerivacion.getValueAt(index, 3).toString());
+            derivacion.getTxtMotivoDerivacion().setText(tblDocumentoDerivacion.getValueAt(index, 4).toString());
+            derivacion.getTxtnombreRemi().setText(tblDocumentoDerivacion.getValueAt(index, 5).toString());
+            derivacion.getTxtObservacionDeriv().setText(tblDocumentoDerivacion.getValueAt(index, 6).toString());
+            derivacion.getcbPRIORIDAD().setSelectedItem(String.valueOf(tblDocumentoDerivacion.getModel().getValueAt(index, 7)));
+            derivacion.getcbPRIORIDAD().setSelectedItem(tblDocumentoDerivacion.getValueAt(index, 7));
             this.dispose();
         }
-    }//GEN-LAST:event_tblDocumentoRecepcionMouseClicked
+    }//GEN-LAST:event_tblDocumentoDerivacionMouseClicked
 
-    private void tblDocumentoRecepcionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDocumentoRecepcionMousePressed
-        if (evt.getClickCount() == 2) {
-            int index = tblDocumentoRecepcion.getSelectedRow();
-            recepcion.gettxtIdRecepcion().setText(tblDocumentoRecepcion.getValueAt(index, 0).toString());
-            recepcion.gettxtCodigoRecepcion().setText(tblDocumentoRecepcion.getValueAt(index, 1).toString());
-            recepcion.getTxtDocumentoRecepcion().setText(tblDocumentoRecepcion.getValueAt(index, 2).toString());
-            recepcion.gettxtInstitucionRecepcion().setText(tblDocumentoRecepcion.getValueAt(index, 3).toString());
-            recepcion.gettxtCodRemRecepcion().setText(tblDocumentoRecepcion.getValueAt(index, 4).toString());
-            String lsNombreRem = cargarRemitente((Integer)tblDocumentoRecepcion.getValueAt(index, 4));
-            recepcion.gettxtRemitenteRecepcion().setText(lsNombreRem);
-            recepcion.gettxtAsuntoRecepcion().setText(tblDocumentoRecepcion.getValueAt(index, 5).toString());
-            recepcion.gettxtReferenciaRecepcion().setText(tblDocumentoRecepcion.getValueAt(index, 6).toString());
-            recepcion.gettxtDestinatarioRecepcion().setText(tblDocumentoRecepcion.getValueAt(index, 7).toString());
-            recepcion.gettxaObsRecepcion().setText(tblDocumentoRecepcion.getValueAt(index, 8).toString());
-            recepcion.getTxtfechaRecepcion().setText(tblDocumentoRecepcion.getValueAt(index, 9).toString());
-            recepcion.getTxtHoraRecepcion().setText(tblDocumentoRecepcion.getValueAt(index, 10).toString());
+    private void tblDocumentoDerivacionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDocumentoDerivacionMousePressed
+        if (evt.getClickCount() >= 2) {
+            int index = tblDocumentoDerivacion.getSelectedRow();
+            derivacion.getTxtcodigoDerivacion().setText(tblDocumentoDerivacion.getValueAt(index, 0).toString());
+            derivacion.getcbderivacion().setSelectedItem(String.valueOf(tblDocumentoDerivacion.getModel().getValueAt(index, 1)));
+            derivacion.getcbderivacion().setSelectedItem(tblDocumentoDerivacion.getValueAt(index, 1));
+            derivacion.getTxtFechaDerivacion().setText(tblDocumentoDerivacion.getValueAt(index, 2).toString());
+            derivacion.getTxtcodiDoc().setText(tblDocumentoDerivacion.getValueAt(index, 3).toString());
+            derivacion.getTxtMotivoDerivacion().setText(tblDocumentoDerivacion.getValueAt(index, 4).toString());
+            derivacion.getTxtnombreRemi().setText(tblDocumentoDerivacion.getValueAt(index, 5).toString());
+            derivacion.getTxtObservacionDeriv().setText(tblDocumentoDerivacion.getValueAt(index, 6).toString());
+            derivacion.getcbPRIORIDAD().setSelectedItem(String.valueOf(tblDocumentoDerivacion.getModel().getValueAt(index, 7)));
+            derivacion.getcbPRIORIDAD().setSelectedItem(tblDocumentoDerivacion.getValueAt(index, 7));
             this.dispose();
         }
-    }//GEN-LAST:event_tblDocumentoRecepcionMousePressed
+    }//GEN-LAST:event_tblDocumentoDerivacionMousePressed
 
     private void jScrollPane1jSeparator1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jScrollPane1jSeparator1KeyPressed
         // TODO add your handling code here:
@@ -294,16 +289,9 @@ public class frmBuscarDocumentoRecepcion extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_lblRecepcionComponentMoved
 
-    public String cargarRemitente(int idRemitente) {
-        String lsDocumento="";
-        try {
-            lsDocumento = RemitenteBo.obtenerNombreRemitente(idRemitente);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return lsDocumento;
-    }
-
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -318,14 +306,18 @@ public class frmBuscarDocumentoRecepcion extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmBuscarDocumentoRecepcion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmBuscarDocumentoDerivacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmBuscarDocumentoRecepcion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmBuscarDocumentoDerivacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmBuscarDocumentoRecepcion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmBuscarDocumentoDerivacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmBuscarDocumentoRecepcion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmBuscarDocumentoDerivacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -334,7 +326,7 @@ public class frmBuscarDocumentoRecepcion extends javax.swing.JDialog {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                frmBuscarDocumentoRecepcion dialog = new frmBuscarDocumentoRecepcion(new javax.swing.JFrame(), true);
+                frmBuscarDocumentoDerivacion dialog = new frmBuscarDocumentoDerivacion(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -346,15 +338,15 @@ public class frmBuscarDocumentoRecepcion extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscarRecepcion;
-    private javax.swing.JButton btnSalirRecepcion;
+    private javax.swing.JButton btnBuscarDerivacion;
+    private javax.swing.JButton btnSalirDerivacion;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblRecepcion;
-    private javax.swing.JTable tblDocumentoRecepcion;
-    private javax.swing.JTextField txtRecepcion;
+    private javax.swing.JTable tblDocumentoDerivacion;
+    private javax.swing.JTextField txtDerivacion;
     // End of variables declaration//GEN-END:variables
-    private frmGeneral recepcion;
+    private frmGeneral derivacion;
     private DefaultTableModel docTableModel;
 }

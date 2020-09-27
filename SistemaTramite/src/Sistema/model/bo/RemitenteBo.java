@@ -213,4 +213,19 @@ public class RemitenteBo {
         }
         return RemitenteTableModel;
     }
+    public static String obtenerNombreRemitente(int idRemitente) throws Exception {
+        String lsNombreR;
+        Connection con = Conexion.getConexion();
+        try {
+            RemitenteDaoImp remitenteDao = new RemitenteDaoImp(con);
+            lsNombreR = remitenteDao.obtenerNombreRemitente(idRemitente);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (con != null) {
+                con.close();
+            }
+        }
+        return lsNombreR;
+    }
 }

@@ -31,8 +31,8 @@ public class RecepcionDaoImp {
             oRecepcion.add(rs.getString(2));
             oRecepcion.add(rs.getString(3));
             oRecepcion.add(rs.getString(4));
-            oRecepcion.add(rs.getString(6));
-            oRecepcion.add(rs.getInt(7));
+            oRecepcion.add(rs.getString(5));
+            oRecepcion.add(rs.getInt(6));
             listaRecepion.add(oRecepcion);
         }
         return listaRecepion;
@@ -40,7 +40,7 @@ public class RecepcionDaoImp {
 
     public Vector obtenerListaRecepcionBuscar(String texto) throws SQLException {
         Vector listaRecepcion = new Vector();
-        String sql = "SELECT idRecepcion,Remitente,Institucion,Fecha,Hora,idRemitente FROM dbo.Recepcion WHERE idRecepcion LIKE '%" + texto + "%'";
+        String sql = "SELECT idRecepcion,codigoRecepcion,Documento,Institucion,idRemitente,Asunto,Referencia,Destinatario,Obs,Fecha,Hora FROM dbo.Recepcion WHERE idRecepcion LIKE '%" + texto + "%'";
         st = con.createStatement();
         ResultSet rs = st.executeQuery(sql);
         while (rs.next()) {
@@ -49,8 +49,13 @@ public class RecepcionDaoImp {
             oRecepcion.add(rs.getString(2));
             oRecepcion.add(rs.getString(3));
             oRecepcion.add(rs.getString(4));
-            oRecepcion.add(rs.getString(5));
-            oRecepcion.add(rs.getInt(6));
+            oRecepcion.add(rs.getInt(5));
+            oRecepcion.add(rs.getString(6));
+            oRecepcion.add(rs.getString(7)); 
+            oRecepcion.add(rs.getString(8));
+            oRecepcion.add(rs.getString(9));
+            oRecepcion.add(rs.getString(10));
+            oRecepcion.add(rs.getString(11));
             listaRecepcion.add(oRecepcion);
         }
         return listaRecepcion;
@@ -97,19 +102,19 @@ public class RecepcionDaoImp {
     public boolean grabar(Object object) throws SQLException {
         oRecepcion = (Recepcion) object;
         try {
-            String sql = "insert into Recepcion(codigoRecepcion,Remitente,Institucion,Fecha,Hora,idRemitente) "
-                    + "values(?,?,?,?,?,?,?)";
-            
-//            System.out.println("Remitente:"+oRecepcion.getRemitente()+"Institucion:"+oRecepcion.getInstitucion()+"Fecha"+oRecepcion.getFecha()+"Hora:"+
-//                    oRecepcion.getHora()+"RemitenteResponsable"+oRecepcion.getRemitenteResponsable()+"CODIGO REMITENTE"+oRecepcion.getIdRemitente());
+            String sql = "insert into Recepcion(codigoRecepcion,Documento,Institucion,idRemitente,Asunto,Referencia,Destinatario,Obs,Fecha,Hora) "
+                    + "values(?,?,?,?,?,?,?,?,?,?)";
             pst = con.prepareStatement(sql);
             pst.setString(1, oRecepcion.getCodigoRecepcion());
-            pst.setString(2, oRecepcion.getRemitente());
+            pst.setString(2, oRecepcion.getDocumento());
             pst.setString(3, oRecepcion.getInstitucion());
-            pst.setString(4, oRecepcion.getFecha());
-            pst.setString(5, oRecepcion.getHora());
-            pst.setInt(6, oRecepcion.getIdRemitente());
-            
+            pst.setInt(4, oRecepcion.getIdRemitente());
+            pst.setString(5, oRecepcion.getAsunto());
+            pst.setString(6, oRecepcion.getReferencia());
+            pst.setString(7, oRecepcion.getDestinatario());
+            pst.setString(8, oRecepcion.getObs());
+            pst.setString(9, oRecepcion.getFecha());
+            pst.setString(10, oRecepcion.getHora());
             pst.execute();
             pst.close();
             return true;
@@ -138,12 +143,11 @@ public class RecepcionDaoImp {
         try {
             String sql = "UPDATE Recepcion SET Remitente=?,Institucion=?,Fecha=?,Hora=?,idRemitente=? WHERE idRecepcion = ? ";
             pst = con.prepareStatement(sql);
-            pst.setString(1, oRecepcion.getRemitente());
+            pst.setInt(1, oRecepcion.getIdRemitente());
             pst.setString(2, oRecepcion.getInstitucion());
             pst.setString(3, oRecepcion.getFecha());
             pst.setString(4, oRecepcion.getHora());
-            pst.setInt(5, oRecepcion.getIdRemitente());
-            pst.setInt(6, oRecepcion.getIdRecepcion());
+            pst.setInt(5, oRecepcion.getIdRecepcion());
             pst.executeUpdate();
             pst.close();
             return true;
@@ -160,7 +164,7 @@ public class RecepcionDaoImp {
         while (rs.next()) {
             Recepcion recepcion = new Recepcion();
             recepcion.setIdRecepcion(rs.getInt(1));
-            recepcion.setRemitente(rs.getString(2));
+//            recepcion.setRemitente(rs.getString(2));
             recepcion.setInstitucion(rs.getString(3));
             recepcion.setFecha(rs.getString(4));
             recepcion.setHora(rs.getString(5));

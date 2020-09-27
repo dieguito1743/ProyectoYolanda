@@ -4,16 +4,15 @@ public class Recepcion {
 
     private int idRecepcion;
     private String codigoRecepcion;
-    private String cargo;
-    private String Remitente;
-    private String Institucion;
     private String Documento;
+    private String Institucion;
+    private int    idRemitente;
+    private String Asunto;
+    private String Referencia;
+    private String Destinatario;
+    private String Obs;
     private String Fecha;
     private String Hora;
-    private int idRemitente;
-    private String Asunto;
-    private String referencia;
-    private String destinatario;
 
     public int getIdRecepcion() {
         return idRecepcion;
@@ -31,20 +30,12 @@ public class Recepcion {
         this.codigoRecepcion = codigoRecepcion;
     }
 
-    public String getCargo() {
-        return cargo;
+    public String getDocumento() {
+        return Documento;
     }
 
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
-    }
-
-    public String getRemitente() {
-        return Remitente;
-    }
-
-    public void setRemitente(String Remitente) {
-        this.Remitente = Remitente;
+    public void setDocumento(String Documento) {
+        this.Documento = Documento;
     }
 
     public String getInstitucion() {
@@ -55,29 +46,6 @@ public class Recepcion {
         this.Institucion = Institucion;
     }
 
-    public String getDocumento() {
-        return Documento;
-    }
-
-    public void setDocumento(String Documento) {
-        this.Documento = Documento;
-    }
-
-    public String getFecha() {
-        return Fecha;
-    }
-
-    public void setFecha(String Fecha) {
-        this.Fecha = Fecha;
-    }
-
-    public String getHora() {
-        return Hora;
-    }
-
-    public void setHora(String Hora) {
-        this.Hora = Hora;
-    }
     public int getIdRemitente() {
         return idRemitente;
     }
@@ -95,20 +63,46 @@ public class Recepcion {
     }
 
     public String getReferencia() {
-        return referencia;
+        return Referencia;
     }
 
-    public void setReferencia(String referencia) {
-        this.referencia = referencia;
+    public void setReferencia(String Referencia) {
+        this.Referencia = Referencia;
     }
 
     public String getDestinatario() {
-        return destinatario;
+        return Destinatario;
     }
 
-    public void setDestinatario(String destinatario) {
-        this.destinatario = destinatario;
+    public void setDestinatario(String Destinatario) {
+        this.Destinatario = Destinatario;
     }
+
+    public String getObs() {
+        return Obs;
+    }
+
+    public void setObs(String Obs) {
+        this.Obs = Obs;
+    }
+
+    public String getFecha() {
+        return Fecha;
+    }
+
+    public void setFecha(String Fecha) {
+        this.Fecha = Fecha;
+    }
+
+    public String getHora() {
+        return Hora;
+    }
+
+    public void setHora(String Hora) {
+        this.Hora = Hora;
+    }
+  
+   
 
     
 }

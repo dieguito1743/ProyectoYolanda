@@ -41,28 +41,31 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JSpinner;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class frmGeneral extends javax.swing.JFrame {
 
+    private int codigo;
+    private char opt;
     /**
      * Variables de Recepcion
      */
     private Recepcion oRecepcion;
-    private int codigo;
+    private int idRecepcion;
     private String codigoRecepcion;
-    private String RemitenteRecepcion;
+    private String DocumentoRecepcion;
     private String InstitucionRecepcion;
+    private int IdRemitenteRecepcion;
+    private String AsuntoRecepcion;
+    private String ReferenciaRecepcion;
+    private String destinatarioRecepcion;
+    private String obsRecepcion;
     private String FechaRecepcion;
     private String HoraRecepcion;
-    private int codRemitente;
-    private String NumeroDocumento;
-    private String Asunto;
-    private String Referencia;
 
-    private char opt;
     /**
      * Variables de Cargo
      */
@@ -120,6 +123,7 @@ public class frmGeneral extends javax.swing.JFrame {
     private char opt3;
 
     public frmGeneral(java.awt.Frame parent, boolean modal) {
+
         initComponents();
         this.setTitle("Tramite Documentario: Registro de Documentos, Cargo, Recepción,Derivacion");
         try {
@@ -134,9 +138,7 @@ public class frmGeneral extends javax.swing.JFrame {
 
         modeloListaArchivo = new DefaultListModel();
         lsArchivos.setModel(modeloListaArchivo);
-        
-        txtIdDocumento.setEditable(false);
-
+//       
         camposDeshabilitado();
         cargarDatos();
         llenarCombos();
@@ -225,7 +227,7 @@ public class frmGeneral extends javax.swing.JFrame {
         btnGrabarCargo = new javax.swing.JButton();
         btnBuscarCargo = new javax.swing.JButton();
         txtNroDocumentoCargo = new javax.swing.JTextField();
-        btnModificar1 = new javax.swing.JButton();
+        btnModificarCargo = new javax.swing.JButton();
         btnCancelar1 = new javax.swing.JButton();
         btnSalir1 = new javax.swing.JButton();
         txtFechaCargo = new com.toedter.calendar.JDateChooser();
@@ -243,7 +245,7 @@ public class frmGeneral extends javax.swing.JFrame {
         txtRecepcionistaCargo = new javax.swing.JTextField();
         tbRecepcion = new javax.swing.JPanel();
         lblRec = new javax.swing.JLabel();
-        txtCodigoRecepcion = new javax.swing.JTextField();
+        txtIdRecepcion = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         txtRemitenteRecepcion = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -253,7 +255,7 @@ public class frmGeneral extends javax.swing.JFrame {
         txtCodRemRecepcion = new javax.swing.JTextField();
         btnNuevo = new javax.swing.JButton();
         btngrabar = new javax.swing.JButton();
-        btnModificar = new javax.swing.JButton();
+        btnModificarRecepcion = new javax.swing.JButton();
         btncancelar = new javax.swing.JButton();
         btneliminar = new javax.swing.JButton();
         btnsalir = new javax.swing.JButton();
@@ -274,6 +276,7 @@ public class frmGeneral extends javax.swing.JFrame {
         jLabel32 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txaObsRecepcion = new javax.swing.JTextArea();
+        txtCodigoRecepcion = new javax.swing.JTextField();
         tbDerivacion = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         lblDerivacion = new javax.swing.JLabel();
@@ -285,8 +288,6 @@ public class frmGeneral extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         lblCodDerivacion = new javax.swing.JLabel();
         txtcodigoDerivacion = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblDerivacion = new javax.swing.JTable();
         txtMotivoDerivacion = new javax.swing.JTextField();
         btnnuevo3 = new javax.swing.JButton();
         btngrabar3 = new javax.swing.JButton();
@@ -296,13 +297,14 @@ public class frmGeneral extends javax.swing.JFrame {
         btnEliminar3 = new javax.swing.JButton();
         txtFechaDerivacion = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        txtObservacionDeriv = new javax.swing.JTextField();
         btnBuscarDerivacion = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         cbPRIORIDAD = new javax.swing.JComboBox<String>();
         jSeparator4 = new javax.swing.JSeparator();
         jLabel13 = new javax.swing.JLabel();
         btnBuscarDerivacionDocumento = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtObservacionDeriv = new javax.swing.JTextArea();
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -339,7 +341,7 @@ public class frmGeneral extends javax.swing.JFrame {
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel22.setText("Documento");
-        tbDocumento.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 180, 25));
+        tbDocumento.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 180, -1));
 
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel23.setText("Asunto");
@@ -444,7 +446,6 @@ public class frmGeneral extends javax.swing.JFrame {
         tbDocumento.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 80, 20));
 
         btnNuevoDocumento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnNuevo.jpg"))); // NOI18N
-        btnNuevoDocumento.setToolTipText("Nuevo");
         btnNuevoDocumento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevoDocumentoActionPerformed(evt);
@@ -453,7 +454,6 @@ public class frmGeneral extends javax.swing.JFrame {
         tbDocumento.add(btnNuevoDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 40));
 
         btnGrabarDocumento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnGrabar.jpg"))); // NOI18N
-        btnGrabarDocumento.setToolTipText("Guardar");
         btnGrabarDocumento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGrabarDocumentoActionPerformed(evt);
@@ -462,7 +462,6 @@ public class frmGeneral extends javax.swing.JFrame {
         tbDocumento.add(btnGrabarDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 40, 40));
 
         btnCancelarDocumento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/cancelar2.png"))); // NOI18N
-        btnCancelarDocumento.setToolTipText("Cancelar");
         btnCancelarDocumento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarDocumentoActionPerformed(evt);
@@ -471,7 +470,6 @@ public class frmGeneral extends javax.swing.JFrame {
         tbDocumento.add(btnCancelarDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 40, 40));
 
         btnSalirDocumento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnSalir.png"))); // NOI18N
-        btnSalirDocumento.setToolTipText("Salir");
         btnSalirDocumento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirDocumentoActionPerformed(evt);
@@ -510,10 +508,11 @@ public class frmGeneral extends javax.swing.JFrame {
         lblNumeroDocumento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblNumeroDocumento.setText("0000000");
         tbDocumento.add(lblNumeroDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, 80, -1));
+
+        txtAnio.setEditable(false);
         tbDocumento.add(txtAnio, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 50, 20));
 
         btnModificarDocumento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/modiicar.png"))); // NOI18N
-        btnModificarDocumento.setToolTipText("Actualizar");
         btnModificarDocumento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarDocumentoActionPerformed(evt);
@@ -522,7 +521,6 @@ public class frmGeneral extends javax.swing.JFrame {
         tbDocumento.add(btnModificarDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 40, 40));
 
         btnEliminarDocumento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/eliminar1.png"))); // NOI18N
-        btnEliminarDocumento.setToolTipText("Eliminar");
         btnEliminarDocumento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarDocumentoActionPerformed(evt);
@@ -541,11 +539,13 @@ public class frmGeneral extends javax.swing.JFrame {
         jScrollPane4.setViewportView(lsDestinatario);
 
         tbDocumento.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 470, 90));
+
+        txtFechaDocumento.setEditable(false);
         tbDocumento.add(txtFechaDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 100, 20));
         tbDocumento.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 60, 810, 10));
 
         btnBuscarDocumento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnBuscar.jpg"))); // NOI18N
-        btnBuscarDocumento.setToolTipText("Buscar");
+        btnBuscarDocumento.setToolTipText("Buscar Cargo");
         btnBuscarDocumento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarDocumentoActionPerformed(evt);
@@ -613,7 +613,7 @@ public class frmGeneral extends javax.swing.JFrame {
             jLabel16.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
             jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             jLabel16.setText("Cargo");
-            tbCargo.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 180, 25));
+            tbCargo.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 20, 110, -1));
 
             jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
             jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -676,7 +676,7 @@ public class frmGeneral extends javax.swing.JFrame {
             tbCargo.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 790, 0));
 
             btnNuevoCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnNuevo.jpg"))); // NOI18N
-            btnNuevoCargo.setToolTipText("Nuevo");
+            btnNuevoCargo.setToolTipText("Nuevo Cargo");
             btnNuevoCargo.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btnNuevoCargoActionPerformed(evt);
@@ -686,7 +686,7 @@ public class frmGeneral extends javax.swing.JFrame {
             tbCargo.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 60, 810, 10));
 
             btnGrabarCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnGrabar.jpg"))); // NOI18N
-            btnGrabarCargo.setToolTipText("Guardar");
+            btnGrabarCargo.setToolTipText("Grabar Cargo");
             btnGrabarCargo.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btnGrabarCargoActionPerformed(evt);
@@ -695,7 +695,7 @@ public class frmGeneral extends javax.swing.JFrame {
             tbCargo.add(btnGrabarCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 40, 40));
 
             btnBuscarCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnBuscar.jpg"))); // NOI18N
-            btnBuscarCargo.setToolTipText("Buscar");
+            btnBuscarCargo.setToolTipText("Buscar Cargo");
             btnBuscarCargo.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btnBuscarCargoActionPerformed(evt);
@@ -710,17 +710,17 @@ public class frmGeneral extends javax.swing.JFrame {
             });
             tbCargo.add(txtNroDocumentoCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 60, -1));
 
-            btnModificar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/modiicar.png"))); // NOI18N
-            btnModificar1.setToolTipText("Actualizar");
-            btnModificar1.addActionListener(new java.awt.event.ActionListener() {
+            btnModificarCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/modiicar.png"))); // NOI18N
+            btnModificarCargo.setToolTipText("Actualizar");
+            btnModificarCargo.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnModificar1ActionPerformed(evt);
+                    btnModificarCargoActionPerformed(evt);
                 }
             });
-            tbCargo.add(btnModificar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 40, 40));
+            tbCargo.add(btnModificarCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 40, 40));
 
             btnCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/cancelar2.png"))); // NOI18N
-            btnCancelar1.setToolTipText("Cancelar");
+            btnCancelar1.setToolTipText("Deshacer");
             btnCancelar1.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btnCancelar1ActionPerformed(evt);
@@ -729,7 +729,6 @@ public class frmGeneral extends javax.swing.JFrame {
             tbCargo.add(btnCancelar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 40, 40));
 
             btnSalir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnSalir.png"))); // NOI18N
-            btnSalir1.setToolTipText("Salir");
             btnSalir1.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btnSalir1ActionPerformed(evt);
@@ -820,13 +819,14 @@ public class frmGeneral extends javax.swing.JFrame {
             lblRec.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
             lblRec.setText("Còdigo Recepcion");
             tbRecepcion.add(lblRec, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 110, 20));
-            tbRecepcion.add(txtCodigoRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 100, -1));
+            tbRecepcion.add(txtIdRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 90, 100, -1));
 
             jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
             jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
             jLabel1.setText("Remitente");
             tbRecepcion.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 120, 20));
 
+            txtRemitenteRecepcion.setEnabled(false);
             txtRemitenteRecepcion.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     txtRemitenteRecepcionActionPerformed(evt);
@@ -854,7 +854,6 @@ public class frmGeneral extends javax.swing.JFrame {
             tbRecepcion.add(txtCodRemRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 180, 69, -1));
 
             btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnNuevo.jpg"))); // NOI18N
-            btnNuevo.setToolTipText("Nuevo");
             btnNuevo.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btnNuevoActionPerformed(evt);
@@ -863,7 +862,6 @@ public class frmGeneral extends javax.swing.JFrame {
             tbRecepcion.add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 40));
 
             btngrabar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnGrabar.jpg"))); // NOI18N
-            btngrabar.setToolTipText("Guardar");
             btngrabar.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btngrabarActionPerformed(evt);
@@ -871,17 +869,15 @@ public class frmGeneral extends javax.swing.JFrame {
             });
             tbRecepcion.add(btngrabar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 40, 40));
 
-            btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/modiicar.png"))); // NOI18N
-            btnModificar.setToolTipText("Actualizar");
-            btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            btnModificarRecepcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/modiicar.png"))); // NOI18N
+            btnModificarRecepcion.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnModificarActionPerformed(evt);
+                    btnModificarRecepcionActionPerformed(evt);
                 }
             });
-            tbRecepcion.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 40, 40));
+            tbRecepcion.add(btnModificarRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 40, 40));
 
             btncancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/cancelar2.png"))); // NOI18N
-            btncancelar.setToolTipText("Cancelar");
             btncancelar.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btncancelarActionPerformed(evt);
@@ -890,7 +886,6 @@ public class frmGeneral extends javax.swing.JFrame {
             tbRecepcion.add(btncancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 40, 40));
 
             btneliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/eliminar1.png"))); // NOI18N
-            btneliminar.setToolTipText("Eliminar");
             btneliminar.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btneliminarActionPerformed(evt);
@@ -899,7 +894,6 @@ public class frmGeneral extends javax.swing.JFrame {
             tbRecepcion.add(btneliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 40, 40));
 
             btnsalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnSalir.png"))); // NOI18N
-            btnsalir.setToolTipText("Salir");
             btnsalir.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btnsalirActionPerformed(evt);
@@ -910,7 +904,7 @@ public class frmGeneral extends javax.swing.JFrame {
             jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
             jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             jLabel7.setText("Recepcion");
-            tbRecepcion.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 180, 25));
+            tbRecepcion.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, 200, -1));
 
             jLabel4.setText("Hora");
             tbRecepcion.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 90, -1, 20));
@@ -926,7 +920,7 @@ public class frmGeneral extends javax.swing.JFrame {
             tbRecepcion.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 60, 810, 10));
 
             btnBuscarRecepcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnBuscar.jpg"))); // NOI18N
-            btnBuscarRecepcion.setToolTipText("Buscar");
+            btnBuscarRecepcion.setToolTipText("Buscar Cargo");
             btnBuscarRecepcion.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btnBuscarRecepcionActionPerformed(evt);
@@ -968,72 +962,42 @@ public class frmGeneral extends javax.swing.JFrame {
             jScrollPane1.setViewportView(txaObsRecepcion);
 
             tbRecepcion.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 300, 460, -1));
+            tbRecepcion.add(txtCodigoRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 100, -1));
 
             tabPane.addTab("Recepcion", tbRecepcion);
 
             tbDerivacion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-            jLabel9.setText("Fecha");
-            tbDerivacion.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, 20));
+            jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+            jLabel9.setText("Fecha entrega");
+            tbDerivacion.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 70, 20));
 
             lblDerivacion.setText("Derivacion");
-            tbDerivacion.add(lblDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, -1, -1));
-            tbDerivacion.add(txtcodiDoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 110, 270, 20));
+            tbDerivacion.add(lblDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, -1, -1));
+            tbDerivacion.add(txtcodiDoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 320, 20));
 
             lblDocu.setText("Documento");
-            tbDerivacion.add(lblDocu, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 100, 60, 30));
+            tbDerivacion.add(lblDocu, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, 60, 20));
 
+            jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
             jLabel12.setText("Remitente");
-            tbDerivacion.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, -1, 30));
+            tbDerivacion.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 80, 20));
 
             cbderivacion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "DERIVADO", "ATENDIDO", " " }));
-            tbDerivacion.add(cbderivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, 250, 20));
-            tbDerivacion.add(txtnombreRemi, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 680, 30));
+            tbDerivacion.add(cbderivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, 90, 20));
+            tbDerivacion.add(txtnombreRemi, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 500, 20));
 
+            jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
             jLabel14.setText("Motivo Derivacion");
-            tbDerivacion.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 90, 20));
+            tbDerivacion.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 90, 20));
 
+            lblCodDerivacion.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
             lblCodDerivacion.setText("Codigo Derivacion");
-            tbDerivacion.add(lblCodDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 90, 20));
-            tbDerivacion.add(txtcodigoDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 160, 20));
-
-            tblDerivacion = new javax.swing.JTable(){
-                public boolean isCellEditable(int rowIndex, int colIndex){
-                    return false;
-                }
-            };
-            tblDerivacion.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                    {null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null}
-                },
-                new String [] {
-                    "CODIGO DERIVACION", "DERIVACION", "FECHA", "DOCUMENTO", "REMITENTE", "MOTIVO DERIVACION", "PRIORIDAD", "OBSERVACION"
-                }
-            ));
-            tblDerivacion.addMouseListener(new java.awt.event.MouseAdapter() {
-                public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    tblDerivacionMouseClicked(evt);
-                }
-            });
-            tblDerivacion.addKeyListener(new java.awt.event.KeyAdapter() {
-                public void keyTyped(java.awt.event.KeyEvent evt) {
-                    tblDerivacionKeyTyped(evt);
-                }
-            });
-            jScrollPane2.setViewportView(tblDerivacion);
-            if (tblDerivacion.getColumnModel().getColumnCount() > 0) {
-                tblDerivacion.getColumnModel().getColumn(4).setResizable(false);
-                tblDerivacion.getColumnModel().getColumn(5).setResizable(false);
-            }
-
-            tbDerivacion.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 770, 90));
-            tbDerivacion.add(txtMotivoDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 680, 20));
+            tbDerivacion.add(lblCodDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 90, 20));
+            tbDerivacion.add(txtcodigoDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 90, 20));
+            tbDerivacion.add(txtMotivoDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 500, 20));
 
             btnnuevo3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnNuevo.jpg"))); // NOI18N
-            btnnuevo3.setToolTipText("Nuevo");
             btnnuevo3.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btnnuevo3ActionPerformed(evt);
@@ -1042,7 +1006,6 @@ public class frmGeneral extends javax.swing.JFrame {
             tbDerivacion.add(btnnuevo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 40));
 
             btngrabar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnGrabar.jpg"))); // NOI18N
-            btngrabar3.setToolTipText("Guardar");
             btngrabar3.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btngrabar3ActionPerformed(evt);
@@ -1051,7 +1014,6 @@ public class frmGeneral extends javax.swing.JFrame {
             tbDerivacion.add(btngrabar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 40, 40));
 
             btnModificar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/modiicar.png"))); // NOI18N
-            btnModificar3.setToolTipText("Actualizar");
             btnModificar3.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btnModificar3ActionPerformed(evt);
@@ -1060,7 +1022,6 @@ public class frmGeneral extends javax.swing.JFrame {
             tbDerivacion.add(btnModificar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 40, 40));
 
             btnCancelar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/cancelar2.png"))); // NOI18N
-            btnCancelar3.setToolTipText("Cancelar");
             btnCancelar3.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btnCancelar3ActionPerformed(evt);
@@ -1069,7 +1030,6 @@ public class frmGeneral extends javax.swing.JFrame {
             tbDerivacion.add(btnCancelar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 40, 40));
 
             btnSalir3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnSalir.png"))); // NOI18N
-            btnSalir3.setToolTipText("Salir");
             btnSalir3.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btnSalir3ActionPerformed(evt);
@@ -1078,47 +1038,54 @@ public class frmGeneral extends javax.swing.JFrame {
             tbDerivacion.add(btnSalir3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 40, 40));
 
             btnEliminar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/eliminar1.png"))); // NOI18N
-            btnEliminar3.setToolTipText("Eliminar");
             btnEliminar3.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btnEliminar3ActionPerformed(evt);
                 }
             });
             tbDerivacion.add(btnEliminar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 40, 40));
-            tbDerivacion.add(txtFechaDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 200, -1));
+            tbDerivacion.add(txtFechaDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 90, -1));
 
+            jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
             jLabel10.setText("Observacion");
-            tbDerivacion.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, 20));
-            tbDerivacion.add(txtObservacionDeriv, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, 520, -1));
+            tbDerivacion.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, -1, 20));
 
-            btnBuscarDerivacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnBuscar.jpg"))); // NOI18N
+            btnBuscarDerivacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/buscar.gif"))); // NOI18N
+            btnBuscarDerivacion.setText("Buscar");
             btnBuscarDerivacion.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btnBuscarDerivacionActionPerformed(evt);
                 }
             });
-            tbDerivacion.add(btnBuscarDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 100, 50, 40));
+            tbDerivacion.add(btnBuscarDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 110, 90, -1));
 
+            jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
             jLabel11.setText("Priroridad");
-            tbDerivacion.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, -1));
+            tbDerivacion.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 70, -1));
 
             cbPRIORIDAD.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Alto", "Bajo", "Regular" }));
-            tbDerivacion.add(cbPRIORIDAD, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, 320, -1));
+            tbDerivacion.add(cbPRIORIDAD, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, 90, -1));
             tbDerivacion.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 60, 810, 10));
 
             jLabel13.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
             jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             jLabel13.setText("Derivación");
-            tbDerivacion.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 180, 25));
+            tbDerivacion.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 20, 180, -1));
 
             btnBuscarDerivacionDocumento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnBuscar.jpg"))); // NOI18N
-            btnBuscarDerivacionDocumento.setToolTipText("Buscar");
+            btnBuscarDerivacionDocumento.setToolTipText("Buscar Cargo");
             btnBuscarDerivacionDocumento.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btnBuscarDerivacionDocumentoActionPerformed(evt);
                 }
             });
             tbDerivacion.add(btnBuscarDerivacionDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 40, 40));
+
+            txtObservacionDeriv.setColumns(20);
+            txtObservacionDeriv.setRows(5);
+            jScrollPane2.setViewportView(txtObservacionDeriv);
+
+            tbDerivacion.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 500, 50));
 
             tabPane.addTab("Derivacion", tbDerivacion);
 
@@ -1225,13 +1192,15 @@ public class frmGeneral extends javax.swing.JFrame {
         camposDeshabilitado();
         btnsEdicionHabilitar();
         btnsConfirmarDeshabilitar();
+        btnsConfirmarDeshabilitar();
         btnNuevoDocumento.setEnabled(true);
         cboTipoDocumento.setEnabled(false);
         btnAregarDestinatario.setEnabled(false);
         btnQuitaDestinatario.setEnabled(false);
         btnAgregarArchivo.setEnabled(false);
         jButton1.setEnabled(false);
-        cboEstadoDocumento.setEnabled(false);
+        cboEstadoDocumento.setEnabled(true);
+        btnBuscarDocumento.setEnabled(true);
     }//GEN-LAST:event_btnCancelarDocumentoActionPerformed
 
     private void btnGrabarDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarDocumentoActionPerformed
@@ -1275,7 +1244,7 @@ public class frmGeneral extends javax.swing.JFrame {
                 }
                 break;
             case 'M':
-                codigo = Integer.parseInt(txtCodigoRecepcion.getText());
+                codigo = Integer.parseInt(txtIdRecepcion.getText());
                 oDocumento.setIdDocumento(idDocumento);
                 oDocumento.setIdtipoDocumento(idtipoDocumento);
                 oDocumento.setNumeroDocumento(numeroDocumento);
@@ -1306,7 +1275,7 @@ public class frmGeneral extends javax.swing.JFrame {
         opt2 = 'N';
         txtDocumento.setEditable(true);
         txtDocumento.setText("");
-        txtAnio.setEditable(true);
+        // txtAnio.setEditable(true);
         this.txtAnio.setText("");
         lsDestinatario.setEnabled(true);
         lsDestinatario.clearSelection();
@@ -1337,6 +1306,7 @@ public class frmGeneral extends javax.swing.JFrame {
         jButton1.setEnabled(true);
         cboEstadoDocumento.setEnabled(true);
         spFolios.setEnabled(true);
+        btnBuscarDocumento.setEnabled(false);
     }//GEN-LAST:event_btnNuevoDocumentoActionPerformed
 
     private void cboTipoDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTipoDocumentoActionPerformed
@@ -1370,17 +1340,12 @@ public class frmGeneral extends javax.swing.JFrame {
     }//GEN-LAST:event_btnsalirActionPerformed
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
+        codigo = Integer.parseInt(txtIdRecepcion.getText());
         if (codigo != 0) {
             opt = 'E';
             lblRec.setVisible(true);
-            txtCodigoRecepcion.setVisible(true);
-            txtCodigoRecepcion.setText("" + codigo);
-            txtRemitenteRecepcion.setText(RemitenteRecepcion);
-            txtDestinatarioRecepcion.setText(InstitucionRecepcion);
-            txtHoraRecepcion.setText(HoraRecepcion);
-            txtfechaRecepcion.setText(FechaRecepcion);
+            txtIdRecepcion.setVisible(true);
             try {
-                codigo = Integer.parseInt(txtCodigoRecepcion.getText());
                 opt = 'E';
                 oRecepcion = new Recepcion();
                 oRecepcion.setIdRecepcion(codigo);
@@ -1390,7 +1355,7 @@ public class frmGeneral extends javax.swing.JFrame {
                     if (RecepcionBo.eliminarRecepcion(oRecepcion)) {
                         JOptionPane.showMessageDialog(this, "Se Eliminó Correctamente", "RECEPCION",
                                 JOptionPane.INFORMATION_MESSAGE);
-                        cargarDatos();
+                        limpiarCampos();
                     } else {
                         JOptionPane.showMessageDialog(this, "No se pudo Eliminar", "RECEPCION",
                                 JOptionPane.ERROR_MESSAGE);
@@ -1410,7 +1375,7 @@ public class frmGeneral extends javax.swing.JFrame {
     private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
         if (opt == 'M') {
             lblRec.setVisible(false);
-            txtCodigoRecepcion.setVisible(false);
+            txtIdRecepcion.setVisible(false);
         }
         btnsEdicionHabilitar();
         btnsConfirmarDeshabilitar();
@@ -1418,49 +1383,60 @@ public class frmGeneral extends javax.swing.JFrame {
         camposDeshabilitado();
     }//GEN-LAST:event_btncancelarActionPerformed
 
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+    private void btnModificarRecepcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarRecepcionActionPerformed
         if (codigo != 0) {
             opt = 'M';
             camposHabilitado();
-            txtCodigoRecepcion.setText("");
-            txtRemitenteRecepcion.setText("");
+            txtIdRecepcion.setText("");
+            txtDocumentoRecepcion.setText("");
+            txtInstitucionRecepcion.setText("");
+            txtAsuntoRecepcion.setText("");
+            txtReferenciaRecepcion.setText("");
             txtDestinatarioRecepcion.setText("");
+            txaObsRecepcion.setText("");
             txtfechaRecepcion.setText("");
             txtHoraRecepcion.setText("");
-//            txtRRecepcion.setText("");
             lblRec.setVisible(true);
-            txtCodigoRecepcion.setVisible(true);
-            txtCodigoRecepcion.setText("" + codigo);
+            txtIdRecepcion.setVisible(true);
+            txtIdRecepcion.setText("" + codigo);
             txtRemitenteRecepcion.requestFocus();
-            txtRemitenteRecepcion.setText(RemitenteRecepcion);
+//            txtRemitenteRecepcion.setText(RemitenteRecepcion);
             txtDestinatarioRecepcion.setText(InstitucionRecepcion);
             txtfechaRecepcion.setText(FechaRecepcion);
             txtHoraRecepcion.setText(HoraRecepcion);
-//            txtRRecepcion.setText(String.valueOf(RemitenteResponsable));
-
             btnsConfirmarHabilitar();
             btnsEdicionDeshabilitar();
             //            JOptionPane.showMessageDialog(this, "Seleccione el Remitente", "REMITENTE", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnModificarActionPerformed
+    }//GEN-LAST:event_btnModificarRecepcionActionPerformed
 
     private void btngrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngrabarActionPerformed
-
-        RemitenteRecepcion = txtRemitenteRecepcion.getText();
-        InstitucionRecepcion = txtDestinatarioRecepcion.getText();
-        HoraRecepcion = txtHoraRecepcion.getText();
-        FechaRecepcion = txtfechaRecepcion.getText();
+        idRecepcion = 1;//Integer.parseInt(txtIdRecepcion.getText()) ;
         codigoRecepcion = txtCodigoRecepcion.getText();
+        DocumentoRecepcion = txtDocumentoRecepcion.getText();
+        InstitucionRecepcion = txtInstitucionRecepcion.getText();
+        IdRemitenteRecepcion = Integer.parseInt(txtCodRemRecepcion.getText());
+        AsuntoRecepcion = txtAsuntoRecepcion.getText();
+        ReferenciaRecepcion = txtReferenciaRecepcion.getText();
+        destinatarioRecepcion = txtDestinatarioRecepcion.getText();
+        obsRecepcion = txaObsRecepcion.getText();
+        FechaRecepcion = txtfechaRecepcion.getText();
+        HoraRecepcion = txtHoraRecepcion.getText();
+
         oRecepcion = new Recepcion();
         switch (opt) {
             case 'N':
+                oRecepcion.setIdRecepcion(idRecepcion);
                 oRecepcion.setCodigoRecepcion(codigoRecepcion);
-                oRecepcion.setRemitente(RemitenteRecepcion);
+                oRecepcion.setDocumento(DocumentoRecepcion);
                 oRecepcion.setInstitucion(InstitucionRecepcion);
+                oRecepcion.setIdRemitente(IdRemitenteRecepcion);
+                oRecepcion.setAsunto(AsuntoRecepcion);
+                oRecepcion.setReferencia(ReferenciaRecepcion);
+                oRecepcion.setDestinatario(destinatarioRecepcion);
+                oRecepcion.setObs(obsRecepcion);
                 oRecepcion.setFecha(FechaRecepcion);
                 oRecepcion.setHora(HoraRecepcion);
-//                oRecepcion.setRemitenteResponsable(RemitenteResponsable);
-                oRecepcion.setIdRemitente(codRemitente);
                 try {
                     if (RecepcionBo.grabarRecepcion(oRecepcion)) {
                         JOptionPane.showMessageDialog(this, "Se Registró Correctamente", "MENSAJE --> RECEPCION", JOptionPane.INFORMATION_MESSAGE);
@@ -1473,13 +1449,13 @@ public class frmGeneral extends javax.swing.JFrame {
                 }
                 break;
             case 'M':
-                codigo = Integer.parseInt(txtCodigoRecepcion.getText());
+                codigo = Integer.parseInt(txtIdRecepcion.getText());
                 oRecepcion.setInstitucion(InstitucionRecepcion);
-                oRecepcion.setRemitente(RemitenteRecepcion);
+//               oRecepcion.setRemitente(RemitenteRecepcion);
                 oRecepcion.setFecha(FechaRecepcion);
                 oRecepcion.setHora(HoraRecepcion);
 //                oRecepcion.setRemitenteResponsable(RemitenteResponsable);
-                oRecepcion.setIdRemitente(codRemitente);
+                oRecepcion.setIdRemitente(IdRemitenteRecepcion);
                 oRecepcion.setIdRecepcion(codigo);
                 try {
                     if (RecepcionBo.modificarRecepcion(oRecepcion)) {
@@ -1495,7 +1471,7 @@ public class frmGeneral extends javax.swing.JFrame {
         }
         camposDeshabilitado();
         lblRec.setVisible(false);
-        txtCodigoRecepcion.setVisible(false);
+        txtIdRecepcion.setVisible(false);
         cargarDatos();
         btnsConfirmarDeshabilitar();
         btnsEdicionHabilitar();
@@ -1503,18 +1479,16 @@ public class frmGeneral extends javax.swing.JFrame {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         opt = 'N';
+        txtIdRecepcion.setEnabled(false);
         txtCodigoRecepcion.setEnabled(false);
-        txtfechaRecepcion.setEditable(true);
-        txtfechaRecepcion.setText("");
-        txtHoraRecepcion.setEditable(true);
-        txtHoraRecepcion.setText("");
-        txtInstitucionRecepcion.setEditable(true);
-        txtInstitucionRecepcion.setText("");
+        txtCodigoRecepcion.setText("");
         txtDocumentoRecepcion.setEditable(true);
         txtDocumentoRecepcion.setText("");
+        txtInstitucionRecepcion.setEditable(true);
+        txtInstitucionRecepcion.setText("");
         txtRemitenteRecepcion.setEnabled(false);
         txtRemitenteRecepcion.setText("");
-        txtCodRemRecepcion.setEditable(false);
+        txtCodRemRecepcion.setEnabled(false);
         txtCodRemRecepcion.setText("");
         txtAsuntoRecepcion.setEditable(true);
         txtAsuntoRecepcion.setText("");
@@ -1524,6 +1498,10 @@ public class frmGeneral extends javax.swing.JFrame {
         txtDestinatarioRecepcion.setText("");
         txaObsRecepcion.setEditable(true);
         txaObsRecepcion.setText("");
+        txtfechaRecepcion.setEditable(true);
+        txtfechaRecepcion.setText("");
+        txtHoraRecepcion.setEditable(true);
+        txtHoraRecepcion.setText("");
         btnsConfirmarHabilitar();
         btnsEdicionDeshabilitar();
         camposHabilitado();
@@ -1619,7 +1597,7 @@ public class frmGeneral extends javax.swing.JFrame {
             lsDocumento = ((TipoDocumento) cboTipoDocumento.getSelectedItem()).getTipoDocumento();
             txtDocumento.setText(lsDocumento + " N° " + lblNumeroDocumento.getText() + "-" + txtAnio.getText() + "-FISME-UNTRM/BAGUA");
             txtIdDocumento.setText("1");
-            // cargarIdDocumento();
+//            cargarIdDocumento();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1753,7 +1731,7 @@ public class frmGeneral extends javax.swing.JFrame {
         cargarCorrelativoCargo();
     }//GEN-LAST:event_btnNuevoCargoActionPerformed
 
-    private void btnModificar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificar1ActionPerformed
+    private void btnModificarCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarCargoActionPerformed
         if (codigo != 0) {
             opt = 'M';
             camposHabilitado();
@@ -1770,13 +1748,13 @@ public class frmGeneral extends javax.swing.JFrame {
 //            txtFechaCargo.setText(Fecha);
             txtHoraCargo.setText(HoraRecepcion);
             txtAreaCargo.setText(AreaCargo);
-            txtRemitenteRecepcion.setText(RemitenteRecepcion);
+//            txtRemitenteRecepcion.setText(RemitenteRecepcion);
             txtObservacionCargo.setText(Recepcionista);
             btnsConfirmarHabilitar();
             btnsEdicionDeshabilitar();
             //            JOptionPane.showMessageDialog(this, "Seleccione el Cargo", "CARGO", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnModificar1ActionPerformed
+    }//GEN-LAST:event_btnModificarCargoActionPerformed
 
     private void btnCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar1ActionPerformed
         if (opt == 'M') {
@@ -1878,66 +1856,66 @@ public class frmGeneral extends javax.swing.JFrame {
     }
 
     private void cargarDatos3() {
-        try {
-            TableColumn columna;
-            DefaultTableModel DerivacionTableModel = DerivacionBo.obtenerListaDerivacion();
-            tblDerivacion.setModel(DerivacionTableModel);
-            setAnchoColumnas();
-            columna = tblDerivacion.getColumnModel().getColumn(0);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            TableColumn columna;
+//            DefaultTableModel DerivacionTableModel = DerivacionBo.obtenerListaDerivacion();
+//            tblDerivacion.setModel(DerivacionTableModel);
+//            setAnchoColumnas();
+//            columna = tblDerivacion.getColumnModel().getColumn(0);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
     }
 
     public void setAnchoColumnas() {
-        JViewport scroll = (JViewport) tblDerivacion.getParent();
-        int ancho = scroll.getWidth();
-        int anchoColumna = 0;
-        TableColumnModel modeloColumna = tblDerivacion.getColumnModel();
-        TableColumn columnaTabla;
-        for (int i = 0; i < tblDerivacion.getColumnCount(); i++) {
-            columnaTabla = modeloColumna.getColumn(i);
-            switch (i) {
-                case 0:
-                    anchoColumna = (4 * ancho) / 100;
-                    break;
-                case 1:
-                    anchoColumna = (6 * ancho) / 100;
-                    break;
-                case 2:
-                    anchoColumna = (6 * ancho) / 100;
-                    break;
-                case 3:
-                    anchoColumna = (10 * ancho) / 100;
-                    break;
-                case 4:
-                    anchoColumna = (23 * ancho) / 100;
-                    break;
-                case 5:
-                    anchoColumna = (23 * ancho) / 100;
-                    break;
-                case 6:
-                    anchoColumna = (23 * ancho) / 100;
-                    break;
-                case 7:
-                    anchoColumna = (23 * ancho) / 100;
-                    break;
-            }
-            columnaTabla.setPreferredWidth(anchoColumna);
-        }
+//        JViewport scroll = (JViewport) tblDerivacion.getParent();
+//        int ancho = scroll.getWidth();
+//        int anchoColumna = 0;
+//        TableColumnModel modeloColumna = tblDerivacion.getColumnModel();
+//        TableColumn columnaTabla;
+//        for (int i = 0; i < tblDerivacion.getColumnCount(); i++) {
+//            columnaTabla = modeloColumna.getColumn(i);
+//            switch (i) {
+//                case 0:
+//                    anchoColumna = (4 * ancho) / 100;
+//                    break;
+//                case 1:
+//                    anchoColumna = (6 * ancho) / 100;
+//                    break;
+//                case 2:
+//                    anchoColumna = (6 * ancho) / 100;
+//                    break;
+//                case 3:
+//                    anchoColumna = (10 * ancho) / 100;
+//                    break;
+//                case 4:
+//                    anchoColumna = (23 * ancho) / 100;
+//                    break;
+//                case 5:
+//                    anchoColumna = (23 * ancho) / 100;
+//                    break;
+//                case 6:
+//                    anchoColumna = (23 * ancho) / 100;
+//                    break;
+//                case 7:
+//                    anchoColumna = (23 * ancho) / 100;
+//                    break;
+//            }
+//            columnaTabla.setPreferredWidth(anchoColumna);
+//        }
     }
 
     private void cargarDatosBuscar3() {
-        try {
-            TableColumn columna;
-            DefaultTableModel DerivacionTableModel = DerivacionBo.obtenerListaDerivacionBuscar(txtMotivoDerivacion.getText());
-            tblDerivacion.setModel(DerivacionTableModel);
-            setAnchoColumnas();
-            columna = tblDerivacion.getColumnModel().getColumn(0);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            TableColumn columna;
+//            DefaultTableModel DerivacionTableModel = DerivacionBo.obtenerListaDerivacionBuscar(txtMotivoDerivacion.getText());
+//            tblDerivacion.setModel(DerivacionTableModel);
+//            setAnchoColumnas();
+//            columna = tblDerivacion.getColumnModel().getColumn(0);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void btnsEdicionDeshabilitar3() {
@@ -1994,22 +1972,6 @@ public class frmGeneral extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnnuevo3ActionPerformed
 
-    private void tblDerivacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDerivacionMouseClicked
-        try {
-            int index = tblDerivacion.getSelectedRow();
-            idDerivacion = Integer.parseInt(tblDerivacion.getValueAt(index, 0).toString());
-            Derivacion = tblDerivacion.getValueAt(index, 1).toString();
-            FechaDerivacion = tblDerivacion.getValueAt(index, 2).toString();
-            Documento = tblDerivacion.getValueAt(index, 3).toString();
-            Remitentederivacion = tblDerivacion.getValueAt(index, 4).toString();
-            MotivoDerivacion = tblDerivacion.getValueAt(index, 5).toString();
-            String Prioridad = tblDerivacion.getValueAt(index, 6).toString();
-            Observacion = tblDerivacion.getValueAt(index, 7).toString();
-
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_tblDerivacionMouseClicked
-
     private void btnModificar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificar3ActionPerformed
         if (codigo != 0) {
             opt = 'M';
@@ -2059,7 +2021,7 @@ public class frmGeneral extends javax.swing.JFrame {
             txtMotivoDerivacion.setText(MotivoDerivacion);
 
             try {
-                codigo = Integer.parseInt(txtCodigoRecepcion.getText());
+                codigo = Integer.parseInt(txtIdRecepcion.getText());
 
                 if (opt == 'E') {
                     oDerivacion = new Derivacion();
@@ -2092,10 +2054,6 @@ public class frmGeneral extends javax.swing.JFrame {
     private void btnSalir3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir3ActionPerformed
         dispose();
     }//GEN-LAST:event_btnSalir3ActionPerformed
-
-    private void tblDerivacionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblDerivacionKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tblDerivacionKeyTyped
 
     private void btnBuscarDerivacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarDerivacionActionPerformed
         opt = 'B';
@@ -2145,7 +2103,15 @@ public class frmGeneral extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarRecepcionActionPerformed
 
     private void btnBuscarDerivacionDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarDerivacionDocumentoActionPerformed
-        // TODO add your handling code here:
+        try {
+            frmBuscarDocumentoDerivacion frmBuscarDocumentoDerivacion = new frmBuscarDocumentoDerivacion(this, true);
+            frmBuscarDocumentoDerivacion.toFront();
+            frmBuscarDocumentoDerivacion.setVisible(true);
+            this.txtMotivoDerivacion.requestFocus();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar la vista: " + e.getMessage());
+        }
+
     }//GEN-LAST:event_btnBuscarDerivacionDocumentoActionPerformed
 
     private void btnAregarDestinatarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAregarDestinatarioActionPerformed
@@ -2326,13 +2292,13 @@ public class frmGeneral extends javax.swing.JFrame {
 //    }
     private void btnsEdicionDeshabilitar() {
         btnNuevo.setEnabled(false);
-        btnModificar.setEnabled(false);
+        btnModificarRecepcion.setEnabled(false);
 
     }
 
     private void btnsEdicionHabilitar() {
         btnNuevo.setEnabled(true);
-        btnModificar.setEnabled(true);
+        btnModificarRecepcion.setEnabled(true);
 
     }
 
@@ -2347,6 +2313,8 @@ public class frmGeneral extends javax.swing.JFrame {
     }
 
     private void limpiarCampos() {
+        txtIdRecepcion.setText("");
+        txtCodigoRecepcion.setText("");
         txtfechaRecepcion.setText("");
         txtHoraRecepcion.setText("");
         txtDocumentoRecepcion.setText("");
@@ -2376,9 +2344,7 @@ public class frmGeneral extends javax.swing.JFrame {
         btnGrabarDocumento.setEnabled(false);
         btnModificarDocumento.setEnabled(false);
         btnGrabarCargo.setEnabled(false);
-        btnModificar1.setEnabled(false);
         btngrabar.setEnabled(false);
-        btnModificar.setEnabled(false);
         btngrabar3.setEnabled(false);
         btnModificar3.setEnabled(false);
         btnEliminarDocumento.setEnabled(false);
@@ -2502,13 +2468,13 @@ public class frmGeneral extends javax.swing.JFrame {
 
     private void btnsEdicionDeshabilitar2() {
         btnNuevo.setEnabled(false);
-        btnModificar.setEnabled(false);
+        btnModificarRecepcion.setEnabled(false);
         btnEliminarDocumento.setEnabled(false);
     }
 
     private void btnsEdicionHabilitar2() {
         btnNuevo.setEnabled(true);
-        btnModificar.setEnabled(true);
+        btnModificarRecepcion.setEnabled(true);
         btnEliminarDocumento.setEnabled(true);
     }
 
@@ -2698,10 +2664,10 @@ public class frmGeneral extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminarDocumento1;
     private javax.swing.JButton btnGrabarCargo;
     private javax.swing.JButton btnGrabarDocumento;
-    private javax.swing.JButton btnModificar;
-    private javax.swing.JButton btnModificar1;
     private javax.swing.JButton btnModificar3;
+    private javax.swing.JButton btnModificarCargo;
     private javax.swing.JButton btnModificarDocumento;
+    private javax.swing.JButton btnModificarRecepcion;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnNuevoCargo;
     private javax.swing.JButton btnNuevoDocumento;
@@ -2794,7 +2760,6 @@ public class frmGeneral extends javax.swing.JFrame {
     private javax.swing.JPanel tbDerivacion;
     private javax.swing.JPanel tbDocumento;
     private javax.swing.JPanel tbRecepcion;
-    private javax.swing.JTable tblDerivacion;
     private javax.swing.JTextArea txaObsRecepcion;
     private javax.swing.JTextField txtAnio;
     private javax.swing.JTextField txtAreaCargo;
@@ -2816,13 +2781,14 @@ public class frmGeneral extends javax.swing.JFrame {
     private javax.swing.JTextField txtHoraCargo;
     private javax.swing.JTextField txtHoraRecepcion;
     private javax.swing.JTextField txtIdDocumento;
+    private javax.swing.JTextField txtIdRecepcion;
     private javax.swing.JTextField txtInstitucion;
     private javax.swing.JTextField txtInstitucionCargo;
     private javax.swing.JTextField txtInstitucionRecepcion;
     private javax.swing.JTextField txtMotivoDerivacion;
     private javax.swing.JTextField txtNroDocumentoCargo;
     private javax.swing.JTextField txtObservacionCargo;
-    private javax.swing.JTextField txtObservacionDeriv;
+    private javax.swing.JTextArea txtObservacionDeriv;
     private javax.swing.JTextField txtRecepcionistaCargo;
     private javax.swing.JTextField txtReferenciaRecepcion;
     private javax.swing.JTextField txtRemitenteRecepcion;
@@ -3039,21 +3005,21 @@ public class frmGeneral extends javax.swing.JFrame {
         this.txtObservacionCargo = txtRecepcionistaCargo;
     }
 
-    //Recepcion
-    public JTextField getTxtcodigoRecepcion() {
+    //Recepcion  
+    public JTextField gettxtIdRecepcion() {
+        return txtIdRecepcion;
+    }
+
+    public void settxtIdRecepcion(JTextField txtIdRecepcion) {
+        this.txtIdRecepcion = txtIdRecepcion;
+    }
+
+    public JTextField gettxtCodigoRecepcion() {
         return txtCodigoRecepcion;
     }
 
-    public void setTxtcodigoRecepcion(JTextField txtcodigoRecepcion) {
-        this.txtCodigoRecepcion = txtcodigoRecepcion;
-    }
-
-    public JTextField getTxtRemitenteRecepcion() {
-        return txtRemitenteRecepcion;
-    }
-
-    public void setTxtRemitenteRecepcion(JTextField txtRemitenteRecepcion) {
-        this.txtRemitenteRecepcion = txtRemitenteRecepcion;
+    public void settxtCodigoRecepcion(JTextField txtCodigoRecepcion) {
+        this.txtCodigoRecepcion = txtCodigoRecepcion;
     }
 
     public JTextField getTxtDocumentoRecepcion() {
@@ -3064,12 +3030,60 @@ public class frmGeneral extends javax.swing.JFrame {
         this.txtDocumentoRecepcion = txtDocumentoRecepcion;
     }
 
-    public JTextField getTxtinstitucionRecepcion() {
+    public JTextField gettxtInstitucionRecepcion() {
+        return txtInstitucionRecepcion;
+    }
+
+    public void settxtInstitucionRecepcion(JTextField txtInstitucionRecepcion) {
+        this.txtInstitucionRecepcion = txtInstitucionRecepcion;
+    }
+
+    public JTextField gettxtRemitenteRecepcion() {
+        return txtRemitenteRecepcion;
+    }
+
+    public void settxtRemitenteRecepcion(JTextField txtRemitenteRecepcion) {
+        this.txtRemitenteRecepcion = txtRemitenteRecepcion;
+    }
+
+    public JTextField gettxtCodRemRecepcion() {
+        return txtCodRemRecepcion;
+    }
+
+    public void settxtCodRemRecepcion(JTextField txtCodRemRecepcion) {
+        this.txtCodRemRecepcion = txtCodRemRecepcion;
+    }
+
+    public JTextField gettxtAsuntoRecepcion() {
+        return txtAsuntoRecepcion;
+    }
+
+    public void settxtAsuntoRecepcion(JTextField txtAsuntoRecepcion) {
+        this.txtAsuntoRecepcion = txtAsuntoRecepcion;
+    }
+
+    public JTextField gettxtReferenciaRecepcion() {
+        return txtReferenciaRecepcion;
+    }
+
+    public void settxtReferenciaRecepcion(JTextField txtReferenciaRecepcion) {
+        this.txtReferenciaRecepcion = txtReferenciaRecepcion;
+    }
+
+    public JTextField gettxtDestinatarioRecepcion() {
         return txtDestinatarioRecepcion;
     }
 
-    public void setTxtinstitucionRecepcion(JTextField txtinstitucionRecepcion) {
-        this.txtDestinatarioRecepcion = txtinstitucionRecepcion;
+    public void settxtDestinatarioRecepcion(JTextField txtDestinatarioRecepcion) {
+        this.txtDestinatarioRecepcion = txtDestinatarioRecepcion;
+    }
+
+    public JTextArea gettxaObsRecepcion() {
+        return txaObsRecepcion;
+    }
+
+    public void settxaObsRecepcion(JTextArea txaObsRecepcion) {
+        this.txaObsRecepcion = txaObsRecepcion;
     }
 
     public JTextField getTxtfechaRecepcion() {
@@ -3087,37 +3101,98 @@ public class frmGeneral extends javax.swing.JFrame {
     public void setTxtHoraRecepcion(JTextField txtHoraRecepcion) {
         this.txtHoraRecepcion = txtHoraRecepcion;
     }
-
-    public JTextField getTxtcodRemRecepcion() {
-        return txtCodRemRecepcion;
+    
+    
+    //Derivación
+    public JTextField getTxtcodigoDerivacion() {
+        return txtcodigoDerivacion;
     }
 
-    public void setTxtcodRemRecepcion(JTextField txtcodRemRecepcion) {
-        this.txtCodRemRecepcion = txtcodRemRecepcion;
+    public void txtcodigoDerivacion(JTextField txtcodigoDerivacion) {
+        this.txtcodigoDerivacion = txtcodigoDerivacion;
     }
 
-    public JTextField getTxtAsuntoRecepcion() {
-        return txtAsuntoRecepcion;
+    public JComboBox getcbderivacion() {
+        return cbderivacion;
     }
 
-    public void setTxtAsuntoRecepcion(JTextField txtAsuntoRecepcion) {
-        this.txtAsuntoRecepcion = txtAsuntoRecepcion;
-
+    public void setcbderivacion(JComboBox cbderivacion) {
+        this.cbderivacion = cbderivacion;
     }
 
-    public JTextField getTxtReferenciaRecepcion() {
-        return txtReferenciaRecepcion;
+    public JTextField getTxtFechaDerivacion() {
+        return txtFechaDerivacion;
     }
 
-    public void setTxtReferenciaRecepcion(JTextField txtReferenciaRecepcion) {
-        this.txtReferenciaRecepcion = txtReferenciaRecepcion;
+    public void txtFechaDerivacion(JTextField txtFechaDerivacion) {
+        this.txtFechaDerivacion = txtFechaDerivacion;
     }
 
-    public JTextField getTxtDestinatarioRecepcion() {
-        return txtCodRemRecepcion;
+    public JTextField getTxtcodiDoc() {
+        return txtcodiDoc;
     }
 
-    public void setTxtDestinatarioRecepcion(JTextField txtDestinatarioRecepcion) {
-        this.txtDestinatarioRecepcion = txtDestinatarioRecepcion;
+    public void txtcodiDoc(JTextField txtcodiDoc) {
+        this.txtcodiDoc = txtcodiDoc;
     }
+
+    public JTextField getTxtMotivoDerivacion() {
+        return txtMotivoDerivacion;
+    }
+
+    public void txtMotivoDerivacion(JTextField txtMotivoDerivacion) {
+        this.txtMotivoDerivacion = txtMotivoDerivacion;
+    }
+
+    public JTextField getTxtnombreRemi() {
+        return txtnombreRemi;
+    }
+
+    public void txtnombreRemi(JTextField txtnombreRemi) {
+        this.txtnombreRemi = txtnombreRemi;
+    }
+
+    public JTextArea getTxtObservacionDeriv() {
+        return txtObservacionDeriv;
+    }
+
+    public void txtObservacionDeriv(JTextArea txtObservacionDeriv) {
+        this.txtObservacionDeriv = txtObservacionDeriv;
+    }
+
+    public JComboBox getcbPRIORIDAD() {
+        return cbPRIORIDAD;
+    }
+
+    public void setcbPRIORIDAD(JComboBox cbPRIORIDAD) {
+        this.cbPRIORIDAD = cbPRIORIDAD;
+    }
+    
+    public javax.swing.JButton getBtnModificarDocumento(){
+        return btnModificarDocumento;
+    }
+    
+    public javax.swing.JButton getBtnNuevoDocumento() {
+        return btnNuevoDocumento;
+    }
+    
+    public javax.swing.JButton getBtnGrabarDocumento(){
+        return btnGrabarDocumento;
+    }
+    
+    public javax.swing.JButton getBtnEliminarDocumento(){
+        return btnEliminarDocumento;
+    }
+    
+    public void habilitarBotonesFormulario(){
+        cboTipoDocumento.setEnabled(true);
+        btnAregarDestinatario.setEnabled(true);
+        btnQuitaDestinatario.setEnabled(true);
+        btnAgregarArchivo.setEnabled(true);
+        jButton1.setEnabled(true);
+        cboEstadoDocumento.setEnabled(true);
+        spFolios.setEnabled(true);
+        btnBuscarDocumento.setEnabled(false);
+    }
+
 }

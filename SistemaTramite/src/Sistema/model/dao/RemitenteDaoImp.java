@@ -99,7 +99,16 @@ public class RemitenteDaoImp {
         return listaRemitente;
 
     }
-
+    public String obtenerNombreRemitente(int idRemitente) throws SQLException {
+        String lsNombreReitente="";
+        String sql = "SELECT Remitente from Remitente where idRemitente = " + idRemitente;
+        pst = con.prepareStatement(sql);
+        ResultSet rs = pst.executeQuery();
+        while (rs.next()) {
+            lsNombreReitente = rs.getString("Remitente");
+        }
+        return lsNombreReitente;
+    }
     public boolean grabar(Object object) throws SQLException {
         oRemitente = (Remitente) object;
         try {

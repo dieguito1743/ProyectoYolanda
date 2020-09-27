@@ -81,11 +81,9 @@ public class RecepcionBo {
             columnas.add("CODIGO");
             columnas.add("REMITENTE");
             columnas.add("INSTITUCION");
-            columnas.add("NUMERORECEPCION");
             columnas.add("FECHA");
             columnas.add("HORA");
-            columnas.add("REMITENTERESPONSABLE");
-            columnas.add("CODIGO REMITENTE");
+            columnas.add("IDREMIT");
             recepcionTableModel = new DefaultTableModel(datosRecepcion, columnas);
 
         } catch (Exception e) {
@@ -102,16 +100,21 @@ public class RecepcionBo {
         DefaultTableModel recepcionTableModel = null;
         Connection con = Conexion.getConexion();
         try {
+            //idRecepcion,codigoRecepcion,Documento,Institucion,idRemitente,Asunto,Referencia,Destinatario,Obs,Fecha,Hora 
             RecepcionDaoImp RecepcionDao = new RecepcionDaoImp(con);
             Vector datosRecepcion = RecepcionDao.obtenerListaRecepcionBuscar(texto);
             Vector columnas = new Vector();
-            columnas.add("CODIGO");
-            columnas.add("REMITENTE");
-            columnas.add("INSTITUCION");
+            columnas.add("IDREC");
+            columnas.add("CODREC");
+            columnas.add("DOCUMENTO");
+            columnas.add("INSTITUCIÓN");
+            columnas.add("IDREM");
+            columnas.add("ASUNTO");
+            columnas.add("REFERENCIA");
+            columnas.add("DESTINATARIO");
+            columnas.add("OBS");
             columnas.add("FECHA");
             columnas.add("HORA");
-            columnas.add("REMITENTERESPONSABLE");
-            columnas.add("CODIGO REMITENTE");
             recepcionTableModel = new DefaultTableModel(datosRecepcion, columnas);
 
         } catch (Exception e) {
@@ -216,4 +219,34 @@ public class RecepcionBo {
         }
         return RecepcionTableModel;
     }
-}
+////Para busquedas de cargo
+//    public static DefaultTableModel buscarRecepcionIdRecepcion(int idRecepcion) throws Exception {
+//        DefaultTableModel RecepcionTableModel = null;
+//        Connection con = Conexion.getConexion();
+//        try {
+//            RecepcionDaoImp cargoDao = new RecepcionDaoImp(con);
+//            Vector datosRecepcion = RecepcionDao.obtenerListaRecepcionBuscarIdRecepcion(idRecepcion);
+//            Vector columnas = new Vector();
+//            columnas.add("RECEPCIONID");
+//            columnas.add("CODIGORECEPCION");
+//            columnas.add("DOCUMENTORECEPCION");
+//            columnas.add("INSTITUCIONRECEPCION");
+//            columnas.add("IDREMITENTERECEPCION");
+//            columnas.add("ASUNTORECEPCION");
+//            columnas.add("REFERENCIA");
+//            columnas.add("DESTINATARIO");
+//            columnas.add("OBS");
+//            columnas.add("FECHACARGO");
+//            columnas.add("HORACARGO");
+//   
+//            RecepcionTableModel = new DefaultTableModel(datosRecepcion, columnas);
+//
+//        } catch (Exception e) {
+//            throw e;
+//        } finally {
+//            if (con != null) {
+//                con.close();
+//            }
+        }
+      
+

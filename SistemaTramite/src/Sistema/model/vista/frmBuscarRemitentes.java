@@ -123,8 +123,9 @@ public class frmBuscarRemitentes extends javax.swing.JDialog {
     private void tblRemitenteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRemitenteMouseClicked
         if (evt.getClickCount() >= 2) {
             int index = tblRemitente.getSelectedRow();
-            recepcion.getTxtcodRemRecepcion().setText(tblRemitente.getValueAt(index, 0).toString());
-            recepcion.getTxtRemitenteRecepcion().setText(tblRemitente.getValueAt(index, 2).toString());
+            //txtRemitenteRecepcion
+            recepcion.gettxtCodRemRecepcion().setText(tblRemitente.getValueAt(index, 0).toString());
+            recepcion.gettxtRemitenteRecepcion().setText(tblRemitente.getValueAt(index, 2).toString());
             this.dispose();
         }
     }//GEN-LAST:event_tblRemitenteMouseClicked

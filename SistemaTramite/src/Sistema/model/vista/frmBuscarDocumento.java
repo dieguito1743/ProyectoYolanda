@@ -2,6 +2,7 @@ package Sistema.model.vista;
 
 import Sistema.model.bean.Correlativos;
 import Sistema.model.bean.Documento;
+import Sistema.model.bean.TipoDocumento;
 import Sistema.model.bean.Usuario;
 import Sistema.model.bo.CorrelativosBo;
 import Sistema.model.bo.DocumentoArchivoBo;
@@ -180,7 +181,7 @@ public class frmBuscarDocumento extends javax.swing.JDialog {
             TableColumn columna;
             docTableModel = DocumentoBo.obtenerListaDocumentoBuscar(txtDocumento.getText());
             tblDocumento.setModel(docTableModel);
-            String titu[] = {"COD", "TD", "N°-DOC", "FECHA", "AÑO", "DOCUMENTO", "FOL", "ASUNTO", "AREA", "INSTITUCION", "ST",};
+            String titu[] = {"COD", "TD", "N°-DOC", "FECHA", "AÑO", "DOCUMENTO", "FOL", "ASUNTO", "INSTITUCION", "AREA", "ST",};
             docTableModel.setColumnIdentifiers(titu);
             TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tblDocumento.getModel());
             tblDocumento.setRowSorter(sorter);
@@ -265,11 +266,23 @@ public class frmBuscarDocumento extends javax.swing.JDialog {
     private void tblDocumentoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDocumentoMousePressed
         if (evt.getClickCount() == 2) {
             int index = tblDocumento.getSelectedRow();
-            String idDoc = (String) tblDocumento.getValueAt(index, 0);
+            // String idDoc = (String) tblDocumento.getValueAt(index, 0);
             documento.getTxtIdDocumento().setText(tblDocumento.getValueAt(index, 0).toString());
-            documento.getTxtDocumento().setText(tblDocumento.getValueAt(index, 3).toString());
-            documento.getTxtAsunto().setText(tblDocumento.getValueAt(index, 4).toString());
-            documento.getTxtInstitucion().setText(tblDocumento.getValueAt(index, 5).toString());
+            documento.getTxtDocumento().setText(tblDocumento.getValueAt(index, 5).toString());
+            documento.getTxtAsunto().setText(tblDocumento.getValueAt(index, 7).toString());
+            documento.getTxtInstitucion().setText(tblDocumento.getValueAt(index, 8).toString());
+            documento.getTxtAreaDocumento().setText(tblDocumento.getValueAt(index, 9).toString());
+            documento.getLblNumeroDocumento().setText(tblDocumento.getValueAt(index, 2).toString());
+            documento.getTxtAnio().setText(tblDocumento.getValueAt(index, 4).toString());
+            documento.getTxtFechaDocumento().setText(tblDocumento.getValueAt(index, 3).toString());
+            System.out.println(tblDocumento.getValueAt(index, 6).toString());
+            Integer integer = Integer.parseInt(tblDocumento.getValueAt(index, 6).toString());
+            documento.getSpFolios().setValue(integer);
+            documento.getBtnModificarDocumento().setEnabled(true);
+            documento.getBtnEliminarDocumento().setEnabled(true);
+            documento.getBtnNuevoDocumento().setEnabled(false);
+            documento.getBtnGrabarDocumento().setEnabled(false);
+            documento.habilitarBotonesFormulario();
             this.dispose();
         }
     }//GEN-LAST:event_tblDocumentoMousePressed

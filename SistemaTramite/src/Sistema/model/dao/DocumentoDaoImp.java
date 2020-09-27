@@ -99,18 +99,19 @@ public class DocumentoDaoImp {
         oDocumento = (Documento) object;
         try {
             String sql = "insert into Documento(idtipoDocumento,numeroDocumento,Fecha,anio,Documento,folios,asunto,Institucion,Area,Estado) "
-                    + "values(?,?,?,?,?,?,?,?,?,?)";
+                    // + "values(?,?,?,?,?,?,?,?,?,?)";
+                    + "values(?,?,getdate(),?,?,?,?,?,?,?)";
             pst = con.prepareStatement(sql);
             pst.setInt(1, oDocumento.getIdtipoDocumento());
             pst.setString(2, oDocumento.getNumeroDocumento());
-            pst.setString(3, oDocumento.getFecha());
-            pst.setString(4, oDocumento.getAnio());
-            pst.setString(5, oDocumento.getDocumento());
-            pst.setInt(6, oDocumento.getFolios());
-            pst.setString(7, oDocumento.getAsunto());
-            pst.setString(8, oDocumento.getArea());
-            pst.setString(9, oDocumento.getInstitucion());
-            pst.setInt(10, oDocumento.getEstado());
+            // pst.setString(3, oDocumento.getFecha());
+            pst.setString(3, oDocumento.getAnio());
+            pst.setString(4, oDocumento.getDocumento());
+            pst.setInt(5, oDocumento.getFolios());
+            pst.setString(6, oDocumento.getAsunto());
+            pst.setString(7, oDocumento.getArea());
+            pst.setString(8, oDocumento.getInstitucion());
+            pst.setInt(9, oDocumento.getEstado());
             pst.execute();
             pst.close();
             return true;
