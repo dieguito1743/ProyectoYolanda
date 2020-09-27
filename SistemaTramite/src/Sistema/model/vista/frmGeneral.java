@@ -341,7 +341,7 @@ public class frmGeneral extends javax.swing.JFrame {
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel22.setText("Documento");
-        tbDocumento.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 180, -1));
+        tbDocumento.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 180, 25));
 
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel23.setText("Asunto");
@@ -626,7 +626,7 @@ public class frmGeneral extends javax.swing.JFrame {
             jLabel16.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
             jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             jLabel16.setText("Cargo");
-            tbCargo.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 20, 110, -1));
+            tbCargo.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 180, 25));
 
             jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
             jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -917,7 +917,7 @@ public class frmGeneral extends javax.swing.JFrame {
             jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
             jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             jLabel7.setText("Recepcion");
-            tbRecepcion.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, 200, -1));
+            tbRecepcion.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 180, 25));
 
             jLabel4.setText("Hora");
             tbRecepcion.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 90, -1, 20));
@@ -1083,7 +1083,7 @@ public class frmGeneral extends javax.swing.JFrame {
             jLabel13.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
             jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             jLabel13.setText("Derivación");
-            tbDerivacion.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 20, 180, -1));
+            tbDerivacion.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 180, 25));
 
             btnBuscarDerivacionDocumento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnBuscar.jpg"))); // NOI18N
             btnBuscarDerivacionDocumento.setToolTipText("Buscar Cargo");
