@@ -446,6 +446,8 @@ public class frmGeneral extends javax.swing.JFrame {
         tbDocumento.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 80, 20));
 
         btnNuevoDocumento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnNuevo.jpg"))); // NOI18N
+        btnNuevoDocumento.setToolTipText("Nuevo");
+        btnNuevoDocumento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnNuevoDocumento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevoDocumentoActionPerformed(evt);
@@ -454,6 +456,8 @@ public class frmGeneral extends javax.swing.JFrame {
         tbDocumento.add(btnNuevoDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 40));
 
         btnGrabarDocumento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnGrabar.jpg"))); // NOI18N
+        btnGrabarDocumento.setToolTipText("Guardar");
+        btnGrabarDocumento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGrabarDocumento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGrabarDocumentoActionPerformed(evt);
@@ -462,6 +466,8 @@ public class frmGeneral extends javax.swing.JFrame {
         tbDocumento.add(btnGrabarDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 40, 40));
 
         btnCancelarDocumento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/cancelar2.png"))); // NOI18N
+        btnCancelarDocumento.setToolTipText("Cancelar");
+        btnCancelarDocumento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancelarDocumento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarDocumentoActionPerformed(evt);
@@ -470,6 +476,8 @@ public class frmGeneral extends javax.swing.JFrame {
         tbDocumento.add(btnCancelarDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 40, 40));
 
         btnSalirDocumento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnSalir.png"))); // NOI18N
+        btnSalirDocumento.setToolTipText("Salir");
+        btnSalirDocumento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSalirDocumento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirDocumentoActionPerformed(evt);
@@ -513,6 +521,8 @@ public class frmGeneral extends javax.swing.JFrame {
         tbDocumento.add(txtAnio, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 50, 20));
 
         btnModificarDocumento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/modiicar.png"))); // NOI18N
+        btnModificarDocumento.setToolTipText("Actualizar");
+        btnModificarDocumento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnModificarDocumento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarDocumentoActionPerformed(evt);
@@ -521,6 +531,8 @@ public class frmGeneral extends javax.swing.JFrame {
         tbDocumento.add(btnModificarDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 40, 40));
 
         btnEliminarDocumento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/eliminar1.png"))); // NOI18N
+        btnEliminarDocumento.setToolTipText("Eliminar");
+        btnEliminarDocumento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEliminarDocumento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarDocumentoActionPerformed(evt);
@@ -545,7 +557,8 @@ public class frmGeneral extends javax.swing.JFrame {
         tbDocumento.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 60, 810, 10));
 
         btnBuscarDocumento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnBuscar.jpg"))); // NOI18N
-        btnBuscarDocumento.setToolTipText("Buscar Cargo");
+        btnBuscarDocumento.setToolTipText("Buscar");
+        btnBuscarDocumento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscarDocumento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarDocumentoActionPerformed(evt);
