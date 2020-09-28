@@ -24,6 +24,8 @@ import java.awt.Dimension;
 import static java.awt.PageAttributes.MediaType.D;
 import java.awt.event.ItemEvent;
 import java.io.*;
+import java.sql.Connection;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -47,7 +49,8 @@ import javax.swing.ListModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class frmGeneral extends javax.swing.JFrame {
-
+    private Statement st;
+    private Connection con;
     private int codigo;
     private char opt;
     /**
@@ -123,24 +126,25 @@ public class frmGeneral extends javax.swing.JFrame {
     private char opt3;
 
     public frmGeneral(java.awt.Frame parent, boolean modal) {
-
         initComponents();
-        this.setTitle("Tramite Documentario: Registro de Documentos, Cargo, Recepción,Derivacion");
+        this.setTitle("Trámite Documentario: Registro de Documentos, Cargo, Recepción, Derivacion");
         try {
             JFormattedTextField txtfechaCargo = new JFormattedTextField(new FormatoFecha());
             txtfechaCargo.setValue(new Date());
             txtFechaCargo.setEnabled(false);
+            txtfechaDevolucion.setEnabled(false);
         } catch (Exception e) {
         }
-        txtCodigoCargo.setEnabled(false);
-        modeloListaDestinatatio = new DefaultListModel();
-        lsDestinatario.setModel(modeloListaDestinatatio);
+        this.setLocationRelativeTo(null);
+        
+        modeloListaDestinatario = new DefaultListModel();
+        lsDestinatario.setModel(modeloListaDestinatario);
 
         modeloListaArchivo = new DefaultListModel();
         lsArchivos.setModel(modeloListaArchivo);
 //       
         camposDeshabilitado();
-        cargarDatos();
+        cargarDatos(); //En desuso
         llenarCombos();
     }
 
@@ -183,7 +187,6 @@ public class frmGeneral extends javax.swing.JFrame {
         btnNuevoDocumento = new javax.swing.JButton();
         btnGrabarDocumento = new javax.swing.JButton();
         btnCancelarDocumento = new javax.swing.JButton();
-        btnSalirDocumento = new javax.swing.JButton();
         cboEstadoDocumento = new javax.swing.JComboBox();
         jLabel20 = new javax.swing.JLabel();
         lblNumeroDocumento = new javax.swing.JLabel();
@@ -192,7 +195,7 @@ public class frmGeneral extends javax.swing.JFrame {
         btnEliminarDocumento = new javax.swing.JButton();
         txtDestinatario = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
-        lsDestinatario = new javax.swing.JList<String>();
+        lsDestinatario = new javax.swing.JList<>();
         txtFechaDocumento = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
         btnBuscarDocumento = new javax.swing.JButton();
@@ -201,9 +204,10 @@ public class frmGeneral extends javax.swing.JFrame {
         txtRutaDestino = new javax.swing.JTextField();
         btnAgregarArchivo = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
-        lsArchivos = new javax.swing.JList<String>();
-        jButton1 = new javax.swing.JButton();
+        lsArchivos = new javax.swing.JList<>();
+        btnQuitarArchivo = new javax.swing.JButton();
         spFolios = new javax.swing.JSpinner();
+        btnSalirDocumento = new javax.swing.JButton();
         tbCargo = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -229,11 +233,10 @@ public class frmGeneral extends javax.swing.JFrame {
         txtNroDocumentoCargo = new javax.swing.JTextField();
         btnModificarCargo = new javax.swing.JButton();
         btnCancelar1 = new javax.swing.JButton();
-        btnSalir1 = new javax.swing.JButton();
         txtFechaCargo = new com.toedter.calendar.JDateChooser();
-        btnEliminarDocumento1 = new javax.swing.JButton();
+        btnEliminarCargo = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        cbdevolucion = new javax.swing.JComboBox<String>();
+        cbdevolucion = new javax.swing.JComboBox<>();
         jLabel15 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
@@ -243,6 +246,7 @@ public class frmGeneral extends javax.swing.JFrame {
         lblIdDocumentoCargo = new javax.swing.JLabel();
         lbcod1 = new javax.swing.JLabel();
         txtRecepcionistaCargo = new javax.swing.JTextField();
+        btnSalir1 = new javax.swing.JButton();
         tbRecepcion = new javax.swing.JPanel();
         lblRec = new javax.swing.JLabel();
         txtIdRecepcion = new javax.swing.JTextField();
@@ -253,16 +257,16 @@ public class frmGeneral extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txtHoraRecepcion = new javax.swing.JTextField();
         txtCodRemRecepcion = new javax.swing.JTextField();
-        btnNuevo = new javax.swing.JButton();
-        btngrabar = new javax.swing.JButton();
+        btnNuevoRecepcion = new javax.swing.JButton();
+        btngrabarRecepcion = new javax.swing.JButton();
         btnModificarRecepcion = new javax.swing.JButton();
-        btncancelar = new javax.swing.JButton();
-        btneliminar = new javax.swing.JButton();
+        btncancelarRecepcion = new javax.swing.JButton();
+        btneliminarRecepcion = new javax.swing.JButton();
         btnsalir = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtfechaRecepcion = new javax.swing.JTextField();
-        btnBuscar = new javax.swing.JButton();
+        btnBuscarR = new javax.swing.JButton();
         jSeparator5 = new javax.swing.JSeparator();
         btnBuscarRecepcion = new javax.swing.JButton();
         jLabel29 = new javax.swing.JLabel();
@@ -283,23 +287,23 @@ public class frmGeneral extends javax.swing.JFrame {
         txtcodiDoc = new javax.swing.JTextField();
         lblDocu = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        cbderivacion = new javax.swing.JComboBox<String>();
+        cbderivacion = new javax.swing.JComboBox<>();
         txtnombreRemi = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         lblCodDerivacion = new javax.swing.JLabel();
         txtcodigoDerivacion = new javax.swing.JTextField();
         txtMotivoDerivacion = new javax.swing.JTextField();
-        btnnuevo3 = new javax.swing.JButton();
-        btngrabar3 = new javax.swing.JButton();
-        btnModificar3 = new javax.swing.JButton();
-        btnCancelar3 = new javax.swing.JButton();
+        btnNuevoDerivacion = new javax.swing.JButton();
+        btnGrabarDerivacion = new javax.swing.JButton();
+        btnModificarDerivacion = new javax.swing.JButton();
+        btnCancelarDerivacion = new javax.swing.JButton();
         btnSalir3 = new javax.swing.JButton();
-        btnEliminar3 = new javax.swing.JButton();
+        btnEliminarDerivacion = new javax.swing.JButton();
         txtFechaDerivacion = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         btnBuscarDerivacion = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
-        cbPRIORIDAD = new javax.swing.JComboBox<String>();
+        cbPRIORIDAD = new javax.swing.JComboBox<>();
         jSeparator4 = new javax.swing.JSeparator();
         jLabel13 = new javax.swing.JLabel();
         btnBuscarDerivacionDocumento = new javax.swing.JButton();
@@ -395,7 +399,7 @@ public class frmGeneral extends javax.swing.JFrame {
                 cboTipoDocumentoKeyPressed(evt);
             }
         });
-        tbDocumento.add(cboTipoDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 210, -1));
+        tbDocumento.add(cboTipoDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 210, 30));
 
         txtInstitucion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -474,16 +478,6 @@ public class frmGeneral extends javax.swing.JFrame {
             }
         });
         tbDocumento.add(btnCancelarDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 40, 40));
-
-        btnSalirDocumento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnSalir.png"))); // NOI18N
-        btnSalirDocumento.setToolTipText("Salir");
-        btnSalirDocumento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSalirDocumento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirDocumentoActionPerformed(evt);
-            }
-        });
-        tbDocumento.add(btnSalirDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 40, 40));
 
         cboEstadoDocumento.setEnabled(false);
         cboEstadoDocumento.addItemListener(new java.awt.event.ItemListener() {
@@ -568,6 +562,7 @@ public class frmGeneral extends javax.swing.JFrame {
 
         btnQuitaDestinatario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/eliminar.gif"))); // NOI18N
         btnQuitaDestinatario.setText("Quitar");
+        btnQuitaDestinatario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnQuitaDestinatario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnQuitaDestinatarioActionPerformed(evt);
@@ -577,6 +572,7 @@ public class frmGeneral extends javax.swing.JFrame {
 
         btnAregarDestinatario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/agregar.gif"))); // NOI18N
         btnAregarDestinatario.setText("Agregar");
+        btnAregarDestinatario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAregarDestinatario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAregarDestinatarioActionPerformed(evt);
@@ -590,6 +586,7 @@ public class frmGeneral extends javax.swing.JFrame {
 
             btnAgregarArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/agregar.gif"))); // NOI18N
             btnAgregarArchivo.setText("Adjuntar Archivo");
+            btnAgregarArchivo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             btnAgregarArchivo.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btnAgregarArchivoActionPerformed(evt);
@@ -601,14 +598,15 @@ public class frmGeneral extends javax.swing.JFrame {
 
             tbDocumento.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 430, 680, 110));
 
-            jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/eliminar.gif"))); // NOI18N
-            jButton1.setText("Quitar");
-            jButton1.addActionListener(new java.awt.event.ActionListener() {
+            btnQuitarArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/eliminar.gif"))); // NOI18N
+            btnQuitarArchivo.setText("Quitar");
+            btnQuitarArchivo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+            btnQuitarArchivo.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    jButton1ActionPerformed(evt);
+                    btnQuitarArchivoActionPerformed(evt);
                 }
             });
-            tbDocumento.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 400, 90, -1));
+            tbDocumento.add(btnQuitarArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 400, 90, -1));
 
             spFolios.setToolTipText("");
             spFolios.setValue(1);
@@ -618,6 +616,16 @@ public class frmGeneral extends javax.swing.JFrame {
                 }
             });
             tbDocumento.add(spFolios, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 110, 50, -1));
+
+            btnSalirDocumento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnSalir.png"))); // NOI18N
+            btnSalirDocumento.setToolTipText("Salir");
+            btnSalirDocumento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+            btnSalirDocumento.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    btnSalirDocumentoActionPerformed(evt);
+                }
+            });
+            tbDocumento.add(btnSalirDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 40, 40));
 
             tabPane.addTab("Documento", tbDocumento);
 
@@ -690,6 +698,7 @@ public class frmGeneral extends javax.swing.JFrame {
 
             btnNuevoCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnNuevo.jpg"))); // NOI18N
             btnNuevoCargo.setToolTipText("Nuevo Cargo");
+            btnNuevoCargo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             btnNuevoCargo.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btnNuevoCargoActionPerformed(evt);
@@ -700,6 +709,7 @@ public class frmGeneral extends javax.swing.JFrame {
 
             btnGrabarCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnGrabar.jpg"))); // NOI18N
             btnGrabarCargo.setToolTipText("Grabar Cargo");
+            btnGrabarCargo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             btnGrabarCargo.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btnGrabarCargoActionPerformed(evt);
@@ -709,6 +719,7 @@ public class frmGeneral extends javax.swing.JFrame {
 
             btnBuscarCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnBuscar.jpg"))); // NOI18N
             btnBuscarCargo.setToolTipText("Buscar Cargo");
+            btnBuscarCargo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             btnBuscarCargo.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btnBuscarCargoActionPerformed(evt);
@@ -725,6 +736,7 @@ public class frmGeneral extends javax.swing.JFrame {
 
             btnModificarCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/modiicar.png"))); // NOI18N
             btnModificarCargo.setToolTipText("Actualizar");
+            btnModificarCargo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             btnModificarCargo.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btnModificarCargoActionPerformed(evt);
@@ -734,35 +746,29 @@ public class frmGeneral extends javax.swing.JFrame {
 
             btnCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/cancelar2.png"))); // NOI18N
             btnCancelar1.setToolTipText("Deshacer");
+            btnCancelar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             btnCancelar1.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btnCancelar1ActionPerformed(evt);
                 }
             });
             tbCargo.add(btnCancelar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 40, 40));
-
-            btnSalir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnSalir.png"))); // NOI18N
-            btnSalir1.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnSalir1ActionPerformed(evt);
-                }
-            });
-            tbCargo.add(btnSalir1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 40, 40));
             tbCargo.add(txtFechaCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 100, -1));
 
-            btnEliminarDocumento1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/eliminar1.png"))); // NOI18N
-            btnEliminarDocumento1.setToolTipText("Eliminar");
-            btnEliminarDocumento1.addActionListener(new java.awt.event.ActionListener() {
+            btnEliminarCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/eliminar1.png"))); // NOI18N
+            btnEliminarCargo.setToolTipText("Eliminar");
+            btnEliminarCargo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+            btnEliminarCargo.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnEliminarDocumento1ActionPerformed(evt);
+                    btnEliminarCargoActionPerformed(evt);
                 }
             });
-            tbCargo.add(btnEliminarDocumento1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 40, 40));
+            tbCargo.add(btnEliminarCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 40, 40));
 
             jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Devoluciòn", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
             jPanel1.setToolTipText("");
 
-            cbdevolucion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Enviado", "Devolucion" }));
+            cbdevolucion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enviado", "Devolucion" }));
 
             jLabel15.setText("Estado");
 
@@ -823,6 +829,16 @@ public class frmGeneral extends javax.swing.JFrame {
             tbCargo.add(lbcod1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 110, 20));
             tbCargo.add(txtRecepcionistaCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 250, 550, 20));
 
+            btnSalir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnSalir.png"))); // NOI18N
+            btnSalir1.setToolTipText("Salir");
+            btnSalir1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+            btnSalir1.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    btnSalir1ActionPerformed(evt);
+                }
+            });
+            tbCargo.add(btnSalir1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 40, 40));
+
             tabPane.addTab("Cargo", tbCargo);
 
             tbRecepcion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -866,23 +882,29 @@ public class frmGeneral extends javax.swing.JFrame {
             tbRecepcion.add(txtHoraRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 90, 110, -1));
             tbRecepcion.add(txtCodRemRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 180, 69, -1));
 
-            btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnNuevo.jpg"))); // NOI18N
-            btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            btnNuevoRecepcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnNuevo.jpg"))); // NOI18N
+            btnNuevoRecepcion.setToolTipText("Nuevo");
+            btnNuevoRecepcion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+            btnNuevoRecepcion.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnNuevoActionPerformed(evt);
+                    btnNuevoRecepcionActionPerformed(evt);
                 }
             });
-            tbRecepcion.add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 40));
+            tbRecepcion.add(btnNuevoRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 40));
 
-            btngrabar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnGrabar.jpg"))); // NOI18N
-            btngrabar.addActionListener(new java.awt.event.ActionListener() {
+            btngrabarRecepcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnGrabar.jpg"))); // NOI18N
+            btngrabarRecepcion.setToolTipText("Guardar");
+            btngrabarRecepcion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+            btngrabarRecepcion.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btngrabarActionPerformed(evt);
+                    btngrabarRecepcionActionPerformed(evt);
                 }
             });
-            tbRecepcion.add(btngrabar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 40, 40));
+            tbRecepcion.add(btngrabarRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 40, 40));
 
             btnModificarRecepcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/modiicar.png"))); // NOI18N
+            btnModificarRecepcion.setToolTipText("Actualizar");
+            btnModificarRecepcion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             btnModificarRecepcion.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btnModificarRecepcionActionPerformed(evt);
@@ -890,23 +912,29 @@ public class frmGeneral extends javax.swing.JFrame {
             });
             tbRecepcion.add(btnModificarRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 40, 40));
 
-            btncancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/cancelar2.png"))); // NOI18N
-            btncancelar.addActionListener(new java.awt.event.ActionListener() {
+            btncancelarRecepcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/cancelar2.png"))); // NOI18N
+            btncancelarRecepcion.setToolTipText("Cancelar");
+            btncancelarRecepcion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+            btncancelarRecepcion.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btncancelarActionPerformed(evt);
+                    btncancelarRecepcionActionPerformed(evt);
                 }
             });
-            tbRecepcion.add(btncancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 40, 40));
+            tbRecepcion.add(btncancelarRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 40, 40));
 
-            btneliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/eliminar1.png"))); // NOI18N
-            btneliminar.addActionListener(new java.awt.event.ActionListener() {
+            btneliminarRecepcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/eliminar1.png"))); // NOI18N
+            btneliminarRecepcion.setToolTipText("Eliminar");
+            btneliminarRecepcion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+            btneliminarRecepcion.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btneliminarActionPerformed(evt);
+                    btneliminarRecepcionActionPerformed(evt);
                 }
             });
-            tbRecepcion.add(btneliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 40, 40));
+            tbRecepcion.add(btneliminarRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 40, 40));
 
             btnsalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnSalir.png"))); // NOI18N
+            btnsalir.setToolTipText("Salir");
+            btnsalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             btnsalir.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btnsalirActionPerformed(evt);
@@ -916,24 +944,26 @@ public class frmGeneral extends javax.swing.JFrame {
 
             jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
             jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            jLabel7.setText("Recepcion");
+            jLabel7.setText("Recepción");
             tbRecepcion.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 180, 25));
 
             jLabel4.setText("Hora");
             tbRecepcion.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 90, -1, 20));
             tbRecepcion.add(txtfechaRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, 130, -1));
 
-            btnBuscar.setText("Buscar");
-            btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            btnBuscarR.setText("Buscar");
+            btnBuscarR.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnBuscarActionPerformed(evt);
+                    btnBuscarRActionPerformed(evt);
                 }
             });
-            tbRecepcion.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 180, 70, -1));
+            tbRecepcion.add(btnBuscarR, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 180, 70, -1));
             tbRecepcion.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 60, 810, 10));
 
             btnBuscarRecepcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnBuscar.jpg"))); // NOI18N
-            btnBuscarRecepcion.setToolTipText("Buscar Cargo");
+            btnBuscarRecepcion.setToolTipText("Buscar ");
+            btnBuscarRecepcion.setContentAreaFilled(false);
+            btnBuscarRecepcion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             btnBuscarRecepcion.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btnBuscarRecepcionActionPerformed(evt);
@@ -977,7 +1007,7 @@ public class frmGeneral extends javax.swing.JFrame {
             tbRecepcion.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 300, 460, -1));
             tbRecepcion.add(txtCodigoRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 100, -1));
 
-            tabPane.addTab("Recepcion", tbRecepcion);
+            tabPane.addTab("Recepción", tbRecepcion);
 
             tbDerivacion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -996,7 +1026,7 @@ public class frmGeneral extends javax.swing.JFrame {
             jLabel12.setText("Remitente");
             tbDerivacion.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 80, 20));
 
-            cbderivacion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "DERIVADO", "ATENDIDO", " " }));
+            cbderivacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DERIVADO", "ATENDIDO", " " }));
             tbDerivacion.add(cbderivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, 90, 20));
             tbDerivacion.add(txtnombreRemi, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 500, 20));
 
@@ -1010,39 +1040,49 @@ public class frmGeneral extends javax.swing.JFrame {
             tbDerivacion.add(txtcodigoDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 90, 20));
             tbDerivacion.add(txtMotivoDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 500, 20));
 
-            btnnuevo3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnNuevo.jpg"))); // NOI18N
-            btnnuevo3.addActionListener(new java.awt.event.ActionListener() {
+            btnNuevoDerivacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnNuevo.jpg"))); // NOI18N
+            btnNuevoDerivacion.setToolTipText("Nuevo");
+            btnNuevoDerivacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+            btnNuevoDerivacion.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnnuevo3ActionPerformed(evt);
+                    btnNuevoDerivacionActionPerformed(evt);
                 }
             });
-            tbDerivacion.add(btnnuevo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 40));
+            tbDerivacion.add(btnNuevoDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 40));
 
-            btngrabar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnGrabar.jpg"))); // NOI18N
-            btngrabar3.addActionListener(new java.awt.event.ActionListener() {
+            btnGrabarDerivacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnGrabar.jpg"))); // NOI18N
+            btnGrabarDerivacion.setToolTipText("Guardar");
+            btnGrabarDerivacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+            btnGrabarDerivacion.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btngrabar3ActionPerformed(evt);
+                    btnGrabarDerivacionActionPerformed(evt);
                 }
             });
-            tbDerivacion.add(btngrabar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 40, 40));
+            tbDerivacion.add(btnGrabarDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 40, 40));
 
-            btnModificar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/modiicar.png"))); // NOI18N
-            btnModificar3.addActionListener(new java.awt.event.ActionListener() {
+            btnModificarDerivacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/modiicar.png"))); // NOI18N
+            btnModificarDerivacion.setToolTipText("Actualizar");
+            btnModificarDerivacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+            btnModificarDerivacion.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnModificar3ActionPerformed(evt);
+                    btnModificarDerivacionActionPerformed(evt);
                 }
             });
-            tbDerivacion.add(btnModificar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 40, 40));
+            tbDerivacion.add(btnModificarDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 40, 40));
 
-            btnCancelar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/cancelar2.png"))); // NOI18N
-            btnCancelar3.addActionListener(new java.awt.event.ActionListener() {
+            btnCancelarDerivacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/cancelar2.png"))); // NOI18N
+            btnCancelarDerivacion.setToolTipText("Cancelar");
+            btnCancelarDerivacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+            btnCancelarDerivacion.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnCancelar3ActionPerformed(evt);
+                    btnCancelarDerivacionActionPerformed(evt);
                 }
             });
-            tbDerivacion.add(btnCancelar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 40, 40));
+            tbDerivacion.add(btnCancelarDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 40, 40));
 
             btnSalir3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnSalir.png"))); // NOI18N
+            btnSalir3.setToolTipText("Salir");
+            btnSalir3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             btnSalir3.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btnSalir3ActionPerformed(evt);
@@ -1050,13 +1090,15 @@ public class frmGeneral extends javax.swing.JFrame {
             });
             tbDerivacion.add(btnSalir3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 40, 40));
 
-            btnEliminar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/eliminar1.png"))); // NOI18N
-            btnEliminar3.addActionListener(new java.awt.event.ActionListener() {
+            btnEliminarDerivacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/eliminar1.png"))); // NOI18N
+            btnEliminarDerivacion.setToolTipText("Eliminar");
+            btnEliminarDerivacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+            btnEliminarDerivacion.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnEliminar3ActionPerformed(evt);
+                    btnEliminarDerivacionActionPerformed(evt);
                 }
             });
-            tbDerivacion.add(btnEliminar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 40, 40));
+            tbDerivacion.add(btnEliminarDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 40, 40));
             tbDerivacion.add(txtFechaDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 90, -1));
 
             jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -1076,7 +1118,7 @@ public class frmGeneral extends javax.swing.JFrame {
             jLabel11.setText("Priroridad");
             tbDerivacion.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 70, -1));
 
-            cbPRIORIDAD.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Alto", "Bajo", "Regular" }));
+            cbPRIORIDAD.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alto", "Bajo", "Regular" }));
             tbDerivacion.add(cbPRIORIDAD, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, 90, -1));
             tbDerivacion.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 60, 810, 10));
 
@@ -1086,7 +1128,8 @@ public class frmGeneral extends javax.swing.JFrame {
             tbDerivacion.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 180, 25));
 
             btnBuscarDerivacionDocumento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnBuscar.jpg"))); // NOI18N
-            btnBuscarDerivacionDocumento.setToolTipText("Buscar Cargo");
+            btnBuscarDerivacionDocumento.setToolTipText("Buscar ");
+            btnBuscarDerivacionDocumento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             btnBuscarDerivacionDocumento.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     btnBuscarDerivacionDocumentoActionPerformed(evt);
@@ -1100,7 +1143,7 @@ public class frmGeneral extends javax.swing.JFrame {
 
             tbDerivacion.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 500, 50));
 
-            tabPane.addTab("Derivacion", tbDerivacion);
+            tabPane.addTab("Derivación", tbDerivacion);
 
             javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
             getContentPane().setLayout(layout);
@@ -1138,7 +1181,7 @@ public class frmGeneral extends javax.swing.JFrame {
                 if (opt2 == 'E') {
                     oDocumento = new Documento();
                     oDocumento.setIdDocumento(idDocumentoCargo);
-                    int rpta = JOptionPane.showConfirmDialog(this, "Seguro que desea eliminar",
+                    int rpta = JOptionPane.showConfirmDialog(this, "¿Seguro que desea eliminar?",
                             "DOCUMENTO", JOptionPane.YES_NO_OPTION);
                     if (rpta == 0) {
                         if (DocumentoBo.eliminarDocumento(oDocumento)) {
@@ -1157,8 +1200,8 @@ public class frmGeneral extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione el Documento", "DOCUMENTO", JOptionPane.ERROR_MESSAGE);
         }
-        btnsEdicionHabilitar();
-        btnsConfirmarDeshabilitar();
+        btnsHabilitarRecepcion();
+        //btnsConfirmarDeshabilitar();
     }//GEN-LAST:event_btnEliminarDocumentoActionPerformed
 
     private void btnModificarDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarDocumentoActionPerformed
@@ -1191,8 +1234,8 @@ public class frmGeneral extends javax.swing.JFrame {
             txtAreaDocumento.setText(areaDocumento);
             spFolios.setValue(String.valueOf(folios));
             cboEstadoDocumento.getSelectedItem();
-            btnsConfirmarHabilitar2();
-            btnsEdicionDeshabilitar2();
+            btnsHabilitarDocumento();
+            btnsDeshabilitarDocumento();
         }
     }//GEN-LAST:event_btnModificarDocumentoActionPerformed
 
@@ -1201,18 +1244,9 @@ public class frmGeneral extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirDocumentoActionPerformed
 
     private void btnCancelarDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarDocumentoActionPerformed
-        limpiarCampos2();
-        camposDeshabilitado();
-        btnsEdicionHabilitar();
-        btnsConfirmarDeshabilitar();
-        btnsConfirmarDeshabilitar();
+        limpiarCamposDocumentos();
+        deshabilitarCamposDocumento();
         btnNuevoDocumento.setEnabled(true);
-        cboTipoDocumento.setEnabled(false);
-        btnAregarDestinatario.setEnabled(false);
-        btnQuitaDestinatario.setEnabled(false);
-        btnAgregarArchivo.setEnabled(false);
-        jButton1.setEnabled(false);
-        cboEstadoDocumento.setEnabled(true);
         btnBuscarDocumento.setEnabled(true);
     }//GEN-LAST:event_btnCancelarDocumentoActionPerformed
 
@@ -1247,7 +1281,7 @@ public class frmGeneral extends javax.swing.JFrame {
                 try {
                     if (DocumentoBo.grabarDocumento(oDocumento)) {
                         JOptionPane.showMessageDialog(this, "Se Registró Correctamente", "MENSAJE --> DOCUMENTO", JOptionPane.INFORMATION_MESSAGE);
-                        limpiarCampos2();
+                        limpiarCamposDocumentos();
 //                        cargarDatos();
                     } else {
                         JOptionPane.showMessageDialog(this, "No se pudo Registrar", "MENSAJE --> DOCUMENTO", JOptionPane.ERROR_MESSAGE);
@@ -1287,23 +1321,19 @@ public class frmGeneral extends javax.swing.JFrame {
     private void btnNuevoDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoDocumentoActionPerformed
         opt2 = 'N';
         txtDocumento.setEditable(true);
-        txtDocumento.setText("");
         // txtAnio.setEditable(true);
-        this.txtAnio.setText("");
         lsDestinatario.setEnabled(true);
         lsDestinatario.clearSelection();
         txtAsunto.setEditable(true);
-        txtAsunto.setText("");
         txtInstitucion.setEditable(true);
-        txtInstitucion.setText("");
         txtAreaDocumento.setEditable(true);
-        txtAreaDocumento.setText("");
         spFolios.setEnabled(true);
         spFolios.setValue(1);
-        limpiarCampos2();
-        camposHabilitado2();
-        btnsEdicionDeshabilitar2();
-        btnsConfirmarHabilitar2();
+        limpiarCamposDocumentos();
+        habilitarCamposDocumento();
+        //camposHabilitado2();
+        btnsDeshabilitarDocumento();
+        btnsHabilitarDocumento();
         Calendar fecha = Calendar.getInstance();
         txtAnio.setText(String.valueOf(fecha.get(Calendar.YEAR)));
         Date fechaActual = new Date();
@@ -1311,15 +1341,6 @@ public class frmGeneral extends javax.swing.JFrame {
         txtFechaDocumento.setText((formatoFecha.format(fechaActual)).toString());
         int nroDoc = ((TipoDocumento) cboTipoDocumento.getSelectedItem()).getIdTipoDocumento();
         cargarUltimoCorrelativo(nroDoc);
-        btnNuevoDocumento.setEnabled(false);
-        cboTipoDocumento.setEnabled(true);
-        btnAregarDestinatario.setEnabled(true);
-        btnQuitaDestinatario.setEnabled(true);
-        btnAgregarArchivo.setEnabled(true);
-        jButton1.setEnabled(true);
-        cboEstadoDocumento.setEnabled(true);
-        spFolios.setEnabled(true);
-        btnBuscarDocumento.setEnabled(false);
     }//GEN-LAST:event_btnNuevoDocumentoActionPerformed
 
     private void cboTipoDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTipoDocumentoActionPerformed
@@ -1352,7 +1373,7 @@ public class frmGeneral extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnsalirActionPerformed
 
-    private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
+    private void btneliminarRecepcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarRecepcionActionPerformed
         codigo = Integer.parseInt(txtIdRecepcion.getText());
         if (codigo != 0) {
             opt = 'E';
@@ -1368,7 +1389,7 @@ public class frmGeneral extends javax.swing.JFrame {
                     if (RecepcionBo.eliminarRecepcion(oRecepcion)) {
                         JOptionPane.showMessageDialog(this, "Se Eliminó Correctamente", "RECEPCION",
                                 JOptionPane.INFORMATION_MESSAGE);
-                        limpiarCampos();
+                        limpiarCamposRecepcion();
                     } else {
                         JOptionPane.showMessageDialog(this, "No se pudo Eliminar", "RECEPCION",
                                 JOptionPane.ERROR_MESSAGE);
@@ -1381,20 +1402,20 @@ public class frmGeneral extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione Recepcion", "RECEPCION", JOptionPane.ERROR_MESSAGE);
         }
-        btnsEdicionHabilitar();
-        btnsConfirmarDeshabilitar();
-    }//GEN-LAST:event_btneliminarActionPerformed
+        btnsHabilitarRecepcion();
+        //btnsConfirmarDeshabilitar();
+    }//GEN-LAST:event_btneliminarRecepcionActionPerformed
 
-    private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
+    private void btncancelarRecepcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarRecepcionActionPerformed
         if (opt == 'M') {
             lblRec.setVisible(false);
             txtIdRecepcion.setVisible(false);
         }
-        btnsEdicionHabilitar();
-        btnsConfirmarDeshabilitar();
-        limpiarCampos();
-        camposDeshabilitado();
-    }//GEN-LAST:event_btncancelarActionPerformed
+        limpiarCamposRecepcion();
+        deshabilitarCamposRecepcion();
+        btnsHabilitarRecepcion();
+        //btnsConfirmarDeshabilitar();  
+    }//GEN-LAST:event_btncancelarRecepcionActionPerformed
 
     private void btnModificarRecepcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarRecepcionActionPerformed
         if (codigo != 0) {
@@ -1417,13 +1438,13 @@ public class frmGeneral extends javax.swing.JFrame {
             txtDestinatarioRecepcion.setText(InstitucionRecepcion);
             txtfechaRecepcion.setText(FechaRecepcion);
             txtHoraRecepcion.setText(HoraRecepcion);
-            btnsConfirmarHabilitar();
-            btnsEdicionDeshabilitar();
+            btnsHabilitarRecepcion_Nuevo();
+            btnsDeshabilitarCargo();
             //            JOptionPane.showMessageDialog(this, "Seleccione el Remitente", "REMITENTE", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnModificarRecepcionActionPerformed
 
-    private void btngrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngrabarActionPerformed
+    private void btngrabarRecepcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngrabarRecepcionActionPerformed
         idRecepcion = 1;//Integer.parseInt(txtIdRecepcion.getText()) ;
         codigoRecepcion = txtCodigoRecepcion.getText();
         DocumentoRecepcion = txtDocumentoRecepcion.getText();
@@ -1486,41 +1507,30 @@ public class frmGeneral extends javax.swing.JFrame {
         lblRec.setVisible(false);
         txtIdRecepcion.setVisible(false);
         cargarDatos();
-        btnsConfirmarDeshabilitar();
-        btnsEdicionHabilitar();
-    }//GEN-LAST:event_btngrabarActionPerformed
+        //btnsConfirmarDeshabilitar();
+        btnsHabilitarRecepcion();
+    }//GEN-LAST:event_btngrabarRecepcionActionPerformed
 
-    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+    private void btnNuevoRecepcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoRecepcionActionPerformed
         opt = 'N';
         txtIdRecepcion.setEnabled(false);
         txtCodigoRecepcion.setEnabled(false);
-        txtCodigoRecepcion.setText("");
         txtDocumentoRecepcion.setEditable(true);
-        txtDocumentoRecepcion.setText("");
         txtInstitucionRecepcion.setEditable(true);
-        txtInstitucionRecepcion.setText("");
         txtRemitenteRecepcion.setEnabled(false);
-        txtRemitenteRecepcion.setText("");
         txtCodRemRecepcion.setEnabled(false);
-        txtCodRemRecepcion.setText("");
         txtAsuntoRecepcion.setEditable(true);
-        txtAsuntoRecepcion.setText("");
         txtReferenciaRecepcion.setEditable(true);
-        txtReferenciaRecepcion.setText("");
         txtDestinatarioRecepcion.setEditable(true);
-        txtDestinatarioRecepcion.setText("");
         txaObsRecepcion.setEditable(true);
-        txaObsRecepcion.setText("");
         txtfechaRecepcion.setEditable(true);
-        txtfechaRecepcion.setText("");
         txtHoraRecepcion.setEditable(true);
-        txtHoraRecepcion.setText("");
-        btnsConfirmarHabilitar();
-        btnsEdicionDeshabilitar();
+        limpiarCamposRecepcion();
+        btnsHabilitarRecepcion_Nuevo();
+        btnsDeshabilitarRecepcion_Nuevo();
         camposHabilitado();
-        limpiarCampos();
         cargarCorrelativoRecepcion();
-    }//GEN-LAST:event_btnNuevoActionPerformed
+    }//GEN-LAST:event_btnNuevoRecepcionActionPerformed
 
     private void txtHoraRecepcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHoraRecepcionActionPerformed
         // TODO add your handling code here:
@@ -1609,6 +1619,9 @@ public class frmGeneral extends javax.swing.JFrame {
             lblNumeroDocumento.setText(secuencia);
             lsDocumento = ((TipoDocumento) cboTipoDocumento.getSelectedItem()).getTipoDocumento();
             txtDocumento.setText(lsDocumento + " N° " + lblNumeroDocumento.getText() + "-" + txtAnio.getText() + "-FISME-UNTRM/BAGUA");
+            String sql = "SELECT idDocumento FROM dbo.Documento ORDER BY idDocumento DESC LIMIT 1";
+//            st = con.createStatement();
+//            ResultSet rs = st.executeQuery(sql);
             txtIdDocumento.setText("1");
 //            cargarIdDocumento();
         } catch (Exception e) {
@@ -1718,8 +1731,8 @@ public class frmGeneral extends javax.swing.JFrame {
         lblcodigoCargo.setVisible(false);
         txtCodigoCargo.setVisible(false);
         cargarDatos();
-        btnsConfirmarDeshabilitar();
-        btnsEdicionHabilitar();
+        //btnsConfirmarDeshabilitar();
+        btnsHabilitarRecepcion();
     }//GEN-LAST:event_btnGrabarCargoActionPerformed
 
     private void btnNuevoCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoCargoActionPerformed
@@ -1727,20 +1740,28 @@ public class frmGeneral extends javax.swing.JFrame {
         lblcodigoCargo.setVisible(true);
         txtCodigoCargo.setVisible(true);
         txtCodigoCargo.setEditable(false);
-        txtDocumentoCargo.setEditable(true);
-        txtDocumentoCargo.setText("");
-        txtFechaCargo.setEnabled(true);;
-        txtFechaCargo.setDate(null);;
+        txtFechaCargo.setEnabled(true);
+        txtFechaCargo.setDate(null);
         txtHoraCargo.setEditable(true);
         txtHoraCargo.setText("");
+        txtNroDocumentoCargo.setEditable(true);
+        txtNroDocumentoCargo.setText("");
+        txtDocumentoCargo.setEditable(true);
+        txtDocumentoCargo.setText("");
+        txtAsunto.setEditable(true);
+        txtAsunto.setText("");
+        txtInstitucion.setEditable(true);
+        txtInstitucion.setText("");
         txtAreaCargo.setEditable(true);
         txtAreaCargo.setText("");
+        txtRecepcionistaCargo.setEditable(true);
+        txtRecepcionistaCargo.setText("");
         txtObservacionCargo.setEditable(true);
         txtObservacionCargo.setText("");
-        btnsConfirmarHabilitar1();
-        btnsEdicionDeshabilitar();
+        btnsHabilitarCargo();
+        btnsDeshabilitarCargo();
         camposHabilitado1();
-        limpiarCampos1();
+        limpiarCamposCargo();
         cargarCorrelativoCargo();
     }//GEN-LAST:event_btnNuevoCargoActionPerformed
 
@@ -1763,17 +1784,17 @@ public class frmGeneral extends javax.swing.JFrame {
             txtAreaCargo.setText(AreaCargo);
 //            txtRemitenteRecepcion.setText(RemitenteRecepcion);
             txtObservacionCargo.setText(Recepcionista);
-            btnsConfirmarHabilitar();
-            btnsEdicionDeshabilitar();
+            btnsHabilitarRecepcion_Nuevo();
+            btnsDeshabilitarCargo();
             //            JOptionPane.showMessageDialog(this, "Seleccione el Cargo", "CARGO", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnModificarCargoActionPerformed
 
     private void btnCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar1ActionPerformed
-        if (opt == 'M') {
-            lblcodigoCargo.setVisible(false);
-            txtFechaCargo.setVisible(false);
-        }
+        limpiarCamposCargo();
+        deshabilitarCamposCargo();
+        btnNuevoCargo.setEnabled(true);
+	btnBuscarCargo.setEnabled(true);     
     }//GEN-LAST:event_btnCancelar1ActionPerformed
 
     private void btnSalir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir1ActionPerformed
@@ -1784,7 +1805,7 @@ public class frmGeneral extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNroDocumentoCargoActionPerformed
 
-    private void btngrabar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngrabar3ActionPerformed
+    private void btnGrabarDerivacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarDerivacionActionPerformed
         Derivacion = cbderivacion.getSelectedItem().toString();
         FechaDerivacion = txtFechaDerivacion.getText();
         Remitentederivacion = txtnombreRemi.getText();
@@ -1804,13 +1825,13 @@ public class frmGeneral extends javax.swing.JFrame {
 
                 try {
                     if (DerivacionBo.grabarDerivacion(oDerivacion)) {
-                        JOptionPane.showMessageDialog(this, "Se Registró Correctamente", "MENSAJE --> DERIVACION", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Se Registró Correctamente", "MENSAJE → DERIVACION", JOptionPane.INFORMATION_MESSAGE);
                         cargarDatos3();
                     } else {
-                        JOptionPane.showMessageDialog(this, "No se pudo Registrar", "MENSAJE -->DERIVACION", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "No se pudo Registrar", "MENSAJE → DERIVACION", JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, e.getMessage(), "MENSAJE --> DERIVACION", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, e.getMessage(), "MENSAJE → DERIVACION", JOptionPane.ERROR_MESSAGE);
                 }
                 break;
             case 'M':
@@ -1839,33 +1860,23 @@ public class frmGeneral extends javax.swing.JFrame {
         camposDeshabilitado3();
         lblCodDerivacion.setVisible(true);
         txtcodigoDerivacion.setVisible(true);
-        cargarDatos3();
+        cargarDatos3(); //En desuso
         btnsConfirmarDeshabilitar3();
-        btnsEdicionHabilitar3();
+        btnsHabilitarDerivacion();
+    }//GEN-LAST:event_btnGrabarDerivacionActionPerformed
 
-    }//GEN-LAST:event_btngrabar3ActionPerformed
-
-    private void btnnuevo3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevo3ActionPerformed
+    private void btnNuevoDerivacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoDerivacionActionPerformed
         opt = 'N';
-        cbderivacion.getSelectedItem().toString();
-        cbderivacion.setEditable(true);
         txtFechaDerivacion.setEditable(true);
-        txtFechaDerivacion.setText("");
 //        txtcodiDoc.setEditable(true);
 //        txtcodiDoc.setText("");
         txtnombreRemi.setEditable(true);
-        txtnombreRemi.setText("");
         txtMotivoDerivacion.setEditable(true);
-        txtMotivoDerivacion.setText("");
-        cbPRIORIDAD.getSelectedItem().toString();
-        cbPRIORIDAD.setEditable(true);
         txtObservacionDeriv.setEditable(true);
-        txtObservacionDeriv.setText("");
         btnsConfirmarHabilitar3();
         btnsEdicionDeshabilitar3();
         camposHabilitado3();
-        limpiarCampos3();
-
+        limpiarCamposDerivacion();
     }
 
     private void cargarDatos3() {
@@ -1932,60 +1943,58 @@ public class frmGeneral extends javax.swing.JFrame {
     }
 
     private void btnsEdicionDeshabilitar3() {
-        btnnuevo3.setEnabled(false);
-        btnModificar3.setEnabled(false);
-
+        btnNuevoDerivacion.setEnabled(false);
+        btnModificarDerivacion.setEnabled(false);
+        btnBuscarDerivacionDocumento.setEnabled(false);
+        btnEliminarDerivacion.setEnabled(false);
     }
 
-    private void btnsEdicionHabilitar3() {
-        btnnuevo3.setEnabled(true);
-        btnModificar3.setEnabled(true);
-
+    private void btnsHabilitarDerivacion() {
+        btnNuevoDerivacion.setEnabled(true);
+        btnBuscarDerivacionDocumento.setEnabled(true);
     }
 
     private void btnsConfirmarHabilitar3() {
-        btngrabar3.setEnabled(true);
-
+        btnGrabarDerivacion.setEnabled(true);
+        btnBuscarDerivacion.setEnabled(true);
+        cbPRIORIDAD.setEnabled(true);
+        cbderivacion.setEnabled(true);
     }
 
     private void btnsConfirmarDeshabilitar3() {
-        btngrabar.setEnabled(false);
-
+        btngrabarRecepcion.setEnabled(false);
     }
 
-    private void limpiarCampos3() {
-        cbderivacion.getSelectedItem().toString();
+    private void limpiarCamposDerivacion() {
+        txtcodigoDerivacion.setText("");
         txtFechaDerivacion.setText("");
         txtcodiDoc.setText("");
-        txtnombreRemi.setText("");
         txtMotivoDerivacion.setText("");
-        cbPRIORIDAD.getSelectedItem().toString();
+        txtnombreRemi.setText("");
         txtObservacionDeriv.setText("");
+        cbderivacion.getSelectedItem().toString();
+        cbPRIORIDAD.getSelectedItem().toString();
     }
 
     private void camposHabilitado3() {
-        cbderivacion.setEnabled(true);
         txtFechaDerivacion.setEnabled(true);
 //        txtcodiDoc.setEnabled(true);
         txtnombreRemi.setEnabled(true);
         txtMotivoDerivacion.setEnabled(true);
-        cbPRIORIDAD.setEnabled(true);
         txtObservacionDeriv.setEnabled(true);
     }
 
     private void camposDeshabilitado3() {
         cbderivacion.setEnabled(false);
         txtFechaDerivacion.setEnabled(false);
-//        txtcodiDoc.setEnabled(false);
+        txtcodiDoc.setEnabled(false);
         txtnombreRemi.setEnabled(false);
         txtMotivoDerivacion.setEnabled(false);
         cbPRIORIDAD.setEnabled(false);
         txtObservacionDeriv.setEnabled(false);
+    }//GEN-LAST:event_btnNuevoDerivacionActionPerformed
 
-
-    }//GEN-LAST:event_btnnuevo3ActionPerformed
-
-    private void btnModificar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificar3ActionPerformed
+    private void btnModificarDerivacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarDerivacionActionPerformed
         if (codigo != 0) {
             opt = 'M';
             camposHabilitado3();
@@ -2007,21 +2016,21 @@ public class frmGeneral extends javax.swing.JFrame {
             btnsEdicionDeshabilitar3();
 //            JOptionPane.showMessageDialog(this, "Seleccione la Derivacion", "DERIVACION", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnModificar3ActionPerformed
+    }//GEN-LAST:event_btnModificarDerivacionActionPerformed
 
-    private void btnCancelar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar3ActionPerformed
+    private void btnCancelarDerivacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarDerivacionActionPerformed
         if (opt == 'M') {
             lblCodDerivacion.setVisible(false);
             txtcodigoDerivacion.setVisible(false);
         }
-        btnsEdicionHabilitar3();
-        btnsConfirmarDeshabilitar3();
-        limpiarCampos3();
-        camposDeshabilitado3();
+        limpiarCamposDerivacion();
+        deshabilitarCamposDerivacion();
+        btnsHabilitarDerivacion();
+        //btnsConfirmarDeshabilitar3();
+        //camposDeshabilitado3();
+    }//GEN-LAST:event_btnCancelarDerivacionActionPerformed
 
-    }//GEN-LAST:event_btnCancelar3ActionPerformed
-
-    private void btnEliminar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminar3ActionPerformed
+    private void btnEliminarDerivacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarDerivacionActionPerformed
         if (codigo != 0) {
             opt3 = 'E';
             lblCodDerivacion.setVisible(true);
@@ -2039,7 +2048,7 @@ public class frmGeneral extends javax.swing.JFrame {
                 if (opt == 'E') {
                     oDerivacion = new Derivacion();
                     oDerivacion.setIdDerivacion(idDerivacion);
-                    int rpta = JOptionPane.showConfirmDialog(this, "Seguro que desea eliminar",
+                    int rpta = JOptionPane.showConfirmDialog(this, "¿Seguro que desea eliminar?",
                             "DERIVACION", JOptionPane.YES_NO_OPTION);
                     if (rpta == 0) {
                         if (DerivacionBo.eliminarDerivacion(oDerivacion)) {
@@ -2058,14 +2067,14 @@ public class frmGeneral extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione el Derivacion", "DERIVACION", JOptionPane.ERROR_MESSAGE);
         }
-        btnsEdicionHabilitar3();
+        btnsHabilitarDerivacion();
         btnsConfirmarDeshabilitar3();
 
 
-    }//GEN-LAST:event_btnEliminar3ActionPerformed
+    }//GEN-LAST:event_btnEliminarDerivacionActionPerformed
 
     private void btnSalir3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir3ActionPerformed
-        dispose();
+        this.dispose();
     }//GEN-LAST:event_btnSalir3ActionPerformed
 
     private void btnBuscarDerivacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarDerivacionActionPerformed
@@ -2100,9 +2109,9 @@ public class frmGeneral extends javax.swing.JFrame {
         frmBDocumento.setVisible(true);
     }//GEN-LAST:event_btnBuscarDocumentoActionPerformed
 
-    private void btnEliminarDocumento1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarDocumento1ActionPerformed
+    private void btnEliminarCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarCargoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnEliminarDocumento1ActionPerformed
+    }//GEN-LAST:event_btnEliminarCargoActionPerformed
 
     private void btnBuscarRecepcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarRecepcionActionPerformed
         try {
@@ -2129,16 +2138,16 @@ public class frmGeneral extends javax.swing.JFrame {
 
     private void btnAregarDestinatarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAregarDestinatarioActionPerformed
         String dato = txtDestinatario.getText();
-        modeloListaDestinatatio.addElement(dato);
+        modeloListaDestinatario.addElement(dato);
         txtDestinatario.setText("");
         txtDestinatario.requestFocus(true);
     }//GEN-LAST:event_btnAregarDestinatarioActionPerformed
 
     private void btnQuitaDestinatarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitaDestinatarioActionPerformed
-        int opt = JOptionPane.showConfirmDialog(null, "Está seguro de eliminar el registro");
+        int opt = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el registro?");
         if (opt == 0) {
             int posicion = lsDestinatario.getSelectedIndex();
-            modeloListaDestinatatio.remove(posicion);
+            modeloListaDestinatario.remove(posicion);
         }
     }//GEN-LAST:event_btnQuitaDestinatarioActionPerformed
 
@@ -2209,13 +2218,13 @@ public class frmGeneral extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_spFoliosKeyPressed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int opt = JOptionPane.showConfirmDialog(null, "Está seguro de eliminar el registro");
+    private void btnQuitarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarArchivoActionPerformed
+        int opt = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el registro?");
         if (opt == 0) {
             int posicion = lsArchivos.getSelectedIndex();
             modeloListaArchivo.remove(posicion);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnQuitarArchivoActionPerformed
 
     private void btnBuscarDocumentoCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarDocumentoCargoActionPerformed
         frmBuscarDocumentoCargo frmBDocumentoCargo = new frmBuscarDocumentoCargo(this, true);
@@ -2228,11 +2237,11 @@ public class frmGeneral extends javax.swing.JFrame {
         // cargarUltimoCorrelativo(nroDoc);
     }//GEN-LAST:event_cboTipoDocumentoMouseEntered
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+    private void btnBuscarRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarRActionPerformed
         frmBuscarRemitentes frmBuscaRemitente = new frmBuscarRemitentes(this, true);
         frmBuscaRemitente.setLocationRelativeTo(null);
         frmBuscaRemitente.setVisible(true);
-    }//GEN-LAST:event_btnBuscarActionPerformed
+    }//GEN-LAST:event_btnBuscarRActionPerformed
     private void cargarDatos() {
 //        try {
 //            TableColumn columna;
@@ -2303,36 +2312,34 @@ public class frmGeneral extends javax.swing.JFrame {
 //            e.printStackTrace();
 //        }
 //    }
-    private void btnsEdicionDeshabilitar() {
-        btnNuevo.setEnabled(false);
-        btnModificarRecepcion.setEnabled(false);
-
+    private void btnsDeshabilitarCargo() {
+        btnNuevoCargo.setEnabled(false);
+        btnBuscarCargo.setEnabled(false);
+        btnModificarCargo.setEnabled(false);
+        btnEliminarCargo.setEnabled(false);
     }
 
-    private void btnsEdicionHabilitar() {
-        btnNuevo.setEnabled(true);
-        btnModificarRecepcion.setEnabled(true);
-
+    private void btnsHabilitarRecepcion() {
+        btnNuevoRecepcion.setEnabled(true);
+        btnBuscarRecepcion.setEnabled(true);
     }
 
-    private void btnsConfirmarHabilitar() {
-        btngrabar.setEnabled(true);
-
+    private void btnsHabilitarRecepcion_Nuevo() {
+        btngrabarRecepcion.setEnabled(true);
+        btnBuscarR.setEnabled(true);
     }
 
-    private void btnsConfirmarDeshabilitar() {
-        btngrabar.setEnabled(false);
+//    private void btnsConfirmarDeshabilitar() {
+//        btngrabarRecepcion.setEnabled(false);
+//    }
 
-    }
-
-    private void limpiarCampos() {
+    private void limpiarCamposRecepcion() {
         txtIdRecepcion.setText("");
         txtCodigoRecepcion.setText("");
         txtfechaRecepcion.setText("");
         txtHoraRecepcion.setText("");
         txtDocumentoRecepcion.setText("");
         txtInstitucionRecepcion.setText("");
-        txtDocumentoRecepcion.setText("");
         txtRemitenteRecepcion.setText("");
         txtCodRemRecepcion.setText("");
         txtAsuntoRecepcion.setText("");
@@ -2340,37 +2347,95 @@ public class frmGeneral extends javax.swing.JFrame {
         txtDestinatarioRecepcion.setText("");
         txaObsRecepcion.setText("");
     }
-
+    private void btnsDeshabilitarRecepcion_Nuevo(){
+        btnNuevoRecepcion.setEnabled(false);
+        btnBuscarRecepcion.setEnabled(false);
+        btnModificarRecepcion.setEnabled(false);
+        btneliminarRecepcion.setEnabled(false);
+    }
     private void camposHabilitado() {
         txtDestinatarioRecepcion.setEnabled(true);
         txtfechaRecepcion.setEnabled(true);
         txtHoraRecepcion.setEnabled(true);
         // txtRRecepcion.setEnabled(true);
     }
-
-    private void camposDeshabilitado() {
-        txtDestinatarioRecepcion.setEnabled(false);
-        txtfechaRecepcion.setEnabled(false);
-        txtHoraRecepcion.setEnabled(false);
-        // txtRRecepcion.setEnabled(false);
-        // desactivamos los botones de guardar
+    private void deshabilitarCamposDocumento(){
         btnGrabarDocumento.setEnabled(false);
         btnModificarDocumento.setEnabled(false);
-        btnGrabarCargo.setEnabled(false);
-        btngrabar.setEnabled(false);
-        btngrabar3.setEnabled(false);
-        btnModificar3.setEnabled(false);
         btnEliminarDocumento.setEnabled(false);
-        btnEliminarDocumento1.setEnabled(false);
-        btneliminar.setEnabled(false);
-        btnEliminar3.setEnabled(false);
         cboTipoDocumento.setEnabled(false);
         btnAregarDestinatario.setEnabled(false);
         btnQuitaDestinatario.setEnabled(false);
         btnAgregarArchivo.setEnabled(false);
-        jButton1.setEnabled(false);
+        btnQuitarArchivo.setEnabled(false);
         cboEstadoDocumento.setEnabled(false);
         spFolios.setEnabled(false);
+    }
+    private void deshabilitarCamposCargo(){
+        btnGrabarCargo.setEnabled(false);
+        btnModificarCargo.setEnabled(false);
+        btnEliminarCargo.setEnabled(false);
+        btnBuscarDocumentoCargo.setEnabled(false);
+        cbdevolucion.setEnabled(false);
+        txtFechaCargo.setEnabled(false);
+        txtfechaDevolucion.setEnabled(false);
+    }
+    private void deshabilitarCamposRecepcion(){
+        btngrabarRecepcion.setEnabled(false);
+        btnModificarRecepcion.setEnabled(false);
+        btneliminarRecepcion.setEnabled(false);
+        btnBuscarR.setEnabled(false);
+    }
+    private void deshabilitarCamposDerivacion(){
+        btnGrabarDerivacion.setEnabled(false);
+        btnModificarDerivacion.setEnabled(false);
+        btnEliminarDerivacion.setEnabled(false);
+        btnBuscarDerivacion.setEnabled(false);
+        cbPRIORIDAD.setEnabled(false);
+        cbderivacion.setEnabled(false);
+        txtFechaDerivacion.setEnabled(false);
+//        txtcodiDoc.setEnabled(false);
+        txtnombreRemi.setEnabled(false);
+        txtMotivoDerivacion.setEnabled(false);
+        txtObservacionDeriv.setEnabled(false);
+    }
+    private void camposDeshabilitado() {
+        txtCodigoCargo.setEnabled(false);
+        txtNroDocumentoCargo.setEnabled(false);
+        txtDestinatarioRecepcion.setEnabled(false);
+        txtfechaRecepcion.setEnabled(false);
+        txtHoraRecepcion.setEnabled(false);
+        // txtRRecepcion.setEnabled(false);
+        //DESACTIVAMOS BOTONES DE LAS 4 SECCIONES
+        //Sección Documentos
+        btnGrabarDocumento.setEnabled(false);
+        btnModificarDocumento.setEnabled(false);
+        btnEliminarDocumento.setEnabled(false);
+        cboTipoDocumento.setEnabled(false);
+        btnAregarDestinatario.setEnabled(false);
+        btnQuitaDestinatario.setEnabled(false);
+        btnAgregarArchivo.setEnabled(false);
+        btnQuitarArchivo.setEnabled(false);
+        cboEstadoDocumento.setEnabled(false);
+        spFolios.setEnabled(false);
+        //Sección Cargo
+        btnGrabarCargo.setEnabled(false);
+        btnModificarCargo.setEnabled(false);
+        btnEliminarCargo.setEnabled(false);
+        btnBuscarDocumentoCargo.setEnabled(false);
+        cbdevolucion.setEnabled(false);
+        //Sección Recepción
+        btngrabarRecepcion.setEnabled(false);
+        btnModificarRecepcion.setEnabled(false);
+        btneliminarRecepcion.setEnabled(false);
+        btnBuscarR.setEnabled(false);
+        //Sección Derivación
+        btnGrabarDerivacion.setEnabled(false);
+        btnModificarDerivacion.setEnabled(false);
+        btnEliminarDerivacion.setEnabled(false);
+        btnBuscarDerivacion.setEnabled(false);
+        cbPRIORIDAD.setEnabled(false);
+        cbderivacion.setEnabled(false);
     }
 
     private void cargarDatos1() {
@@ -2442,23 +2507,29 @@ public class frmGeneral extends javax.swing.JFrame {
         }
     }
 
-    private void btnsConfirmarHabilitar1() {
-        btngrabar.setEnabled(true);
-
+    private void btnsHabilitarCargo() {
+        btnGrabarCargo.setEnabled(true);
+        btnBuscarDocumentoCargo.setEnabled(true);
+        cbdevolucion.setEnabled(true);
+        txtfechaDevolucion.setEnabled(true);
     }
 
     private void btnsConfirmarDeshabilitar1() {
-        btngrabar.setEnabled(false);
+        btngrabarRecepcion.setEnabled(false);
 
     }
 
-    private void limpiarCampos1() {
+    private void limpiarCamposCargo() {
+        txtCodigoCargo.setText("");
+        txtNroDocumentoCargo.setText("");
         txtDocumentoCargo.setText("");
-//        txtFechaCargo.setText("");
         txtHoraCargo.setText(HoraRecepcion);
+        txtAsuntoCargo.setText("");
+        txtInstitucionCargo.setText("");
         txtAreaCargo.setText("");
+        txtRecepcionistaCargo.setText("");
         txtObservacionCargo.setText("");
-
+        txtUsuario.setText("");
     }
 
     private void camposHabilitado1() {
@@ -2467,7 +2538,6 @@ public class frmGeneral extends javax.swing.JFrame {
         txtHoraCargo.setEnabled(true);
         txtAreaCargo.setEnabled(true);
         txtObservacionCargo.setEnabled(true);
-
     }
 
     private void camposDeshabilitado1() {
@@ -2476,24 +2546,31 @@ public class frmGeneral extends javax.swing.JFrame {
         txtHoraCargo.setEnabled(false);
         txtAreaCargo.setEnabled(false);
         txtObservacionCargo.setEnabled(false);
-
     }
 
-    private void btnsEdicionDeshabilitar2() {
-        btnNuevo.setEnabled(false);
-        btnModificarRecepcion.setEnabled(false);
+    private void btnsDeshabilitarDocumento() {
+        btnNuevoDocumento.setEnabled(false);
+        btnBuscarDocumento.setEnabled(false);
+        btnModificarDocumento.setEnabled(false);
         btnEliminarDocumento.setEnabled(false);
     }
 
     private void btnsEdicionHabilitar2() {
-        btnNuevo.setEnabled(true);
+        btnNuevoRecepcion.setEnabled(true);
         btnModificarRecepcion.setEnabled(true);
         btnEliminarDocumento.setEnabled(true);
     }
 
-    private void btnsConfirmarHabilitar2() {
+    private void btnsHabilitarDocumento() {
         btnGrabarDocumento.setEnabled(true);
         btnCancelarDocumento.setEnabled(true);
+        cboTipoDocumento.setEnabled(true);
+        spFolios.setEnabled(true);
+        btnAregarDestinatario.setEnabled(true);
+        btnQuitaDestinatario.setEnabled(true);
+        btnAgregarArchivo.setEnabled(true);
+        btnQuitarArchivo.setEnabled(true);
+        cboEstadoDocumento.setEnabled(true); 
     }
 
     private void btnsConfirmarDeshabilitar2() {
@@ -2501,7 +2578,7 @@ public class frmGeneral extends javax.swing.JFrame {
         btnCancelarDocumento.setEnabled(false);
     }
 
-    private void limpiarCampos2() {
+    private void limpiarCamposDocumentos() {
         cboTipoDocumento.setSelectedItem("");
         txtIdDocumento.setText("");
         txtAnio.setText("");
@@ -2509,15 +2586,28 @@ public class frmGeneral extends javax.swing.JFrame {
         txtFechaDocumento.setText("");
         spFolios.setValue(1);
         txtDocumento.setText("");
-        lsDestinatario.removeAll();
-        //lsDestinatario.clearSelection();
+        lsDestinatario.setModel(modeloListaDestinatario);
         txtAsunto.setText("");
         txtInstitucion.setText("");
         txtAreaDocumento.setText("");
         cboEstadoDocumento.setSelectedItem("");
         lsArchivos.removeAll();
     }
-
+    private void habilitarCamposDocumento(){
+        cboTipoDocumento.setEnabled(true);
+//     lblNumeroDocumento.setEnabled(true);
+        txtAnio.setEnabled(true);
+        lblNumeroDocumento.setEnabled(true);
+        txtFechaDocumento.setEnabled(true);
+        txtDocumento.setEnabled(true);
+        lsDestinatario.setEnabled(true);
+        txtAsunto.setEnabled(true);
+        txtInstitucion.setEnabled(true);
+        txtAreaDocumento.setEnabled(true);
+        cboEstadoDocumento.setEnabled(true);
+//      txtRutaOrigen.setEnabled(true);
+        spFolios.setEnabled(true);
+    }
     private void camposHabilitado2() {
         cboTipoDocumento.setEnabled(true);
 //     lblNumeroDocumento.setEnabled(true);
@@ -2532,7 +2622,6 @@ public class frmGeneral extends javax.swing.JFrame {
         cboEstadoDocumento.setEnabled(true);
 //      txtRutaOrigen.setEnabled(true);
         spFolios.setEnabled(true);
-
     }
 
     private void camposDeshabilitado2() {
@@ -2561,10 +2650,10 @@ public class frmGeneral extends javax.swing.JFrame {
             try {
                 if (DocumentoDestinatarioBo.grabarDocumentoDestinatario(oDocumentoDestinatario)) {
                 } else {
-                    JOptionPane.showMessageDialog(this, "No se pudo Registrar Destinatarios", "MENSAJE --> DOCUMENTO", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "No se pudo Registrar Destinatarios", "MENSAJE → DOCUMENTO", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, e.getMessage(), "MENSAJE --> DOCUMENTO", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, e.getMessage(), "MENSAJE → DOCUMENTO", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -2601,10 +2690,10 @@ public class frmGeneral extends javax.swing.JFrame {
             try {
                 if (DocumentoArchivoBo.grabarDocumentoArchivo(oDocumentoArchivo)) {
                 } else {
-                    JOptionPane.showMessageDialog(this, "No se pudo Registrar Destinatarios", "MENSAJE --> DOCUMENTO", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "No se pudo Registrar Destinatarios", "MENSAJE → DOCUMENTO", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, e.getMessage(), "MENSAJE --> DOCUMENTO", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, e.getMessage(), "MENSAJE → DOCUMENTO", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -2662,37 +2751,38 @@ public class frmGeneral extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarArchivo;
     private javax.swing.JButton btnAregarDestinatario;
-    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnBuscarCargo;
     private javax.swing.JButton btnBuscarDerivacion;
     private javax.swing.JButton btnBuscarDerivacionDocumento;
     private javax.swing.JButton btnBuscarDocumento;
     private javax.swing.JButton btnBuscarDocumentoCargo;
+    private javax.swing.JButton btnBuscarR;
     private javax.swing.JButton btnBuscarRecepcion;
     private javax.swing.JButton btnCancelar1;
-    private javax.swing.JButton btnCancelar3;
+    private javax.swing.JButton btnCancelarDerivacion;
     private javax.swing.JButton btnCancelarDocumento;
-    private javax.swing.JButton btnEliminar3;
+    private javax.swing.JButton btnEliminarCargo;
+    private javax.swing.JButton btnEliminarDerivacion;
     private javax.swing.JButton btnEliminarDocumento;
-    private javax.swing.JButton btnEliminarDocumento1;
     private javax.swing.JButton btnGrabarCargo;
+    private javax.swing.JButton btnGrabarDerivacion;
     private javax.swing.JButton btnGrabarDocumento;
-    private javax.swing.JButton btnModificar3;
     private javax.swing.JButton btnModificarCargo;
+    private javax.swing.JButton btnModificarDerivacion;
     private javax.swing.JButton btnModificarDocumento;
     private javax.swing.JButton btnModificarRecepcion;
-    private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnNuevoCargo;
+    private javax.swing.JButton btnNuevoDerivacion;
     private javax.swing.JButton btnNuevoDocumento;
+    private javax.swing.JButton btnNuevoRecepcion;
     private javax.swing.JButton btnQuitaDestinatario;
+    private javax.swing.JButton btnQuitarArchivo;
     private javax.swing.JButton btnSalir1;
     private javax.swing.JButton btnSalir3;
     private javax.swing.JButton btnSalirDocumento;
-    private javax.swing.JButton btncancelar;
-    private javax.swing.JButton btneliminar;
-    private javax.swing.JButton btngrabar;
-    private javax.swing.JButton btngrabar3;
-    private javax.swing.JButton btnnuevo3;
+    private javax.swing.JButton btncancelarRecepcion;
+    private javax.swing.JButton btneliminarRecepcion;
+    private javax.swing.JButton btngrabarRecepcion;
     private javax.swing.JButton btnsalir;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
@@ -2702,7 +2792,6 @@ public class frmGeneral extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbdevolucion;
     private javax.swing.JComboBox cboEstadoDocumento;
     private javax.swing.JComboBox cboTipoDocumento;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2816,7 +2905,7 @@ public class frmGeneral extends javax.swing.JFrame {
     private DefaultTableModel ultimoCorrelativoTableModel;
     private DefaultComboBoxModel tipoDocumentoComboModel;
     private DefaultComboBoxModel estadoDocumentoComboModel;
-    private DefaultListModel modeloListaDestinatatio;
+    private DefaultListModel modeloListaDestinatario;
     private DefaultListModel modeloListaArchivo;
 
     void getTxtDocumento(String toString) {
@@ -3202,7 +3291,7 @@ public class frmGeneral extends javax.swing.JFrame {
         btnAregarDestinatario.setEnabled(true);
         btnQuitaDestinatario.setEnabled(true);
         btnAgregarArchivo.setEnabled(true);
-        jButton1.setEnabled(true);
+        btnQuitarArchivo.setEnabled(true);
         cboEstadoDocumento.setEnabled(true);
         spFolios.setEnabled(true);
         btnBuscarDocumento.setEnabled(false);

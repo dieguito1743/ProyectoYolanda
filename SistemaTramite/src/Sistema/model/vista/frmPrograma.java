@@ -280,7 +280,7 @@ public class frmPrograma extends javax.swing.JFrame {
         cboestado.setEditable(true);
         txtFecha.setEditable(true);
         txtFecha.setText("");
-       btnsConfirmarHabilitar();
+        btnsConfirmarHabilitar();
         btnsEdicionDeshabilitar();
         camposHabilitado();
         limpiarCampos();

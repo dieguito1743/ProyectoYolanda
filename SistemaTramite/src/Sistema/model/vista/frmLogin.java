@@ -33,10 +33,10 @@ public class frmLogin extends javax.swing.JFrame {
         txtPassword = new javax.swing.JPasswordField();
         btnIngresar = new javax.swing.JButton();
         jl001 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jPanelConFondo = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,6 +70,7 @@ public class frmLogin extends javax.swing.JFrame {
         btnIngresar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/Key.gif"))); // NOI18N
         btnIngresar.setText("Ingresar");
+        btnIngresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIngresarActionPerformed(evt);
@@ -80,10 +81,6 @@ public class frmLogin extends javax.swing.JFrame {
         jl001.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/log3.png"))); // NOI18N
         jPanel1.add(jl001, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 160, 160));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("Autenciación de Usuario");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, -1, -1));
-
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Usuario:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, -1, -1));
@@ -92,15 +89,24 @@ public class frmLogin extends javax.swing.JFrame {
         jLabel5.setText("(*)");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 110, -1, -1));
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setText("Autenciación de Usuario");
+
         javax.swing.GroupLayout jPanelConFondoLayout = new javax.swing.GroupLayout(jPanelConFondo);
         jPanelConFondo.setLayout(jPanelConFondoLayout);
         jPanelConFondoLayout.setHorizontalGroup(
             jPanelConFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelConFondoLayout.createSequentialGroup()
+                .addContainerGap(93, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(88, 88, 88))
         );
         jPanelConFondoLayout.setVerticalGroup(
             jPanelConFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 320, Short.MAX_VALUE)
+            .addGroup(jPanelConFondoLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel1)
+                .addContainerGap(277, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanelConFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 320));
@@ -129,7 +135,7 @@ public class frmLogin extends javax.swing.JFrame {
             clave = new String(txtPassword.getPassword());
             Usuario usuario = UsuarioBo.validarUsuario(user, clave);
 //            frmMenu td = new frmMenu();
-//            td.setVisible(true);
+//            td.setVisible(true);    
             new FrmMenuSistema().setVisible(true);
             Date fecha = new Date();
             SimpleDateFormat formato = new SimpleDateFormat("ddMMyyyy");

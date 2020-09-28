@@ -124,7 +124,6 @@ public class DocumentoBo {
             columnas.add("ESTADO");
 
             documentoTableModel = new DefaultTableModel(datosDocumento, columnas);
-
         } catch (Exception e) {
             throw e;
         } finally {
