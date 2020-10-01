@@ -3,9 +3,11 @@ package Sistema.model.bean;
 
 public class Derivacion {
     private int idDerivacion;
+    private String codigoDerivacion;
     private String Derivacion;
     private String Fecha;
     private int idDocumento;
+    private int idRemitente;
     private String Remitente;
     private String MotivoDerivacion;
     private int Prioridad;
@@ -18,7 +20,9 @@ public class Derivacion {
     public void setIdDerivacion(int idDerivacion) {
         this.idDerivacion = idDerivacion;
     }
-
+    public void setCodigoDerivacion(String codigoDerivacion) {
+        this.codigoDerivacion = codigoDerivacion;
+    }
     public String getDerivacion() {
         return Derivacion;
     }

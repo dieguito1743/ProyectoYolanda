@@ -60,7 +60,7 @@ public class frmBuscarDocumentoRecepcion extends javax.swing.JDialog {
         });
 
         lblRecepcion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lblRecepcion.setText("Recepcion");
+        lblRecepcion.setText("Recepción");
         lblRecepcion.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentMoved(java.awt.event.ComponentEvent evt) {
                 lblRecepcionComponentMoved(evt);
@@ -74,6 +74,7 @@ public class frmBuscarDocumentoRecepcion extends javax.swing.JDialog {
 
         btnBuscarRecepcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/buscar.gif"))); // NOI18N
         btnBuscarRecepcion.setText("Buscar");
+        btnBuscarRecepcion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscarRecepcion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnBuscarRecepcion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,6 +88,7 @@ public class frmBuscarDocumentoRecepcion extends javax.swing.JDialog {
         });
 
         btnSalirRecepcion.setText("Salir");
+        btnSalirRecepcion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSalirRecepcion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirRecepcionActionPerformed(evt);
@@ -136,14 +138,14 @@ public class frmBuscarDocumentoRecepcion extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 950, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(272, 272, 272)
+                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(292, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(160, 160, 160)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 950, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(20, 20, 20)
@@ -162,12 +164,12 @@ public class frmBuscarDocumentoRecepcion extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 459, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 426, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 9, Short.MAX_VALUE)
-                    .addComponent(jLabel16)
-                    .addGap(8, 8, 8)
+                    .addGap(0, 39, Short.MAX_VALUE)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(8, 8, 8)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,7 +279,12 @@ public class frmBuscarDocumentoRecepcion extends javax.swing.JDialog {
             recepcion.gettxtDestinatarioRecepcion().setText(tblDocumentoRecepcion.getValueAt(index, 7).toString());
             recepcion.gettxaObsRecepcion().setText(tblDocumentoRecepcion.getValueAt(index, 8).toString());
             recepcion.getTxtfechaRecepcion().setText(tblDocumentoRecepcion.getValueAt(index, 9).toString());
-            recepcion.getTxtHoraRecepcion().setText(tblDocumentoRecepcion.getValueAt(index, 10).toString());
+            recepcion.getTxtHoraRecepcion().setText(tblDocumentoRecepcion.getValueAt(index, 10).toString()); 
+            recepcion.getBtnModificarRecepcion().setEnabled(true);
+            recepcion.getBtnEliminarRecepcion().setEnabled(true);
+            recepcion.getBtnNuevoRecepcion().setEnabled(false);
+            recepcion.getBtnGrabarRecepcion().setEnabled(false);
+            recepcion.habilitarBotonesFormularioRecepcion();
             this.dispose();
         }
     }//GEN-LAST:event_tblDocumentoRecepcionMousePressed

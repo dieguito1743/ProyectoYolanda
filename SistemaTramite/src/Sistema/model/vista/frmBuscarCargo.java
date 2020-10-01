@@ -23,6 +23,7 @@ public class frmBuscarCargo extends javax.swing.JDialog {
     public frmBuscarCargo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
     }
 
     frmBuscarCargo(frmGeneral aThis, boolean b) {
@@ -58,8 +59,8 @@ public class frmBuscarCargo extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Buscar Cargo - Opciones");
-        setMaximumSize(new java.awt.Dimension(910, 410));
-        setPreferredSize(new java.awt.Dimension(910, 410));
+        setMaximumSize(new java.awt.Dimension(910, 515));
+        setPreferredSize(new java.awt.Dimension(910, 515));
         setResizable(false);
         getContentPane().setLayout(null);
 
@@ -72,7 +73,7 @@ public class frmBuscarCargo extends javax.swing.JDialog {
             }
         });
         getContentPane().add(jLabel16);
-        jLabel16.setBounds(194, 11, 390, 22);
+        jLabel16.setBounds(200, 10, 390, 22);
 
         jSeparator1.setMinimumSize(new java.awt.Dimension(900, 2));
         jSeparator1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -81,10 +82,11 @@ public class frmBuscarCargo extends javax.swing.JDialog {
             }
         });
         getContentPane().add(jSeparator1);
-        jSeparator1.setBounds(0, 39, 790, 2);
+        jSeparator1.setBounds(0, 31, 790, 10);
 
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/iconfinder_Exit_132316.png"))); // NOI18N
         btnSalir.setText("Salir");
+        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
@@ -96,10 +98,11 @@ public class frmBuscarCargo extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnSalir);
-        btnSalir.setBounds(630, 100, 80, 30);
+        btnSalir.setBounds(660, 90, 90, 30);
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/buscar.gif"))); // NOI18N
         btnBuscar.setText("Buscar");
+        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,7 +115,7 @@ public class frmBuscarCargo extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnBuscar);
-        btnBuscar.setBounds(520, 100, 100, 30);
+        btnBuscar.setBounds(540, 90, 100, 30);
 
         jScrollPane1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -154,7 +157,7 @@ public class frmBuscarCargo extends javax.swing.JDialog {
         jScrollPane1.setViewportView(tblCargo);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 142, 880, 250);
+        jScrollPane1.setBounds(10, 150, 880, 310);
 
         jpOpciones.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones de búsqueda", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
@@ -282,7 +285,7 @@ public class frmBuscarCargo extends javax.swing.JDialog {
         );
 
         getContentPane().add(jpOpciones);
-        jpOpciones.setBounds(10, 52, 513, 90);
+        jpOpciones.setBounds(10, 50, 521, 90);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -320,8 +323,6 @@ public class frmBuscarCargo extends javax.swing.JDialog {
         } else {
             cargarCargo(tb);
         }
-
-
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnBuscarjSeparator1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnBuscarjSeparator1KeyPressed
@@ -331,22 +332,40 @@ public class frmBuscarCargo extends javax.swing.JDialog {
     }//GEN-LAST:event_btnBuscarjSeparator1KeyPressed
 
     private void tblCargoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCargoMouseClicked
-
+        if (evt.getClickCount() >= 2) {
+            int index = tblCargo.getSelectedRow(); //txtIdDocumentoCargo
+            //cargo.gettxtCodigoCargo().setText(tblCargo.getValueAt(index, 0).toString());
+            cargo.getlblIdDocumentoCargo().setText(tblCargo.getValueAt(index, 1).toString());
+            cargo.gettxtNroDocumentoCargo().setText(tblCargo.getValueAt(index, 2).toString());
+            cargo.gettxtDocumentoCargo().setText(tblCargo.getValueAt(index, 3).toString());
+            cargo.gettxtFechaCargo().setDate(Date.valueOf(tblCargo.getValueAt(index, 4).toString()));
+            cargo.gettxtHoraCargo().setText(tblCargo.getValueAt(index, 5).toString());
+            cargo.gettxtAreaCargo().setText(tblCargo.getValueAt(index, 6).toString());
+            cargo.gettxtAsuntoCargo().setText(tblCargo.getValueAt(index, 7).toString());
+            cargo.gettxtInstitucionCargo().setText(tblCargo.getValueAt(index, 8).toString());
+            cargo.gettxtRecepcionistaCargo().setText(tblCargo.getValueAt(index, 9).toString());
+            this.dispose();
+        }
     }//GEN-LAST:event_tblCargoMouseClicked
 
     private void tblCargoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCargoMousePressed
         if (evt.getClickCount() == 2) {
             int index = tblCargo.getSelectedRow(); //txtIdDocumentoCargo
-            cargo.gettxtCodigoCargo().setText(tblCargo.getValueAt(index, 0).toString());
-            cargo.getTxtIdDocumento().setText(tblCargo.getValueAt(index, 1).toString());
-            cargo.getlblIdDocumentoCargo().setText(tblCargo.getValueAt(index, 2).toString());
-            cargo.gettxtDocumentoCargo().setText(tblCargo.getValueAt(index, 4).toString());
-            cargo.gettxtFechaCargo().setDate(Date.valueOf(tblCargo.getValueAt(index, 5).toString()));
-            cargo.gettxtHoraCargo().setText(tblCargo.getValueAt(index, 6).toString());
-            cargo.gettxtAreaCargo().setText(tblCargo.getValueAt(index, 7).toString());
-            cargo.gettxtAsuntoCargo().setText(tblCargo.getValueAt(index, 8).toString());
-            cargo.gettxtInstitucionCargo().setText(tblCargo.getValueAt(index, 9).toString());
-            cargo.gettxtRecepcionistaCargo().setText(tblCargo.getValueAt(index, 10).toString());
+            //cargo.gettxtCodigoCargo().setText(tblCargo.getValueAt(index, 0).toString());
+            cargo.getlblIdDocumentoCargo().setText(tblCargo.getValueAt(index, 1).toString());
+            cargo.gettxtNroDocumentoCargo().setText(tblCargo.getValueAt(index, 2).toString());
+            cargo.gettxtDocumentoCargo().setText(tblCargo.getValueAt(index, 3).toString());
+            cargo.gettxtFechaCargo().setDate(Date.valueOf(tblCargo.getValueAt(index, 4).toString()));
+            cargo.gettxtHoraCargo().setText(tblCargo.getValueAt(index, 5).toString());
+            cargo.gettxtAreaCargo().setText(tblCargo.getValueAt(index, 6).toString());
+            cargo.gettxtAsuntoCargo().setText(tblCargo.getValueAt(index, 7).toString());
+            cargo.gettxtInstitucionCargo().setText(tblCargo.getValueAt(index, 8).toString());
+            cargo.gettxtRecepcionistaCargo().setText(tblCargo.getValueAt(index, 9).toString());
+            cargo.getBtnModificarCargo().setEnabled(true);
+            cargo.getBtnEliminarCargo().setEnabled(true);
+            cargo.getBtnNuevoCargo().setEnabled(false);
+            cargo.getBtnGrabarCargo().setEnabled(false);
+            cargo.habilitarBotonesFormularioCargo();
             this.dispose();
         }
     }//GEN-LAST:event_tblCargoMousePressed
@@ -406,8 +425,6 @@ public class frmBuscarCargo extends javax.swing.JDialog {
                     cargTableModel = CargoBo.buscarCargosIdCargo(idCarg);
                     tblCargo.setModel(cargTableModel);
                     setAnchoColumnas();
-                    columna = tblCargo.getColumnModel().getColumn(0);
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -415,12 +432,10 @@ public class frmBuscarCargo extends javax.swing.JDialog {
             case 2:
                 try {
                     TableColumn columna;
-                    int idDoc = Integer.parseInt(txtDato.getText());
+                    String idDoc = txtDato.getText();
                     cargTableModel = CargoBo.buscarCargosIdDocumento(idDoc);
                     tblCargo.setModel(cargTableModel);
                     setAnchoColumnas();
-                    columna = tblCargo.getColumnModel().getColumn(0);
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -432,8 +447,6 @@ public class frmBuscarCargo extends javax.swing.JDialog {
                     cargTableModel = CargoBo.buscarCargosDocumento(documento);
                     tblCargo.setModel(cargTableModel);
                     setAnchoColumnas();
-                    columna = tblCargo.getColumnModel().getColumn(0);
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -445,8 +458,6 @@ public class frmBuscarCargo extends javax.swing.JDialog {
                     cargTableModel = CargoBo.buscarCargosDestinatario(destinatario);
                     tblCargo.setModel(cargTableModel);
                     setAnchoColumnas();
-                    columna = tblCargo.getColumnModel().getColumn(0);
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -456,11 +467,11 @@ public class frmBuscarCargo extends javax.swing.JDialog {
 
     public void setAnchoColumnas() {
         TableColumn columna;
-        TableColumnModel columnModel = tblCargo.getColumnModel();
         String titu[] = {"ID", "TD", "N°-DOC", "DOCUMENTO", "FECHA", "HORA", "AREA", "ASUNTO", "INSTITUCION", "RECEPC", "ST",};
         cargTableModel.setColumnIdentifiers(titu);
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tblCargo.getModel());
         tblCargo.setRowSorter(sorter);
+        TableColumnModel columnModel = tblCargo.getColumnModel();
         DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
         DefaultTableCellRenderer tcc = new DefaultTableCellRenderer();
         tcr.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -474,12 +485,11 @@ public class frmBuscarCargo extends javax.swing.JDialog {
         columnModel.getColumn(4).setCellRenderer(tcc);
         columnModel.getColumn(4).setPreferredWidth(30);
         columnModel.getColumn(5).setPreferredWidth(20);
-        columnModel.getColumn(6).setPreferredWidth(80);
+        columnModel.getColumn(6).setPreferredWidth(73);
         columnModel.getColumn(7).setPreferredWidth(50); //ASUNTO
         columnModel.getColumn(8).setPreferredWidth(50); //area
         columnModel.getColumn(9).setPreferredWidth(50); //INST
-        columnModel.getColumn(10).setPreferredWidth(50); //INST
-        columnModel.getColumn(11).setPreferredWidth(5);
+        columnModel.getColumn(10).setPreferredWidth(5);
         columna = tblCargo.getColumnModel().getColumn(0);
     }
 

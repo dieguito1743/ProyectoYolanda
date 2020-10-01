@@ -22,7 +22,7 @@ public class DerivacionDaoImp {
 
     public Vector obtenerListaDerivacion() throws SQLException {
         Vector listaDerivacion = new Vector();
-        String sql = "SELECT idDerivacion,Derivacion,Fecha,idDocumento,remitente,MotivoDerivacion,prioridad,observacion FROM dbo.Derivacion";
+        String sql = "SELECT idDerivacion, Derivacion, Fecha, idDocumento, remitente, motivoDerivacion, prioridad, observacion FROM dbo.Derivacion";
         st = con.createStatement();
         ResultSet rs = st.executeQuery(sql);
         while (rs.next()) {
@@ -34,8 +34,7 @@ public class DerivacionDaoImp {
             oDerivacion.add(rs.getString(5));
             oDerivacion.add(rs.getString(6));
             oDerivacion.add(rs.getInt(7));
-            oDerivacion.add(rs.getString(8));
-            
+            oDerivacion.add(rs.getString(8));       
             listaDerivacion.add(oDerivacion);
         }
         return listaDerivacion;

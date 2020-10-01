@@ -220,12 +220,12 @@ public class CargoBo {
         return CargoTableModel;
     }
 
-    public static DefaultTableModel buscarCargosIdDocumento(int idDocumento) throws Exception {
+    public static DefaultTableModel buscarCargosIdDocumento(String numeroDocumento) throws Exception {
         DefaultTableModel CargoTableModel = null;
         Connection con = Conexion.getConexion();
         try {
             CargoDaoImp cargoDao = new CargoDaoImp(con);
-            Vector datosCargo = cargoDao.obtenerListaCagoBuscarIdDocumento(idDocumento);
+            Vector datosCargo = cargoDao.obtenerListaCagoBuscarIdDocumento(numeroDocumento);
             Vector columnas = new Vector();
             columnas.add("CARGOID");
             columnas.add("DOCUMENTOID");

@@ -239,4 +239,19 @@ public class CorrelativosBo {
         }
         return liIdDoc;
     }
+    public static String obtenerDerivacionCorrelativo() throws Exception {
+        String liIdDoc;
+        Connection con = Conexion.getConexion();
+        try {
+            CorrelativosDaoImp CorrelativosDao = new CorrelativosDaoImp(con);
+            liIdDoc = CorrelativosDao.obtenerIdSiguienteDerivacion();
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (con != null) {
+                con.close();
+            }
+        }
+        return liIdDoc;
+    }
 }

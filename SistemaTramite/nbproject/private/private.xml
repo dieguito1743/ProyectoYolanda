@@ -3,9 +3,24 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/pc/Documents/ProyectoYolanda/ST_v2/ProyectoYolanda/SistemaTramite/src/Sistema/model/vista/frmBuscarRecepcionDerivacion.java</file>
+            <file>file:/C:/Users/pc/Documents/ProyectoYolanda/ST_v2/ProyectoYolanda/SistemaTramite/src/Sistema/model/vista/frmBuscarRemitentes.java</file>
+            <file>file:/C:/Users/pc/Documents/ProyectoYolanda/ST_v2/ProyectoYolanda/SistemaTramite/src/Sistema/model/vista/frmLogin.java</file>
+            <file>file:/C:/Users/pc/Documents/ProyectoYolanda/ST_v2/ProyectoYolanda/SistemaTramite/src/Sistema/model/bo/TipoDocumentoBo.java</file>
+            <file>file:/C:/Users/pc/Documents/ProyectoYolanda/ST_v2/ProyectoYolanda/SistemaTramite/src/Sistema/model/vista/frmBuscaProgramaPer.java</file>
+            <file>file:/C:/Users/pc/Documents/ProyectoYolanda/ST_v2/ProyectoYolanda/SistemaTramite/src/Sistema/model/vista/frmBuscarCargo.java</file>
+            <file>file:/C:/Users/pc/Documents/ProyectoYolanda/ST_v2/ProyectoYolanda/SistemaTramite/src/Sistema/model/vista/FormatoFecha.java</file>
+            <file>file:/C:/Users/pc/Documents/ProyectoYolanda/ST_v2/ProyectoYolanda/SistemaTramite/src/Sistema/model/vista/frmBuscarPrograma.java</file>
+            <file>file:/C:/Users/pc/Documents/ProyectoYolanda/ST_v2/ProyectoYolanda/SistemaTramite/src/Sistema/model/vista/frmBuscarDocumentoCargo.java</file>
             <file>file:/C:/Users/pc/Documents/ProyectoYolanda/ST_v2/ProyectoYolanda/SistemaTramite/src/Sistema/model/vista/frmGeneral.java</file>
-            <file>file:/C:/Users/pc/Documents/ProyectoYolanda/ST_v2/ProyectoYolanda/SistemaTramite/src/Sistema/model/dao/DocumentoDaoImp.java</file>
-            <file>file:/C:/Users/pc/Documents/ProyectoYolanda/ST_v2/ProyectoYolanda/SistemaTramite/src/Sistema/model/bo/DocumentoBo.java</file>
+            <file>file:/C:/Users/pc/Documents/ProyectoYolanda/ST_v2/ProyectoYolanda/SistemaTramite/src/Sistema/model/vista/JPanelFondo.java</file>
+            <file>file:/C:/Users/pc/Documents/ProyectoYolanda/ST_v2/ProyectoYolanda/SistemaTramite/src/Sistema/model/vista/frmReportes.java</file>
+            <file>file:/C:/Users/pc/Documents/ProyectoYolanda/ST_v2/ProyectoYolanda/SistemaTramite/src/Sistema/model/vista/frmBuscarDocumentoRecepcion.java</file>
+            <file>file:/C:/Users/pc/Documents/ProyectoYolanda/ST_v2/ProyectoYolanda/SistemaTramite/src/Sistema/model/vista/frmBuscarDocumentoDerivacion.java</file>
+            <file>file:/C:/Users/pc/Documents/ProyectoYolanda/ST_v2/ProyectoYolanda/SistemaTramite/src/Sistema/model/dao/TipoDocumentoDao.java</file>
+            <file>file:/C:/Users/pc/Documents/ProyectoYolanda/ST_v2/ProyectoYolanda/SistemaTramite/src/Sistema/model/vista/frmEmpleado.java</file>
+            <file>file:/C:/Users/pc/Documents/ProyectoYolanda/ST_v2/ProyectoYolanda/SistemaTramite/src/Sistema/model/vista/FrmMenuSistema.java</file>
+            <file>file:/C:/Users/pc/Documents/ProyectoYolanda/ST_v2/ProyectoYolanda/SistemaTramite/src/Sistema/model/vista/frmBuscarUsuario.java</file>
             <file>file:/C:/Users/pc/Documents/ProyectoYolanda/ST_v2/ProyectoYolanda/SistemaTramite/src/Sistema/model/vista/frmBuscarDocumento.java</file>
         </group>
     </open-files>

@@ -72,6 +72,7 @@ public class frmBuscarDocumentoCargo extends javax.swing.JDialog {
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/buscar.gif"))); // NOI18N
         btnBuscar.setText("Buscar");
+        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,6 +86,7 @@ public class frmBuscarDocumentoCargo extends javax.swing.JDialog {
         });
 
         btnSalir.setText("Salir");
+        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
@@ -112,14 +114,30 @@ public class frmBuscarDocumentoCargo extends javax.swing.JDialog {
                 {},
                 {},
                 {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
                 {}
             },
             new String [] {
 
             }
         ));
-        tblDocumentoCargo.setMinimumSize(new java.awt.Dimension(898, 498));
-        tblDocumentoCargo.setPreferredSize(new java.awt.Dimension(898, 498));
+        tblDocumentoCargo.setMinimumSize(new java.awt.Dimension(898, 800));
+        tblDocumentoCargo.setPreferredSize(new java.awt.Dimension(898, 790));
         tblDocumentoCargo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblDocumentoCargoMouseClicked(evt);
@@ -134,14 +152,14 @@ public class frmBuscarDocumentoCargo extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 950, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(219, 219, 219)
+                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(345, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(160, 160, 160)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 950, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(20, 20, 20)
@@ -160,12 +178,12 @@ public class frmBuscarDocumentoCargo extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 459, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 492, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 9, Short.MAX_VALUE)
-                    .addComponent(jLabel16)
-                    .addGap(8, 8, 8)
+                    .addGap(0, 30, Short.MAX_VALUE)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(8, 8, 8)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,8 +192,8 @@ public class frmBuscarDocumentoCargo extends javax.swing.JDialog {
                         .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(10, 10, 10)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 10, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(21, 21, 21)))
         );
 
         pack();
@@ -204,7 +222,7 @@ public class frmBuscarDocumentoCargo extends javax.swing.JDialog {
             TableColumn columna;
             docTableModel = DocumentoBo.obtenerListaDocumentoBuscar(txtDocumento.getText());
             tblDocumentoCargo.setModel(docTableModel);
-            String titu[] = {"COD", "TD", "N°-DOC", "FECHA", "AÑO", "DOCUMENTO", "FOL", "ASUNTO", "AREA", "INSTITUCION", "ST",};
+            String titu[] = {"COD", "TD", "N°-DOC", "FECHA", "AÑO", "DOCUMENTO", "FOL", "ASUNTO", "AREA", "INSTITUCION", "ST"};
             docTableModel.setColumnIdentifiers(titu);
             TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tblDocumentoCargo.getModel());
             tblDocumentoCargo.setRowSorter(sorter);
@@ -268,8 +286,14 @@ public class frmBuscarDocumentoCargo extends javax.swing.JDialog {
             cargo.gettxtAsuntoCargo().setText(tblDocumentoCargo.getValueAt(index, 7).toString());
             cargo.gettxtAreaCargo().setText(tblDocumentoCargo.getValueAt(index, 9).toString());
             cargo.gettxtInstitucionCargo().setText(tblDocumentoCargo.getValueAt(index, 8).toString());
+            cargo.getBtnModificarCargo().setEnabled(true);
+            cargo.getBtnEliminarCargo().setEnabled(true);
+            cargo.getBtnNuevoCargo().setEnabled(false);
+            cargo.getBtnGrabarCargo().setEnabled(false);
+            cargo.habilitarBotonesFormularioCargo();
             this.dispose();
         }
+        
     }//GEN-LAST:event_tblDocumentoCargoMousePressed
 
     private void jScrollPane1jSeparator1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jScrollPane1jSeparator1KeyPressed

@@ -1,6 +1,7 @@
  package Sistema.model.vista;
 
 import Sistema.model.bo.DerivacionBo;
+import Sistema.model.bo.RecepcionBo;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -38,7 +39,7 @@ public class frmBuscarDocumentoDerivacion extends javax.swing.JDialog {
 
         jLabel16.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setText("Buscar Recepcion");
+        jLabel16.setText("Buscar Derivación");
         jLabel16.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jLabel16jSeparator1KeyPressed(evt);
@@ -58,7 +59,7 @@ public class frmBuscarDocumentoDerivacion extends javax.swing.JDialog {
         });
 
         lblRecepcion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lblRecepcion.setText("Recepcion");
+        lblRecepcion.setText("Derivación");
         lblRecepcion.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentMoved(java.awt.event.ComponentEvent evt) {
                 lblRecepcionComponentMoved(evt);
@@ -72,6 +73,7 @@ public class frmBuscarDocumentoDerivacion extends javax.swing.JDialog {
 
         btnBuscarDerivacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/buscar.gif"))); // NOI18N
         btnBuscarDerivacion.setText("Buscar");
+        btnBuscarDerivacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscarDerivacion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnBuscarDerivacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,6 +87,7 @@ public class frmBuscarDocumentoDerivacion extends javax.swing.JDialog {
         });
 
         btnSalirDerivacion.setText("Salir");
+        btnSalirDerivacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSalirDerivacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirDerivacionActionPerformed(evt);
@@ -134,14 +137,14 @@ public class frmBuscarDocumentoDerivacion extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 950, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(246, 246, 246)
+                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(318, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(160, 160, 160)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 950, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(20, 20, 20)
@@ -160,12 +163,12 @@ public class frmBuscarDocumentoDerivacion extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 459, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 429, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 9, Short.MAX_VALUE)
-                    .addComponent(jLabel16)
-                    .addGap(8, 8, 8)
+                    .addGap(0, 39, Short.MAX_VALUE)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(8, 8, 8)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,8 +203,9 @@ public class frmBuscarDocumentoDerivacion extends javax.swing.JDialog {
             TableColumn columna;
             docTableModel = DerivacionBo.obtenerListaDerivacionBuscar(txtDerivacion.getText());
             tblDocumentoDerivacion.setModel(docTableModel);
-            //aqui
-            String titu[] = {"COD", "DERIVACION","FECHA", "DOCUMENTO","MOTIVO","REMITENTE","OBSERVACION","PRIORIDAD",};
+            //d.idDerivacion,d.codigoDerivacion,d.Fecha,d.idDocumento,isnull(d.idRemitente,''),d.MotivoDerivacion,
+            //d.prioridad,d.observacion
+            String titu[] = {"ID", "COD-DER","FECHA", "IDDOC","IDREMIT","MOTIVO","OBS","PRIORIDAD",};
             docTableModel.setColumnIdentifiers(titu);
             TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tblDocumentoDerivacion.getModel());
             tblDocumentoDerivacion.setRowSorter(sorter);
@@ -211,20 +215,16 @@ public class frmBuscarDocumentoDerivacion extends javax.swing.JDialog {
             tcr.setHorizontalAlignment(SwingConstants.RIGHT);
             tcc.setHorizontalAlignment(SwingConstants.CENTER);
             columnModel.getColumn(0).setCellRenderer(tcc);
-            columnModel.getColumn(0).setPreferredWidth(10);
+            columnModel.getColumn(0).setPreferredWidth(20);
             columnModel.getColumn(1).setCellRenderer(tcc);
-            columnModel.getColumn(1).setPreferredWidth(4);
-            columnModel.getColumn(2).setPreferredWidth(15);
-            columnModel.getColumn(3).setPreferredWidth(40);
+            columnModel.getColumn(1).setPreferredWidth(20);
+            columnModel.getColumn(2).setPreferredWidth(25);
+            columnModel.getColumn(3).setPreferredWidth(20);
             columnModel.getColumn(4).setCellRenderer(tcc);
             columnModel.getColumn(4).setPreferredWidth(10);
             columnModel.getColumn(5).setPreferredWidth(180);
-            columnModel.getColumn(6).setCellRenderer(tcc);
-            columnModel.getColumn(6).setPreferredWidth(8);
-            columnModel.getColumn(7).setPreferredWidth(45); //REMITENTE
-            columnModel.getColumn(8).setPreferredWidth(45); //RESPONSABLE
-            columnModel.getColumn(9).setPreferredWidth(45); //INST
-            columnModel.getColumn(10).setPreferredWidth(5);
+            columnModel.getColumn(6).setPreferredWidth(180);
+            columnModel.getColumn(7).setPreferredWidth(20);
             columna = tblDocumentoDerivacion.getColumnModel().getColumn(0);
         } catch (Exception e) {
             e.printStackTrace();
@@ -246,16 +246,20 @@ public class frmBuscarDocumentoDerivacion extends javax.swing.JDialog {
     private void tblDocumentoDerivacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDocumentoDerivacionMouseClicked
         if (evt.getClickCount() >= 2) {
             int index = tblDocumentoDerivacion.getSelectedRow();
-            derivacion.getTxtcodigoDerivacion().setText(tblDocumentoDerivacion.getValueAt(index, 0).toString());
-            derivacion.getcbderivacion().setSelectedItem(String.valueOf(tblDocumentoDerivacion.getModel().getValueAt(index, 1)));
-            derivacion.getcbderivacion().setSelectedItem(tblDocumentoDerivacion.getValueAt(index, 1));
-            derivacion.getTxtFechaDerivacion().setText(tblDocumentoDerivacion.getValueAt(index, 2).toString());
-            derivacion.getTxtcodiDoc().setText(tblDocumentoDerivacion.getValueAt(index, 3).toString());
-            derivacion.getTxtMotivoDerivacion().setText(tblDocumentoDerivacion.getValueAt(index, 4).toString());
-            derivacion.getTxtnombreRemi().setText(tblDocumentoDerivacion.getValueAt(index, 5).toString());
-            derivacion.getTxtObservacionDeriv().setText(tblDocumentoDerivacion.getValueAt(index, 6).toString());
-            derivacion.getcbPRIORIDAD().setSelectedItem(String.valueOf(tblDocumentoDerivacion.getModel().getValueAt(index, 7)));
-            derivacion.getcbPRIORIDAD().setSelectedItem(tblDocumentoDerivacion.getValueAt(index, 7));
+            derivacion.getTxtIdDerivacion().setText(tblDocumentoDerivacion.getValueAt(index, 0).toString());
+             derivacion.getTxtFechaDerivacion().setText(tblDocumentoDerivacion.getValueAt(index, 2).toString());
+            derivacion.gettxtCodigoDerivacion().setText(tblDocumentoDerivacion.getValueAt(index,1).toString());
+            derivacion.getlblIdRecepcion().setText(tblDocumentoDerivacion.getValueAt(index, 3).toString());
+            derivacion.gettxtRemitenteDerivacion().setText(tblDocumentoDerivacion.getValueAt(index, 4).toString());
+            derivacion.gettxtMotivoDerivacion().setText(tblDocumentoDerivacion.getValueAt(index, 5).toString());
+            derivacion.gettxaObsDerivacion().setText(tblDocumentoDerivacion.getValueAt(index, 6).toString());
+            derivacion.getcboPrioridadDerivacion().setSelectedItem(String.valueOf(tblDocumentoDerivacion.getModel().getValueAt(index, 7)));
+            derivacion.getBtnModificarDerivacion().setEnabled(true);
+            derivacion.getBtnEliminarDerivacion().setEnabled(true);
+            derivacion.getBtnNuevoDerivacion().setEnabled(false);
+            derivacion.getBtnGrabarDerivacion().setEnabled(false);
+            derivacion.habilitarBotonesFormularioDerivacion();
+            
             this.dispose();
         }
     }//GEN-LAST:event_tblDocumentoDerivacionMouseClicked
@@ -263,16 +267,14 @@ public class frmBuscarDocumentoDerivacion extends javax.swing.JDialog {
     private void tblDocumentoDerivacionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDocumentoDerivacionMousePressed
         if (evt.getClickCount() >= 2) {
             int index = tblDocumentoDerivacion.getSelectedRow();
-            derivacion.getTxtcodigoDerivacion().setText(tblDocumentoDerivacion.getValueAt(index, 0).toString());
-            derivacion.getcbderivacion().setSelectedItem(String.valueOf(tblDocumentoDerivacion.getModel().getValueAt(index, 1)));
-            derivacion.getcbderivacion().setSelectedItem(tblDocumentoDerivacion.getValueAt(index, 1));
+            derivacion.getTxtIdDerivacion().setText(tblDocumentoDerivacion.getValueAt(index, 0).toString());
             derivacion.getTxtFechaDerivacion().setText(tblDocumentoDerivacion.getValueAt(index, 2).toString());
-            derivacion.getTxtcodiDoc().setText(tblDocumentoDerivacion.getValueAt(index, 3).toString());
-            derivacion.getTxtMotivoDerivacion().setText(tblDocumentoDerivacion.getValueAt(index, 4).toString());
-            derivacion.getTxtnombreRemi().setText(tblDocumentoDerivacion.getValueAt(index, 5).toString());
-            derivacion.getTxtObservacionDeriv().setText(tblDocumentoDerivacion.getValueAt(index, 6).toString());
-            derivacion.getcbPRIORIDAD().setSelectedItem(String.valueOf(tblDocumentoDerivacion.getModel().getValueAt(index, 7)));
-            derivacion.getcbPRIORIDAD().setSelectedItem(tblDocumentoDerivacion.getValueAt(index, 7));
+            derivacion.gettxtCodigoDerivacion().setText(tblDocumentoDerivacion.getValueAt(index,1).toString());
+            derivacion.getlblIdRecepcion().setText(tblDocumentoDerivacion.getValueAt(index, 3).toString());
+            derivacion.gettxtRemitenteDerivacion().setText(tblDocumentoDerivacion.getValueAt(index, 4).toString());
+            derivacion.gettxtMotivoDerivacion().setText(tblDocumentoDerivacion.getValueAt(index, 5).toString());
+            derivacion.gettxaObsDerivacion().setText(tblDocumentoDerivacion.getValueAt(index, 6).toString());
+            derivacion.getcboPrioridadDerivacion().setSelectedItem(String.valueOf(tblDocumentoDerivacion.getModel().getValueAt(index, 7)));
             this.dispose();
         }
     }//GEN-LAST:event_tblDocumentoDerivacionMousePressed
@@ -288,7 +290,16 @@ public class frmBuscarDocumentoDerivacion extends javax.swing.JDialog {
     private void lblRecepcionComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_lblRecepcionComponentMoved
         // TODO add your handling code here:
     }//GEN-LAST:event_lblRecepcionComponentMoved
+    public String cargarRecepcion(int idRecepcion) {
+        String lsDocumento = "";
+        try {
+            lsDocumento = RecepcionBo.obtenerNombreRecepcion(idRecepcion);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lsDocumento;
 
+    }
     /**
      * @param args the command line arguments
      */

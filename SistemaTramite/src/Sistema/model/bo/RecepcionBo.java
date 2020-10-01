@@ -247,6 +247,22 @@ public class RecepcionBo {
 //            if (con != null) {
 //                con.close();
 //            }
+    
+    public static String obtenerNombreRecepcion(int idRecepcion) throws Exception {
+        String lsNombreR;
+        Connection con = Conexion.getConexion();
+        try {
+            RecepcionDaoImp remitenteDao = new RecepcionDaoImp(con);
+            lsNombreR = remitenteDao.obtenerNombreRecepcion(idRecepcion);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (con != null) {
+                con.close();
+            }
+        }
+        return lsNombreR;
+    }
         }
       
 

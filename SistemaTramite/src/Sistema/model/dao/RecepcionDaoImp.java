@@ -98,7 +98,16 @@ public class RecepcionDaoImp {
         }
         return listaRecepcion;
     }
-
+    public String obtenerNombreRecepcion(int idRecepcion) throws SQLException {
+        String lsNombreRecep="";
+        String sql = "SELECT Remitente from Remitente where idRecepcion = " + idRecepcion;
+        pst = con.prepareStatement(sql);
+        ResultSet rs = pst.executeQuery();
+        while (rs.next()) {
+            lsNombreRecep = rs.getString("Recepcion");
+        }
+        return lsNombreRecep;
+    }
     public boolean grabar(Object object) throws SQLException {
         oRecepcion = (Recepcion) object;
         try {
