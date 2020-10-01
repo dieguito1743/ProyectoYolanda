@@ -175,7 +175,8 @@ public class CargoDaoImp {
 
     public Vector obtenerListaCagoBuscarIdCargo(int idCargo) throws SQLException {
         Vector listaCargo = new Vector();
-        String sql = "Select idCargo, idDocumento, numeroDocumento, Documento, Fecha FechaCargo,  Hora HoraCargo, Area AreaCargo, Asunto, Institucion, Recepcionista, estadoCargo From vCargoDocumento Where idCargo = " + idCargo;
+        String sql = "Select idCargo, idDocumento, numeroDocumento, Documento, "
+                + "Fecha FechaCargo, Hora HoraCargo, Area AreaCargo, Asunto, Institucion, Recepcionista, estadoCargo From vCargoDocumento Where idCargo = "+ idCargo;
         st = con.createStatement();
         ResultSet rs = st.executeQuery(sql);
         while (rs.next()) {
@@ -191,26 +192,26 @@ public class CargoDaoImp {
             ovCargo.add(rs.getString(9));
             ovCargo.add(rs.getString(10));
             ovCargo.add(rs.getInt(11));
-            System.out.println(rs.getInt(1));
-            System.out.println(rs.getInt(2));
-            System.out.println(rs.getInt(3));
-            System.out.println(rs.getInt(4));
-            System.out.println(rs.getInt(5));
-            System.out.println(rs.getInt(6));
-            System.out.println(rs.getInt(7));
-            System.out.println(rs.getInt(8));
-            System.out.println(rs.getInt(9));
-            System.out.println(rs.getInt(10));
-            System.out.println(rs.getInt(11));
+//            System.out.println(rs.getInt(1));
+//            System.out.println(rs.getInt(2));
+//            System.out.println(rs.getInt(3));
+//            System.out.println(rs.getInt(4));
+//            System.out.println(rs.getInt(5));
+//            System.out.println(rs.getInt(6));
+//            System.out.println(rs.getInt(7));
+//            System.out.println(rs.getInt(8));
+//            System.out.println(rs.getInt(9));
+//            System.out.println(rs.getInt(10));
+//            System.out.println(rs.getInt(11));
             listaCargo.add(ovCargo);
         }
         return listaCargo;
     }
 
-    public Vector obtenerListaCagoBuscarIdDocumento(int idDocumento) throws SQLException {
+    public Vector obtenerListaCagoBuscarIdDocumento(String numeroDocumento) throws SQLException {
         Vector listaCargo = new Vector();
         String sql = "Select idCargo, idDocumento, numeroDocumento, Documento, "
-                + "Fecha FechaCargo,  Hora HoraCargo, Area AreaCargo, Asunto, Institucion, Recepcionista, estadoCargo From vCargoDocumento Where idDocumento = " + idDocumento;
+                + "Fecha FechaCargo,  Hora HoraCargo, Area AreaCargo, Asunto, Institucion, Recepcionista, estadoCargo From vCargoDocumento Where numeroDocumento = " + numeroDocumento;
         st = con.createStatement();
         ResultSet rs = st.executeQuery(sql);
         while (rs.next()) {

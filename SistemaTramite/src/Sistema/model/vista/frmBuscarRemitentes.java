@@ -53,7 +53,7 @@ public class frmBuscarRemitentes extends javax.swing.JDialog {
             .addGap(0, 256, Short.MAX_VALUE)
         );
 
-        setPreferredSize(new java.awt.Dimension(709, 405));
+        setPreferredSize(new java.awt.Dimension(709, 410));
         setSize(new java.awt.Dimension(2147483647, 2147483647));
         getContentPane().setLayout(null);
 
@@ -61,7 +61,7 @@ public class frmBuscarRemitentes extends javax.swing.JDialog {
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Remitentes");
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(120, 0, 390, 22);
+        jLabel7.setBounds(140, 0, 390, 30);
 
         lblder.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblder.setText("Remitente");
@@ -75,7 +75,7 @@ public class frmBuscarRemitentes extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnsalir);
-        btnsalir.setBounds(610, 40, 80, 23);
+        btnsalir.setBounds(560, 40, 80, 25);
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/buscar.gif"))); // NOI18N
         btnBuscar.setText("Buscar");
@@ -85,7 +85,7 @@ public class frmBuscarRemitentes extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnBuscar);
-        btnBuscar.setBounds(450, 40, 90, 23);
+        btnBuscar.setBounds(450, 40, 90, 25);
         getContentPane().add(txtRemitente);
         txtRemitente.setBounds(80, 40, 360, 20);
 
@@ -113,7 +113,7 @@ public class frmBuscarRemitentes extends javax.swing.JDialog {
         jScrollPane1.setViewportView(tblRemitente);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 80, 690, 320);
+        jScrollPane1.setBounds(10, 80, 670, 280);
         getContentPane().add(jSeparator1);
         jSeparator1.setBounds(0, 30, 720, 10);
 
@@ -126,6 +126,11 @@ public class frmBuscarRemitentes extends javax.swing.JDialog {
             //txtRemitenteRecepcion
             recepcion.gettxtCodRemRecepcion().setText(tblRemitente.getValueAt(index, 0).toString());
             recepcion.gettxtRemitenteRecepcion().setText(tblRemitente.getValueAt(index, 2).toString());
+            recepcion.getBtnModificarRecepcion().setEnabled(true);
+            recepcion.getBtnEliminarRecepcion().setEnabled(true);
+            recepcion.getBtnNuevoRecepcion().setEnabled(false);
+            recepcion.getBtnGrabarRecepcion().setEnabled(false);
+            recepcion.habilitarBotonesFormularioRecepcion();
             this.dispose();
         }
     }//GEN-LAST:event_tblRemitenteMouseClicked

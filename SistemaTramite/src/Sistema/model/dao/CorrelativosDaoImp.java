@@ -191,4 +191,14 @@ public class CorrelativosDaoImp {
         }
         return lsRecepcionSiguiente;
     }
+    public String obtenerIdSiguienteDerivacion() throws SQLException {
+        String lsDerivacionSiguiente="";
+        String sql = "Select Right('000000'+Cast(Cast(isnull(Max(d.codigoDerivacion),0) as int) + 1 as varchar(6)),6) UltimaDerivación From Derivacion d";
+        pst = con.prepareStatement(sql);
+        ResultSet rs = pst.executeQuery();
+        while (rs.next()) {
+            lsDerivacionSiguiente = rs.getString("UltimaDerivación");
+        }
+        return lsDerivacionSiguiente;
+    }
 }

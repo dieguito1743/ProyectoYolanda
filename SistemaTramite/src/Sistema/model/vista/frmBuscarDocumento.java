@@ -66,7 +66,7 @@ public class frmBuscarDocumento extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(900, 500));
-        setPreferredSize(new java.awt.Dimension(900, 500));
+        setPreferredSize(new java.awt.Dimension(900, 515));
         getContentPane().setLayout(null);
 
         lbldocumento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -81,6 +81,7 @@ public class frmBuscarDocumento extends javax.swing.JDialog {
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/buscar.gif"))); // NOI18N
         btnBuscar.setText("Buscar");
+        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,9 +105,10 @@ public class frmBuscarDocumento extends javax.swing.JDialog {
             }
         });
         getContentPane().add(jLabel16);
-        jLabel16.setBounds(160, 0, 390, 22);
+        jLabel16.setBounds(230, 0, 390, 30);
 
         btnSalir.setText("Salir");
+        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
@@ -118,7 +120,7 @@ public class frmBuscarDocumento extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnSalir);
-        btnSalir.setBounds(580, 40, 60, 20);
+        btnSalir.setBounds(580, 40, 70, 20);
 
         jScrollPane1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -142,8 +144,8 @@ public class frmBuscarDocumento extends javax.swing.JDialog {
 
             }
         ));
-        tblDocumento.setMinimumSize(new java.awt.Dimension(898, 498));
-        tblDocumento.setPreferredSize(new java.awt.Dimension(898, 498));
+        tblDocumento.setMinimumSize(new java.awt.Dimension(898, 790));
+        tblDocumento.setPreferredSize(new java.awt.Dimension(898, 790));
         tblDocumento.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblDocumentoMouseClicked(evt);
@@ -155,7 +157,7 @@ public class frmBuscarDocumento extends javax.swing.JDialog {
         jScrollPane1.setViewportView(tblDocumento);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 70, 860, 370);
+        jScrollPane1.setBounds(20, 90, 850, 370);
 
         txtDocumento.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -282,7 +284,7 @@ public class frmBuscarDocumento extends javax.swing.JDialog {
             documento.getBtnEliminarDocumento().setEnabled(true);
             documento.getBtnNuevoDocumento().setEnabled(false);
             documento.getBtnGrabarDocumento().setEnabled(false);
-            documento.habilitarBotonesFormulario();
+            documento.habilitarBotonesFormularioDocumento();
             this.dispose();
         }
     }//GEN-LAST:event_tblDocumentoMousePressed
