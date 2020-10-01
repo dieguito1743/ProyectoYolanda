@@ -217,21 +217,21 @@ public class frmBuscarDocumento extends javax.swing.JDialog {
         if (evt.getClickCount() >= 2) {
             int index = tblDocumento.getSelectedRow();
             documento.getTxtIdDocumento().setText(tblDocumento.getValueAt(index, 0).toString());
-//          idtipoDocumento = ((TipoDocumento) cboTipoDocumento.getSelectedItem()).getIdTipoDocumento();
-//          documento.getCboTipoDocumento().setSelectedItem(String.valueOf(tblDocumento.getModel().getValueAt(index, 1)));
-//          documento.getCboTipoDocumento().setSelectedItem(tblDocumento.getValueAt(index, 1));
+            // idtipoDocumento = ((TipoDocumento) cboTipoDocumento.getSelectedItem()).getIdTipoDocumento();
+            // documento.getCboTipoDocumento().setSelectedItem(String.valueOf(tblDocumento.getModel().getValueAt(index, 1)));
+            //documento.getCboTipoDocumento().setSelectedItem(tblDocumento.getValueAt(index, 1));
             documento.getLblNumeroDocumento().setText(tblDocumento.getValueAt(index, 2).toString());
             documento.getTxtFechaDocumento().setText(tblDocumento.getValueAt(index, 3).toString());
             documento.getTxtAnio().setText(tblDocumento.getValueAt(index, 4).toString());
             documento.getTxtDocumento().setText(tblDocumento.getValueAt(index, 5).toString());
-//          documento.setSpPinner.(tblDocumento.getValueAt(index, 6));//getSpFolios().setValue(tblDocumento.getValueAt(index, 6).toString());
+            // documento.setSpPinner.(tblDocumento.getValueAt(index, 6));//getSpFolios().setValue(tblDocumento.getValueAt(index, 6).toString());
             documento.getTxtAsunto().setText(tblDocumento.getValueAt(index, 7).toString());
             documento.getTxtAreaDocumento().setText(tblDocumento.getValueAt(index, 8).toString());
             documento.getTxtInstitucion().setText(tblDocumento.getValueAt(index, 9).toString());
             poblarDestinatario((Integer) tblDocumento.getValueAt(index, 1), tblDocumento.getValueAt(index, 2).toString());
-//            documento.getcboEstadoDocumento().setSelectedItem(tblDocumento.getValueAt(index, 10).toString());
+            //documento.getcboEstadoDocumento().setSelectedItem(tblDocumento.getValueAt(index, 10).toString());
             poblarArchivo((Integer) tblDocumento.getValueAt(index, 1), tblDocumento.getValueAt(index, 2).toString());
-//            documento.getcboEstadoDocumento().setSelectedItem(tblDocumento.getValueAt(index, 10).toString());
+            //documento.getcboEstadoDocumento().setSelectedItem(tblDocumento.getValueAt(index, 10).toString());
             this.dispose();
         }
 
@@ -285,6 +285,9 @@ public class frmBuscarDocumento extends javax.swing.JDialog {
             documento.getBtnNuevoDocumento().setEnabled(false);
             documento.getBtnGrabarDocumento().setEnabled(false);
             documento.habilitarBotonesFormularioDocumento();
+            documento.getCboTipoDocumento().setEnabled(false);
+            poblarDestinatario((Integer) tblDocumento.getValueAt(index, 1), tblDocumento.getValueAt(index, 2).toString());
+            poblarArchivo((Integer) tblDocumento.getValueAt(index, 1), tblDocumento.getValueAt(index, 2).toString());
             this.dispose();
         }
     }//GEN-LAST:event_tblDocumentoMousePressed

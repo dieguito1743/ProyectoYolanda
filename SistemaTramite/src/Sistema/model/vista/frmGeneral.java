@@ -142,6 +142,7 @@ public class frmGeneral extends javax.swing.JFrame {
 
         modeloListaArchivo = new DefaultListModel();
         lsArchivos.setModel(modeloListaArchivo);
+        txtRutaDestino.setText(System.getProperty("user.home") + File.separatorChar + "My Documents");
         camposDeshabilitado();
         llenarCombos();
     }
@@ -193,7 +194,7 @@ public class frmGeneral extends javax.swing.JFrame {
         btnEliminarDocumento = new javax.swing.JButton();
         txtDestinatario = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
-        lsDestinatario = new javax.swing.JList<>();
+        lsDestinatario = new javax.swing.JList<String>();
         txtFechaDocumento = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
         btnBuscarDocumento = new javax.swing.JButton();
@@ -202,7 +203,7 @@ public class frmGeneral extends javax.swing.JFrame {
         txtRutaDestino = new javax.swing.JTextField();
         btnAgregarArchivo = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
-        lsArchivos = new javax.swing.JList<>();
+        lsArchivos = new javax.swing.JList<String>();
         btnQuitarArchivo = new javax.swing.JButton();
         spFolios = new javax.swing.JSpinner();
         btnSalirDocumento = new javax.swing.JButton();
@@ -290,7 +291,7 @@ public class frmGeneral extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         btnBuscarDocDerivacion = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
-        cboPrioridadDerivacion = new javax.swing.JComboBox<>();
+        cboPrioridadDerivacion = new javax.swing.JComboBox<String>();
         jSeparator4 = new javax.swing.JSeparator();
         jLabel13 = new javax.swing.JLabel();
         btnBuscarDerivacion = new javax.swing.JButton();
@@ -325,8 +326,9 @@ public class frmGeneral extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(jTable1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(815, 575));
+        setResizable(false);
 
         tabPane.setToolTipText("");
         tabPane.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -350,7 +352,7 @@ public class frmGeneral extends javax.swing.JFrame {
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel24.setText("Documento");
         tbDocumento.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 80, 19));
-        tbDocumento.add(txtIdDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 80, 70, -1));
+        tbDocumento.add(txtIdDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 80, 70, 20));
 
         jLabel26.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel26.setText("Nº Documento:");
@@ -375,17 +377,17 @@ public class frmGeneral extends javax.swing.JFrame {
 
         cboTipoDocumento.setToolTipText("Seleccione Tipo Documento");
         cboTipoDocumento.setEnabled(false);
-        cboTipoDocumento.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cboTipoDocumentoItemStateChanged(evt);
-            }
-        });
         cboTipoDocumento.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cboTipoDocumentoMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 cboTipoDocumentoMouseEntered(evt);
+            }
+        });
+        cboTipoDocumento.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboTipoDocumentoItemStateChanged(evt);
             }
         });
         cboTipoDocumento.addActionListener(new java.awt.event.ActionListener() {
@@ -398,14 +400,14 @@ public class frmGeneral extends javax.swing.JFrame {
                 cboTipoDocumentoKeyPressed(evt);
             }
         });
-        tbDocumento.add(cboTipoDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 210, 30));
+        tbDocumento.add(cboTipoDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 210, 20));
 
         txtInstitucion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtInstitucionKeyPressed(evt);
             }
         });
-        tbDocumento.add(txtInstitucion, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, 680, -1));
+        tbDocumento.add(txtInstitucion, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, 680, 20));
 
         jLabel28.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -486,14 +488,14 @@ public class frmGeneral extends javax.swing.JFrame {
         tbDocumento.add(btnCancelarDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 40, 40));
 
         cboEstadoDocumento.setEnabled(false);
-        cboEstadoDocumento.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cboEstadoDocumentoItemStateChanged(evt);
-            }
-        });
         cboEstadoDocumento.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cboEstadoDocumentoMouseClicked(evt);
+            }
+        });
+        cboEstadoDocumento.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboEstadoDocumentoItemStateChanged(evt);
             }
         });
         cboEstadoDocumento.addActionListener(new java.awt.event.ActionListener() {
@@ -506,7 +508,7 @@ public class frmGeneral extends javax.swing.JFrame {
                 cboEstadoDocumentoKeyPressed(evt);
             }
         });
-        tbDocumento.add(cboEstadoDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 370, 210, -1));
+        tbDocumento.add(cboEstadoDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 370, 210, 20));
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -575,7 +577,7 @@ public class frmGeneral extends javax.swing.JFrame {
                 btnQuitaDestinatarioActionPerformed(evt);
             }
         });
-        tbDocumento.add(btnQuitaDestinatario, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 200, 100, -1));
+        tbDocumento.add(btnQuitaDestinatario, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 192, 100, 20));
 
         btnAregarDestinatario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/agregar.gif"))); // NOI18N
         btnAregarDestinatario.setText("Agregar");
@@ -585,560 +587,560 @@ public class frmGeneral extends javax.swing.JFrame {
                 btnAregarDestinatarioActionPerformed(evt);
             }
         });
-        tbDocumento.add(btnAregarDestinatario, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 170, 100, -1));
-
-        txtRutaDestino.setText("src\\\\Sistema\\\\model\\\\archivos\\\\");
-            txtRutaDestino.setEnabled(false);
-            tbDocumento.add(txtRutaDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 400, 440, 20));
-
-            btnAgregarArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/agregar.gif"))); // NOI18N
-            btnAgregarArchivo.setText("Adjuntar Archivo");
-            btnAgregarArchivo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            btnAgregarArchivo.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnAgregarArchivoActionPerformed(evt);
-                }
-            });
-            tbDocumento.add(btnAgregarArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 390, 140, -1));
-
-            jScrollPane6.setViewportView(lsArchivos);
-
-            tbDocumento.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 420, 680, 70));
-
-            btnQuitarArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/eliminar.gif"))); // NOI18N
-            btnQuitarArchivo.setText("Quitar");
-            btnQuitarArchivo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            btnQuitarArchivo.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnQuitarArchivoActionPerformed(evt);
-                }
-            });
-            tbDocumento.add(btnQuitarArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 390, 90, -1));
-
-            spFolios.setToolTipText("");
-            spFolios.setValue(1);
-            spFolios.addKeyListener(new java.awt.event.KeyAdapter() {
-                public void keyPressed(java.awt.event.KeyEvent evt) {
-                    spFoliosKeyPressed(evt);
-                }
-            });
-            tbDocumento.add(spFolios, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 110, 50, -1));
-
-            btnSalirDocumento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnSalir.png"))); // NOI18N
-            btnSalirDocumento.setToolTipText("Salir");
-            btnSalirDocumento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            btnSalirDocumento.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnSalirDocumentoActionPerformed(evt);
-                }
-            });
-            tbDocumento.add(btnSalirDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 40, 40));
-
-            tabPane.addTab("Documento", tbDocumento);
-
-            tbCargo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-            tbCargo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-            jLabel16.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-            jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            jLabel16.setText("Cargo");
-            tbCargo.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 180, 25));
-
-            jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-            jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-            jLabel17.setText("Documento");
-            tbCargo.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 110, 20));
-
-            jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-            jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-            jLabel19.setText("Área");
-            tbCargo.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, 110, 20));
-
-            lbcod.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-            lbcod.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-            lbcod.setText("Observacion");
-            tbCargo.add(lbcod, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 110, 20));
-            tbCargo.add(txtObservacionCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, 550, 20));
-
-            lblcodigoCargo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-            lblcodigoCargo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-            lblcodigoCargo.setText(" Cargo Numero");
-            tbCargo.add(lblcodigoCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 110, 20));
-            tbCargo.add(txtCodigoCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, 100, 20));
-            tbCargo.add(txtDocumentoCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 180, 390, 20));
-
-            txtAreaCargo.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-                public void mouseDragged(java.awt.event.MouseEvent evt) {
-                    txtAreaCargoMouseDragged(evt);
-                }
-                public void mouseMoved(java.awt.event.MouseEvent evt) {
-                    txtAreaCargoMouseMoved(evt);
-                }
-            });
-            tbCargo.add(txtAreaCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, 550, -1));
-
-            jLabel44.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-            jLabel44.setText("Fecha");
-            tbCargo.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 40, 20));
-
-            jLabel45.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-            jLabel45.setText("Hora");
-            jLabel45.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-            tbCargo.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 150, 30, 20));
-
-            txtHoraCargo.setDoubleBuffered(true);
-            txtHoraCargo.setDragEnabled(true);
-            tbCargo.add(txtHoraCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 150, 110, 20));
-
-            txtAsuntoCargo.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    txtAsuntoCargoActionPerformed(evt);
-                }
-            });
-            tbCargo.add(txtAsuntoCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 210, 550, 20));
-
-            jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-            jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-            jLabel21.setText("Asunto");
-            tbCargo.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 110, 20));
-
-            jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-            jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-            jLabel25.setText("Institucion");
-            tbCargo.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 110, 20));
-            tbCargo.add(txtInstitucionCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 240, 550, 20));
-            tbCargo.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 790, 0));
-
-            btnNuevoCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnNuevo.jpg"))); // NOI18N
-            btnNuevoCargo.setToolTipText("Nuevo Cargo");
-            btnNuevoCargo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            btnNuevoCargo.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnNuevoCargoActionPerformed(evt);
-                }
-            });
-            tbCargo.add(btnNuevoCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 40));
-            tbCargo.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 60, 810, 10));
-
-            btnGrabarCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnGrabar.jpg"))); // NOI18N
-            btnGrabarCargo.setToolTipText("Grabar Cargo");
-            btnGrabarCargo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            btnGrabarCargo.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnGrabarCargoActionPerformed(evt);
-                }
-            });
-            tbCargo.add(btnGrabarCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 40, 40));
-
-            btnBuscarCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnBuscar.jpg"))); // NOI18N
-            btnBuscarCargo.setToolTipText("Buscar Cargo");
-            btnBuscarCargo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            btnBuscarCargo.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnBuscarCargoActionPerformed(evt);
-                }
-            });
-            tbCargo.add(btnBuscarCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 40, 40));
-
-            txtNroDocumentoCargo.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    txtNroDocumentoCargoActionPerformed(evt);
-                }
-            });
-            tbCargo.add(txtNroDocumentoCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 60, 20));
-
-            btnModificarCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/modifica.png"))); // NOI18N
-            btnModificarCargo.setToolTipText("Actualizar");
-            btnModificarCargo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            btnModificarCargo.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnModificarCargoActionPerformed(evt);
-                }
-            });
-            tbCargo.add(btnModificarCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 40, 40));
-
-            btnCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/cancelar2.png"))); // NOI18N
-            btnCancelar1.setToolTipText("Deshacer");
-            btnCancelar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            btnCancelar1.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnCancelar1ActionPerformed(evt);
-                }
-            });
-            tbCargo.add(btnCancelar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 40, 40));
-            tbCargo.add(txtFechaCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, 120, 20));
-
-            btnEliminarCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/eliminar1.png"))); // NOI18N
-            btnEliminarCargo.setToolTipText("Eliminar");
-            btnEliminarCargo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            btnEliminarCargo.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnEliminarCargoActionPerformed(evt);
-                }
-            });
-            tbCargo.add(btnEliminarCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 40, 40));
-
-            btnBuscarDocumentoCargo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-            btnBuscarDocumentoCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/buscar.gif"))); // NOI18N
-            btnBuscarDocumentoCargo.setText("Buscar");
-            btnBuscarDocumentoCargo.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnBuscarDocumentoCargoActionPerformed(evt);
-                }
-            });
-            tbCargo.add(btnBuscarDocumentoCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 180, 90, -1));
-            tbCargo.add(lblIdDocumentoCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 80, 20));
-
-            lbcod1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-            lbcod1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-            lbcod1.setText("Recepcionista");
-            tbCargo.add(lbcod1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, 110, 20));
-            tbCargo.add(txtRecepcionistaCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 300, 550, 20));
-
-            btnSalir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnSalir.png"))); // NOI18N
-            btnSalir1.setToolTipText("Salir");
-            btnSalir1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            btnSalir1.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnSalir1ActionPerformed(evt);
-                }
-            });
-            tbCargo.add(btnSalir1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 40, 40));
-
-            tabPane.addTab("Cargo", tbCargo);
-
-            tbRecepcion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-            tbRecepcion.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
-            tbRecepcion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-            lblRec.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-            lblRec.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-            lblRec.setText("Còdigo Recepcion");
-            tbRecepcion.add(lblRec, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 110, 20));
-            tbRecepcion.add(txtIdRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 90, 100, -1));
-
-            jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-            jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-            jLabel1.setText("Remitente");
-            tbRecepcion.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 120, 20));
-
-            txtRemitenteRecepcion.setEnabled(false);
-            txtRemitenteRecepcion.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    txtRemitenteRecepcionActionPerformed(evt);
-                }
-            });
-            tbRecepcion.add(txtRemitenteRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 380, -1));
-
-            jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-            jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-            jLabel2.setText("Institución");
-            tbRecepcion.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 110, 20));
-            tbRecepcion.add(txtDestinatarioRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 270, 460, 20));
-
-            jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-            jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-            jLabel6.setText("Fecha");
-            tbRecepcion.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 90, 40, 20));
-
-            txtHoraRecepcion.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    txtHoraRecepcionActionPerformed(evt);
-                }
-            });
-            tbRecepcion.add(txtHoraRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 90, 110, -1));
-            tbRecepcion.add(txtCodRemRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 180, 69, -1));
-
-            btnNuevoRecepcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnNuevo.jpg"))); // NOI18N
-            btnNuevoRecepcion.setToolTipText("Nuevo");
-            btnNuevoRecepcion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            btnNuevoRecepcion.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnNuevoRecepcionActionPerformed(evt);
-                }
-            });
-            tbRecepcion.add(btnNuevoRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 40));
-
-            btngrabarRecepcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnGrabar.jpg"))); // NOI18N
-            btngrabarRecepcion.setToolTipText("Guardar");
-            btngrabarRecepcion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            btngrabarRecepcion.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btngrabarRecepcionActionPerformed(evt);
-                }
-            });
-            tbRecepcion.add(btngrabarRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 40, 40));
-
-            btnModificarRecepcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/modifica.png"))); // NOI18N
-            btnModificarRecepcion.setToolTipText("Actualizar");
-            btnModificarRecepcion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            btnModificarRecepcion.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnModificarRecepcionActionPerformed(evt);
-                }
-            });
-            tbRecepcion.add(btnModificarRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 40, 40));
-
-            btncancelarRecepcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/cancelar2.png"))); // NOI18N
-            btncancelarRecepcion.setToolTipText("Deshacer");
-            btncancelarRecepcion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            btncancelarRecepcion.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btncancelarRecepcionActionPerformed(evt);
-                }
-            });
-            tbRecepcion.add(btncancelarRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 40, 40));
-
-            btneliminarRecepcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/eliminar1.png"))); // NOI18N
-            btneliminarRecepcion.setToolTipText("Eliminar");
-            btneliminarRecepcion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            btneliminarRecepcion.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btneliminarRecepcionActionPerformed(evt);
-                }
-            });
-            tbRecepcion.add(btneliminarRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 40, 40));
-
-            btnsalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnSalir.png"))); // NOI18N
-            btnsalir.setToolTipText("Salir");
-            btnsalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            btnsalir.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnsalirActionPerformed(evt);
-                }
-            });
-            tbRecepcion.add(btnsalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 40, 40));
-
-            jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-            jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            jLabel7.setText("Recepción");
-            tbRecepcion.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 180, 25));
-
-            jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-            jLabel4.setText("Hora");
-            tbRecepcion.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 90, -1, 20));
-            tbRecepcion.add(txtfechaRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, 130, -1));
-
-            btnBuscarR.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-            btnBuscarR.setText("Buscar");
-            btnBuscarR.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnBuscarRActionPerformed(evt);
-                }
-            });
-            tbRecepcion.add(btnBuscarR, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 180, 70, -1));
-            tbRecepcion.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 60, 810, 10));
-
-            btnBuscarRecepcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnBuscar.jpg"))); // NOI18N
-            btnBuscarRecepcion.setToolTipText("Buscar ");
-            btnBuscarRecepcion.setContentAreaFilled(false);
-            btnBuscarRecepcion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            btnBuscarRecepcion.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnBuscarRecepcionActionPerformed(evt);
-                }
-            });
-            tbRecepcion.add(btnBuscarRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 40, 40));
-
-            jLabel29.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-            jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-            jLabel29.setText("Nro de Documento");
-            tbRecepcion.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 120, 20));
-            tbRecepcion.add(txtDocumentoRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 460, -1));
-
-            jLabel31.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-            jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-            jLabel31.setText("Obs");
-            tbRecepcion.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, 100, 20));
-            tbRecepcion.add(txtInstitucionRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 460, 20));
-
-            jLabel33.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-            jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-            jLabel33.setText("Asunto");
-            tbRecepcion.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 100, 20));
-            tbRecepcion.add(txtAsuntoRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 460, 20));
-
-            jLabel34.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-            jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-            jLabel34.setText("Referencia");
-            tbRecepcion.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 100, 20));
-            tbRecepcion.add(txtReferenciaRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 460, 20));
-
-            jLabel32.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-            jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-            jLabel32.setText("Destinatario");
-            tbRecepcion.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 100, 20));
-
-            txaObsRecepcion.setColumns(20);
-            txaObsRecepcion.setRows(5);
-            jScrollPane1.setViewportView(txaObsRecepcion);
-
-            tbRecepcion.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 300, 460, -1));
-            tbRecepcion.add(txtCodigoRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 100, -1));
-
-            tabPane.addTab("Recepción", tbRecepcion);
-
-            tbDerivacion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-            tbDerivacion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-            jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-            jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-            jLabel9.setText("Fecha entrega");
-            tbDerivacion.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, 100, 20));
-
-            jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-            jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-            jLabel12.setText("Remitente");
-            tbDerivacion.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 80, 20));
-            tbDerivacion.add(txtRemitenteDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 500, 20));
-
-            jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-            jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-            jLabel14.setText("Motivo Derivacion");
-            tbDerivacion.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 110, 20));
-
-            lblCodDerivacion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-            lblCodDerivacion.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-            lblCodDerivacion.setText("Codigo Derivacion");
-            tbDerivacion.add(lblCodDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 110, 20));
-            tbDerivacion.add(txtCodigoDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 90, 20));
-            tbDerivacion.add(txtMotivoDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 500, 20));
-
-            btnNuevaDerivacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnNuevo.jpg"))); // NOI18N
-            btnNuevaDerivacion.setToolTipText("Nuevo");
-            btnNuevaDerivacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            btnNuevaDerivacion.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnNuevaDerivacionActionPerformed(evt);
-                }
-            });
-            tbDerivacion.add(btnNuevaDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 40));
-
-            btnGrabarDerivacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnGrabar.jpg"))); // NOI18N
-            btnGrabarDerivacion.setToolTipText("Guardar");
-            btnGrabarDerivacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            btnGrabarDerivacion.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnGrabarDerivacionActionPerformed(evt);
-                }
-            });
-            tbDerivacion.add(btnGrabarDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 40, 40));
-
-            btnModificarDerivacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/modifica.png"))); // NOI18N
-            btnModificarDerivacion.setToolTipText("Actualizar");
-            btnModificarDerivacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            btnModificarDerivacion.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnModificarDerivacionActionPerformed(evt);
-                }
-            });
-            tbDerivacion.add(btnModificarDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 40, 40));
-
-            btnCancelarDerivacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/cancelar2.png"))); // NOI18N
-            btnCancelarDerivacion.setToolTipText("Deshacer");
-            btnCancelarDerivacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            btnCancelarDerivacion.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnCancelarDerivacionActionPerformed(evt);
-                }
-            });
-            tbDerivacion.add(btnCancelarDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 40, 40));
-
-            btnSalirDerivacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnSalir.png"))); // NOI18N
-            btnSalirDerivacion.setToolTipText("Salir");
-            btnSalirDerivacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            btnSalirDerivacion.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnSalirDerivacionActionPerformed(evt);
-                }
-            });
-            tbDerivacion.add(btnSalirDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 40, 40));
-
-            btnEliminarDerivacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/eliminar1.png"))); // NOI18N
-            btnEliminarDerivacion.setToolTipText("Eliminar");
-            btnEliminarDerivacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            btnEliminarDerivacion.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnEliminarDerivacionActionPerformed(evt);
-                }
-            });
-            tbDerivacion.add(btnEliminarDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 40, 40));
-            tbDerivacion.add(txtFechaDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 100, 90, -1));
-
-            jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-            jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-            jLabel10.setText("Observacion");
-            tbDerivacion.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 20));
-
-            btnBuscarDocDerivacion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-            btnBuscarDocDerivacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/buscar.gif"))); // NOI18N
-            btnBuscarDocDerivacion.setText("Buscar");
-            btnBuscarDocDerivacion.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnBuscarDocDerivacionActionPerformed(evt);
-                }
-            });
-            tbDerivacion.add(btnBuscarDocDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 130, 90, -1));
-
-            jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-            jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-            jLabel11.setText("Priroridad");
-            tbDerivacion.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 70, -1));
-
-            cboPrioridadDerivacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alto", "Bajo", "Regular" }));
-            tbDerivacion.add(cboPrioridadDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 300, 90, -1));
-            tbDerivacion.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 60, 810, 10));
-
-            jLabel13.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-            jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            jLabel13.setText("Derivación");
-            tbDerivacion.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 180, 25));
-
-            btnBuscarDerivacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnBuscar.jpg"))); // NOI18N
-            btnBuscarDerivacion.setToolTipText("Buscar ");
-            btnBuscarDerivacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            btnBuscarDerivacion.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnBuscarDerivacionActionPerformed(evt);
-                }
-            });
-            tbDerivacion.add(btnBuscarDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 40, 40));
-
-            txaObsDerivacion.setColumns(20);
-            txaObsDerivacion.setRows(5);
-            jScrollPane2.setViewportView(txaObsDerivacion);
-
-            tbDerivacion.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 500, 70));
-            tbDerivacion.add(txtIdDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, 90, -1));
-
-            lblDocu.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-            lblDocu.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-            lblDocu.setText("Recepción");
-            tbDerivacion.add(lblDocu, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 60, 20));
-
-            lblIdRecepcion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-            tbDerivacion.add(lblIdRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 80, 20));
-            tbDerivacion.add(txtDocumentoDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 130, 410, 20));
-
-            tabPane.addTab("Derivación", tbDerivacion);
-
-            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-            getContentPane().setLayout(layout);
-            layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addComponent(tabPane, javax.swing.GroupLayout.PREFERRED_SIZE, 818, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE))
-            );
-            layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(tabPane, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 2, Short.MAX_VALUE))
-            );
-
-            pack();
-        }// </editor-fold>//GEN-END:initComponents
+        tbDocumento.add(btnAregarDestinatario, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 170, 100, 20));
+
+        txtRutaDestino.setEnabled(false);
+        tbDocumento.add(txtRutaDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 400, 440, 20));
+
+        btnAgregarArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/agregar.gif"))); // NOI18N
+        btnAgregarArchivo.setText("Adjuntar Archivo");
+        btnAgregarArchivo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAgregarArchivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarArchivoActionPerformed(evt);
+            }
+        });
+        tbDocumento.add(btnAgregarArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 400, 140, 20));
+
+        jScrollPane6.setViewportView(lsArchivos);
+
+        tbDocumento.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 420, 680, 70));
+
+        btnQuitarArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/eliminar.gif"))); // NOI18N
+        btnQuitarArchivo.setText("Quitar");
+        btnQuitarArchivo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnQuitarArchivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuitarArchivoActionPerformed(evt);
+            }
+        });
+        tbDocumento.add(btnQuitarArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 400, 90, 20));
+
+        spFolios.setToolTipText("");
+        spFolios.setValue(1);
+        spFolios.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                spFoliosKeyPressed(evt);
+            }
+        });
+        tbDocumento.add(spFolios, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 110, 50, 20));
+
+        btnSalirDocumento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnSalir.png"))); // NOI18N
+        btnSalirDocumento.setToolTipText("Salir");
+        btnSalirDocumento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalirDocumento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirDocumentoActionPerformed(evt);
+            }
+        });
+        tbDocumento.add(btnSalirDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 40, 40));
+
+        tabPane.addTab("Documento", tbDocumento);
+
+        tbCargo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tbCargo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel16.setText("Cargo");
+        tbCargo.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 180, 25));
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel17.setText("Documento");
+        tbCargo.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 110, 20));
+
+        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel19.setText("Área");
+        tbCargo.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, 110, 20));
+
+        lbcod.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lbcod.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbcod.setText("Observacion");
+        tbCargo.add(lbcod, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 110, 20));
+        tbCargo.add(txtObservacionCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, 550, 20));
+
+        lblcodigoCargo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblcodigoCargo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblcodigoCargo.setText(" Cargo Numero");
+        tbCargo.add(lblcodigoCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 110, 20));
+        tbCargo.add(txtCodigoCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, 100, 20));
+        tbCargo.add(txtDocumentoCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 180, 390, 20));
+
+        txtAreaCargo.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                txtAreaCargoMouseDragged(evt);
+            }
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                txtAreaCargoMouseMoved(evt);
+            }
+        });
+        tbCargo.add(txtAreaCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, 550, 20));
+
+        jLabel44.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel44.setText("Fecha");
+        tbCargo.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 40, 20));
+
+        jLabel45.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel45.setText("Hora");
+        jLabel45.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        tbCargo.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 150, 30, 20));
+
+        txtHoraCargo.setDoubleBuffered(true);
+        txtHoraCargo.setDragEnabled(true);
+        tbCargo.add(txtHoraCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 150, 110, 20));
+
+        txtAsuntoCargo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAsuntoCargoActionPerformed(evt);
+            }
+        });
+        tbCargo.add(txtAsuntoCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 210, 550, 20));
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel21.setText("Asunto");
+        tbCargo.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 110, 20));
+
+        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel25.setText("Institucion");
+        tbCargo.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 110, 20));
+        tbCargo.add(txtInstitucionCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 240, 550, 20));
+        tbCargo.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 790, 0));
+
+        btnNuevoCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnNuevo.jpg"))); // NOI18N
+        btnNuevoCargo.setToolTipText("Nuevo Cargo");
+        btnNuevoCargo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNuevoCargo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoCargoActionPerformed(evt);
+            }
+        });
+        tbCargo.add(btnNuevoCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 40));
+        tbCargo.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 60, 810, 10));
+
+        btnGrabarCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnGrabar.jpg"))); // NOI18N
+        btnGrabarCargo.setToolTipText("Grabar Cargo");
+        btnGrabarCargo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGrabarCargo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGrabarCargoActionPerformed(evt);
+            }
+        });
+        tbCargo.add(btnGrabarCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 40, 40));
+
+        btnBuscarCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnBuscar.jpg"))); // NOI18N
+        btnBuscarCargo.setToolTipText("Buscar Cargo");
+        btnBuscarCargo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscarCargo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarCargoActionPerformed(evt);
+            }
+        });
+        tbCargo.add(btnBuscarCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 40, 40));
+
+        txtNroDocumentoCargo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNroDocumentoCargoActionPerformed(evt);
+            }
+        });
+        tbCargo.add(txtNroDocumentoCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 60, 20));
+
+        btnModificarCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/modifica.png"))); // NOI18N
+        btnModificarCargo.setToolTipText("Actualizar");
+        btnModificarCargo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModificarCargo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarCargoActionPerformed(evt);
+            }
+        });
+        tbCargo.add(btnModificarCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 40, 40));
+
+        btnCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/cancelar2.png"))); // NOI18N
+        btnCancelar1.setToolTipText("Deshacer");
+        btnCancelar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelar1ActionPerformed(evt);
+            }
+        });
+        tbCargo.add(btnCancelar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 40, 40));
+        tbCargo.add(txtFechaCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, 120, 21));
+
+        btnEliminarCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/eliminar1.png"))); // NOI18N
+        btnEliminarCargo.setToolTipText("Eliminar");
+        btnEliminarCargo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminarCargo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarCargoActionPerformed(evt);
+            }
+        });
+        tbCargo.add(btnEliminarCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 40, 40));
+
+        btnBuscarDocumentoCargo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnBuscarDocumentoCargo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/buscar.gif"))); // NOI18N
+        btnBuscarDocumentoCargo.setText("Buscar");
+        btnBuscarDocumentoCargo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarDocumentoCargoActionPerformed(evt);
+            }
+        });
+        tbCargo.add(btnBuscarDocumentoCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 180, 90, 20));
+        tbCargo.add(lblIdDocumentoCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 80, 20));
+
+        lbcod1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lbcod1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbcod1.setText("Recepcionista");
+        tbCargo.add(lbcod1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, 110, 20));
+        tbCargo.add(txtRecepcionistaCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 300, 550, 20));
+
+        btnSalir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnSalir.png"))); // NOI18N
+        btnSalir1.setToolTipText("Salir");
+        btnSalir1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalir1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalir1ActionPerformed(evt);
+            }
+        });
+        tbCargo.add(btnSalir1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 40, 40));
+
+        tabPane.addTab("Cargo", tbCargo);
+
+        tbRecepcion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tbRecepcion.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        tbRecepcion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblRec.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblRec.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblRec.setText("Còdigo Recepcion");
+        tbRecepcion.add(lblRec, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 110, 20));
+        tbRecepcion.add(txtIdRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 90, 100, 20));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel1.setText("Remitente");
+        tbRecepcion.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 120, 20));
+
+        txtRemitenteRecepcion.setEnabled(false);
+        txtRemitenteRecepcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtRemitenteRecepcionActionPerformed(evt);
+            }
+        });
+        tbRecepcion.add(txtRemitenteRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 380, 20));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel2.setText("Institución");
+        tbRecepcion.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 110, 20));
+        tbRecepcion.add(txtDestinatarioRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 270, 460, 20));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel6.setText("Fecha");
+        tbRecepcion.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 90, 40, 20));
+
+        txtHoraRecepcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtHoraRecepcionActionPerformed(evt);
+            }
+        });
+        tbRecepcion.add(txtHoraRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 90, 110, 20));
+        tbRecepcion.add(txtCodRemRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 180, 69, 20));
+
+        btnNuevoRecepcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnNuevo.jpg"))); // NOI18N
+        btnNuevoRecepcion.setToolTipText("Nuevo");
+        btnNuevoRecepcion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNuevoRecepcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoRecepcionActionPerformed(evt);
+            }
+        });
+        tbRecepcion.add(btnNuevoRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 40));
+
+        btngrabarRecepcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnGrabar.jpg"))); // NOI18N
+        btngrabarRecepcion.setToolTipText("Guardar");
+        btngrabarRecepcion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btngrabarRecepcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btngrabarRecepcionActionPerformed(evt);
+            }
+        });
+        tbRecepcion.add(btngrabarRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 40, 40));
+
+        btnModificarRecepcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/modifica.png"))); // NOI18N
+        btnModificarRecepcion.setToolTipText("Actualizar");
+        btnModificarRecepcion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModificarRecepcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarRecepcionActionPerformed(evt);
+            }
+        });
+        tbRecepcion.add(btnModificarRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 40, 40));
+
+        btncancelarRecepcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/cancelar2.png"))); // NOI18N
+        btncancelarRecepcion.setToolTipText("Deshacer");
+        btncancelarRecepcion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btncancelarRecepcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncancelarRecepcionActionPerformed(evt);
+            }
+        });
+        tbRecepcion.add(btncancelarRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 40, 40));
+
+        btneliminarRecepcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/eliminar1.png"))); // NOI18N
+        btneliminarRecepcion.setToolTipText("Eliminar");
+        btneliminarRecepcion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btneliminarRecepcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneliminarRecepcionActionPerformed(evt);
+            }
+        });
+        tbRecepcion.add(btneliminarRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 40, 40));
+
+        btnsalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnSalir.png"))); // NOI18N
+        btnsalir.setToolTipText("Salir");
+        btnsalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnsalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsalirActionPerformed(evt);
+            }
+        });
+        tbRecepcion.add(btnsalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 40, 40));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Recepción");
+        tbRecepcion.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 180, 25));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setText("Hora");
+        tbRecepcion.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 90, -1, 20));
+        tbRecepcion.add(txtfechaRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, 130, 20));
+
+        btnBuscarR.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnBuscarR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/buscar.gif"))); // NOI18N
+        btnBuscarR.setText("Buscar");
+        btnBuscarR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarRActionPerformed(evt);
+            }
+        });
+        tbRecepcion.add(btnBuscarR, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 180, 90, 20));
+        tbRecepcion.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 60, 810, 10));
+
+        btnBuscarRecepcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnBuscar.jpg"))); // NOI18N
+        btnBuscarRecepcion.setToolTipText("Buscar ");
+        btnBuscarRecepcion.setContentAreaFilled(false);
+        btnBuscarRecepcion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscarRecepcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarRecepcionActionPerformed(evt);
+            }
+        });
+        tbRecepcion.add(btnBuscarRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 40, 40));
+
+        jLabel29.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel29.setText("Nro de Documento");
+        tbRecepcion.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 120, 20));
+        tbRecepcion.add(txtDocumentoRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 460, 20));
+
+        jLabel31.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel31.setText("Obs");
+        tbRecepcion.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, 100, 20));
+        tbRecepcion.add(txtInstitucionRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 460, 20));
+
+        jLabel33.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel33.setText("Asunto");
+        tbRecepcion.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 100, 20));
+        tbRecepcion.add(txtAsuntoRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 460, 20));
+
+        jLabel34.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel34.setText("Referencia");
+        tbRecepcion.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 100, 20));
+        tbRecepcion.add(txtReferenciaRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 460, 20));
+
+        jLabel32.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel32.setText("Destinatario");
+        tbRecepcion.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 100, 20));
+
+        txaObsRecepcion.setColumns(20);
+        txaObsRecepcion.setRows(5);
+        jScrollPane1.setViewportView(txaObsRecepcion);
+
+        tbRecepcion.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 300, 460, -1));
+        tbRecepcion.add(txtCodigoRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 100, 20));
+
+        tabPane.addTab("Recepción", tbRecepcion);
+
+        tbDerivacion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tbDerivacion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel9.setText("Fecha entrega");
+        tbDerivacion.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, 100, 20));
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel12.setText("Remitente");
+        tbDerivacion.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 80, 20));
+        tbDerivacion.add(txtRemitenteDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 500, 20));
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel14.setText("Motivo Derivacion");
+        tbDerivacion.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 110, 20));
+
+        lblCodDerivacion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblCodDerivacion.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        lblCodDerivacion.setText("Codigo Derivacion");
+        tbDerivacion.add(lblCodDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 110, 20));
+        tbDerivacion.add(txtCodigoDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 80, 20));
+        tbDerivacion.add(txtMotivoDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 500, 20));
+
+        btnNuevaDerivacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnNuevo.jpg"))); // NOI18N
+        btnNuevaDerivacion.setToolTipText("Nuevo");
+        btnNuevaDerivacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNuevaDerivacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevaDerivacionActionPerformed(evt);
+            }
+        });
+        tbDerivacion.add(btnNuevaDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 40));
+
+        btnGrabarDerivacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnGrabar.jpg"))); // NOI18N
+        btnGrabarDerivacion.setToolTipText("Guardar");
+        btnGrabarDerivacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGrabarDerivacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGrabarDerivacionActionPerformed(evt);
+            }
+        });
+        tbDerivacion.add(btnGrabarDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 40, 40));
+
+        btnModificarDerivacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/modifica.png"))); // NOI18N
+        btnModificarDerivacion.setToolTipText("Actualizar");
+        btnModificarDerivacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModificarDerivacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarDerivacionActionPerformed(evt);
+            }
+        });
+        tbDerivacion.add(btnModificarDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 40, 40));
+
+        btnCancelarDerivacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/cancelar2.png"))); // NOI18N
+        btnCancelarDerivacion.setToolTipText("Deshacer");
+        btnCancelarDerivacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelarDerivacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarDerivacionActionPerformed(evt);
+            }
+        });
+        tbDerivacion.add(btnCancelarDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 40, 40));
+
+        btnSalirDerivacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnSalir.png"))); // NOI18N
+        btnSalirDerivacion.setToolTipText("Salir");
+        btnSalirDerivacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalirDerivacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirDerivacionActionPerformed(evt);
+            }
+        });
+        tbDerivacion.add(btnSalirDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 40, 40));
+
+        btnEliminarDerivacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/eliminar1.png"))); // NOI18N
+        btnEliminarDerivacion.setToolTipText("Eliminar");
+        btnEliminarDerivacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminarDerivacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarDerivacionActionPerformed(evt);
+            }
+        });
+        tbDerivacion.add(btnEliminarDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 40, 40));
+        tbDerivacion.add(txtFechaDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 100, 90, 20));
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel10.setText("Observacion");
+        tbDerivacion.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, 20));
+
+        btnBuscarDocDerivacion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnBuscarDocDerivacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/buscar.gif"))); // NOI18N
+        btnBuscarDocDerivacion.setText("Buscar");
+        btnBuscarDocDerivacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarDocDerivacionActionPerformed(evt);
+            }
+        });
+        tbDerivacion.add(btnBuscarDocDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 130, 90, 20));
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel11.setText("Priroridad");
+        tbDerivacion.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 305, 70, 20));
+
+        cboPrioridadDerivacion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Alto", "Bajo", "Regular" }));
+        tbDerivacion.add(cboPrioridadDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 305, 90, 21));
+        tbDerivacion.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 60, 810, 10));
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText("Derivación");
+        tbDerivacion.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 180, 25));
+
+        btnBuscarDerivacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Sistema/model.img/btnBuscar.jpg"))); // NOI18N
+        btnBuscarDerivacion.setToolTipText("Buscar ");
+        btnBuscarDerivacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscarDerivacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarDerivacionActionPerformed(evt);
+            }
+        });
+        tbDerivacion.add(btnBuscarDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 40, 40));
+
+        txaObsDerivacion.setColumns(20);
+        txaObsDerivacion.setRows(5);
+        jScrollPane2.setViewportView(txaObsDerivacion);
+
+        tbDerivacion.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 500, 70));
+        tbDerivacion.add(txtIdDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, 90, 20));
+
+        lblDocu.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblDocu.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblDocu.setText("Recepción");
+        tbDerivacion.add(lblDocu, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 60, 20));
+
+        lblIdRecepcion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tbDerivacion.add(lblIdRecepcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 80, 20));
+        tbDerivacion.add(txtDocumentoDerivacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, 410, 20));
+
+        tabPane.addTab("Derivación", tbDerivacion);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(tabPane, javax.swing.GroupLayout.PREFERRED_SIZE, 818, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(tabPane, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 2, Short.MAX_VALUE))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminarDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarDocumentoActionPerformed
         if (codigo != 0) {
